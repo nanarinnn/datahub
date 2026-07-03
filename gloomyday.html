@@ -15,7 +15,14 @@
         }
         
         body { background: #0e0e12; color: #fff; font-family: 'Paperlogy-Bold', sans-serif; padding: 40px; }
-        .back-btn { color: rgba(255,255,255,0.4); text-decoration: none; display: block; margin-bottom: 20px; }
+       .back-btn { 
+            position: absolute; top: 30px; left: 30px; 
+            color: rgba(255,255,255,0.4); 
+            text-decoration: none; 
+            font-size: 0.8rem; 
+            transition: color 0.3s;
+        }
+        .back-btn:hover { color: #fff; }
 
         /* 글자 끊김 방지 */
         h1, h3, .char-name, .actor-name { word-break: keep-all; }
