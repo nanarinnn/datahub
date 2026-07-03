@@ -16,7 +16,7 @@
         
         .title-img { width: 400px; margin-bottom: 30px; } 
         
-        .menu { display: flex; gap: 10px; align-items: center; }
+        .menu { display: flex; gap: 5px; align-items: center; }
 
         .menu a { display: flex; align-items: center; justify-content: center; }
 
@@ -32,8 +32,17 @@
         
         /* 모바일용 설정 */
         @media (max-width: 600px) {
-            .title-img { width: 80%; }
-            .menu a img { height: 50px; }
+            .title-img { width: 85%; margin-bottom: 30px; }
+            
+            .menu { 
+                flex-direction: row;     /* 다시 가로 모드 허용 */
+                flex-wrap: wrap;         /* 공간이 부족하면 자동으로 줄바꿈 */
+                justify-content: center; /* 가로로 중앙 정렬 */
+                max-width: 280px;        /* 2개 버튼의 가로 폭 정도만 확보 */
+            }
+            
+            /* 버튼 이미지 크기를 살짝 줄여야 2개 나란히 들어감 */
+            .menu a img { height: 45px; } 
         }
     </style>
 </head>
