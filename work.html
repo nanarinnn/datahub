@@ -73,6 +73,20 @@
             font-size: 1rem; 
             text-align: center; 
         }
+        .coming-soon { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            background: #1c1c2e; 
+            border: 2px dashed #333; /* 점선 테두리로 느낌 다르게 */
+            color: rgba(255, 255, 255, 0.3); 
+            cursor: default; /* 클릭 안 되게 표시 */
+        }
+        
+        .coming-soon:hover { 
+            transform: none; /* hover 효과 제거 */
+            border-color: #333; 
+        }
 
         /* 모바일 최적화 */
         @media (max-width: 600px) {
