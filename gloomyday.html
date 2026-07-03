@@ -52,10 +52,15 @@
 
         /* 모바일 최적화 */
         @media (max-width: 768px) {
-            body { padding: 20px; }
+            /* 위쪽 패딩을 50px 정도로 줄여서 간격을 좁힙니다 */
+            body { padding: 50px 20px 20px 20px; } 
+            
             .main-layout { grid-template-columns: 1fr; gap: 20px; }
             .info h1 { font-size: 1.4rem; }
             .char-name { font-size: 0.85rem; }
+            
+            /* 모바일에서는 뒤로가기 버튼 위치를 조금 더 위로 올립니다 */
+            .back-btn { top: 15px; left: 15px; }
         }
     </style>
 </head>
