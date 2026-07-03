@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사의찬미 | YUYEON ONLY</title>
+    <style>        
+        @font-face {
+            font-family: 'Paperlogy-Bold';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2') format('woff2');
+        }
+        @font-face {
+            font-family: 'Paperlogy-Medium';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-5Medium.woff2') format('woff2');
+        }
+        
+        body { background: #0e0e12; color: #fff; font-family: 'Paperlogy-Bold', sans-serif; padding: 40px; }
+        .back-btn { color: rgba(255,255,255,0.4); text-decoration: none; display: block; margin-bottom: 20px; }
+
+        /* 글자 끊김 방지 */
+        h1, h3, .char-name, .actor-name { word-break: keep-all; }
+
+        .main-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; max-width: 1100px; margin: 0 auto; }
+        .poster img { width: 100%; border-radius: 12px; display: block; }
+        .info h1 { margin: 0 0 20px 0; font-size: 1.6rem; }
+        h3 { margin: 25px 0 10px 0; font-size: 1.2rem; }
+        
+        .characters { display: flex; gap: 15px; }
+        .char-card { text-align: center; background: #1c1c2e; padding: 10px; border-radius: 12px; flex: 1; }
+        .char-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 8px; display: block; margin-bottom: 5px; }
+        .char-name { font-size: 0.95rem; font-weight: bold; }
+        .actor-name { font-size: 0.75rem; color: rgba(255,255,255,0.5); display: block; margin-top: 2px; white-space: nowrap; }
+        
+        /* 박스 스타일 */
+        .description, .thoughts-box { 
+            background: #1c1c2e; padding: 12px 20px; border-radius: 12px; line-height: 1.6; 
+            font-size: 0.85rem; font-family: 'Paperlogy-Medium', sans-serif; 
+        }
+        .video-box { 
+            background: #1c1c2e; padding: 15px; border-radius: 12px; 
+        }
+        .video-box iframe {
+            width: 100%; aspect-ratio: 16 / 9; display: block; margin: 0 auto; border: none; border-radius: 0;
+        }
+
+        /* 모바일 최적화 */
+        @media (max-width: 768px) {
+            body { padding: 20px; }
+            .main-layout { grid-template-columns: 1fr; gap: 20px; }
+            .info h1 { font-size: 1.4rem; }
+            .char-name { font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+    <a href="work.html" class="back-btn">← 뒤로가기</a>
+    
+    <div class="main-layout">
+        <div class="left-section">
+            <div class="poster">
+                <img src="workimage/work1.png" alt="포스터">
+            </div>
+            
+            <h3>공연 영상</h3>
+            <div class="video-box">
+                <iframe src="https://www.youtube.com/embed/c8geRDQQn9c?si=_DpuhyX6jeV2xmvK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <div class="info">
+            <h1>우린 새로운 세상으로 갈거야, 준비됐어?</h1>
+            
+            <h3>캐릭터 목록</h3>
+            <div class="characters">
+                <div class="char-card"><img src="workimage/woojin.png"><div class="char-name">김우진</div><span class="actor-name">(배우: 주민진)</span></div>
+                <div class="char-card"><img src="workimage/simdeock.png"><div class="char-name">윤심덕</div><span class="actor-name">(배우: 안유진)</span></div>
+                <div class="char-card"><img src="workimage/sanae.png"><div class="char-name">사내</div><span class="actor-name">(배우: 정민)</span></div>
+            </div>
+            
+            <h3>작품/캐릭터 소개</h3>
+            <div class="description">
+                <p>"1926년, 관부연락선 도쿠주마루. 한 여자와 남자가 바다로 몸을 던진다." (공연 中)<br>
+                천재 극작가 김우진, 조선의 소프라노 윤심덕, 그리고 그 둘을 잇는 사내.<br>
+                김우진과 사내는 한 편의 희곡을 쓴다. 희곡의 결말은 어땠을까?</p>
+            </div>
+            
+            <h3>나나링의 작품에 대한 사담</h3>
+            <div class="thoughts-box">
+                <p>사내라는 캐릭터는 굉장히 매력적이지만, 배우로서는 표현하기 힘든 캐릭터라고 생각해.<br>
+                이 작품을 쓴 작가도 모를 만큼, 無에서 有를 만드는 캐릭터이니까.<br>
+                하지만, 작품이 지금까지 공연되었다는 건, <br>
+                이 캐릭터를 만들어가며, 연기하는 배우들도 매력을 느낀다는 이야기가 아닐까 싶어.<br>
+                희곡의 원래 결말은 "윤심덕이 김우진을 총으로 쏜다, 그리고 윤심덕도 머리에 총을 겨누며 자살을 한다"<br>
+                하지만, 우진과 심덕은 자아를 찾아서 결국 관부연락선에서 투신을 해.<br>
+                사내는 자아를 찾아가는 둘에게 분노를 표하며, 둘을 죽이려고 하지만, 결국 실패하고 말아.<br>
+                마지막은 사내가 허탈한 듯 변해버린 희곡의 결말을 읽으며 극은 끝나.<br>
+                둘의 행복한 모습이 담긴 결말을 말이야.<br>
+                사내는 자신의 목표를 위해 둘을 이용했지만, 결국 자신의 목표를 이루지 못한 채,<br>
+                결국 쓸쓸한 결말을 맞이해.<br>
+                사내는 참 매력적이기도 하지만, 어떻게 보면 외로움의 형상 그 자체라고 볼 수도 있을지도?</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
