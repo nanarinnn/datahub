@@ -33,8 +33,41 @@
         .char-name { font-size: 0.95rem; font-weight: bold; }
         .actor-name { font-size: 0.75rem; color: rgba(255,255,255,0.5); display: block; margin-top: 2px; white-space: nowrap; }
         
-        .description, .video-box, .thoughts-box { background: #1c1c2e; padding: 5px 10px; border-radius: 12px; line-height: 1.6; font-size: 0.9rem; font-weight: 500; }
+/* 1. 작품/캐릭터 소개 텍스트 박스 */
+        .description { 
+            background: #1c1c2e; 
+            padding: 10px 20px; 
+            border-radius: 12px; /* 모서리 깎기 */
+            line-height: 1.6; 
+            font-size: 0.85rem; 
+            font-family: 'Paperlogy-Medium', sans-serif; 
+        }
 
+        /* 2. 사담 텍스트 박스 (작품 소개와 다르게 조절하고 싶을 때 유용함) */
+        .thoughts-box { 
+            background: #1c1c2e; 
+            padding: 10px 20px; 
+            border-radius: 12px; /* 모서리 깎기 */
+            line-height: 1.6; 
+            font-size: 0.85rem; 
+            font-family: 'Paperlogy-Medium', sans-serif; 
+        }
+
+        /* 3. 공연 영상 겉 배경 박스 */
+        .video-box { 
+            background: #1c1c2e; 
+            padding: 15px;       /* 영상 주변의 여백 (더 줄이려면 숫자를 낮추세요) */
+            border-radius: 12px; /* 겉 배경 박스의 모서리만 깎음 */
+        }
+        /* 4. 실제 유튜브 영상 (모서리 직각으로 복구) */
+        .video-box iframe {
+            width: 100%;           
+            aspect-ratio: 16 / 9;  
+            display: block;
+            margin: 0 auto;        
+            border: none;          
+            border-radius: 0;      /* ★ 영상 자체가 깎이는 현상 제거 ★ */
+        }
 
         @media (max-width: 768px) {
             body { padding: 20px; }
