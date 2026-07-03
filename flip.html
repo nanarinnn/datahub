@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>카드 뒤집기 | YUYEON ONLY</title>
 <style>
- @font-face {
-    font-family: 'Paperozi';
+  @font-face {
+    font-family: 'Paperlogy';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2') format('woff2');
     font-weight: 700;
     font-display: swap;
@@ -28,17 +28,18 @@
     flex-direction: column;
     align-items: center;
     justify-content: center; 
-    font-family: 'Noto Sans KR', sans-serif;
-    overflow-x: hidden;      /* 스크롤바 방지 */
+    /* 여기서 Paperlogy를 전체 기본 폰트로 설정 */
+    font-family: 'Paperlogy', sans-serif;
+    overflow-x: hidden;
   }
 
   h1 {
-    font-family: 'Paperozi', sans-serif; /* 여기 이름을 Paperozi로 변경 */
+    font-family: 'Paperlogy', sans-serif;
     color: #fff;
     margin-bottom: 3rem;
     font-size: 2.5rem;
     letter-spacing: 1px;
-    font-weight: 700; /* 폰트가 700(Bold)이므로 맞춰주는 것이 좋습니다 */
+    font-weight: 700;
   }
 
   .home-btn { 
@@ -47,11 +48,14 @@
     text-decoration: none; 
     font-size: 0.8rem; 
     letter-spacing: 0.1em;
+    /* 버튼에도 폰트 적용 */
+    font-family: 'Paperlogy', sans-serif;
     z-index: 10;
     transition: color 0.3s;
   }
   .home-btn:hover { color: #fff; }
 
+  /* 나머지 레이아웃 코드는 동일 */
   .deck { display: flex; gap: var(--gap); perspective: 1200px; }
   .card-wrap { width: var(--card-w); height: var(--card-h); perspective: 800px; cursor: pointer; }
   .card-inner { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform .65s cubic-bezier(.23,1,.32,1); border-radius: var(--radius); }
@@ -69,7 +73,6 @@
   .back-vertical { background-size: cover; background-repeat: no-repeat; background-position: center; }
   .back-horizontal { background-size: contain; background-repeat: no-repeat; background-position: center; background-color: #0e0e12; }
 
-  /* 모바일 최적화 반응형 코드 */
   @media (max-width: 600px) {
     .deck { flex-wrap: wrap; justify-content: center; max-width: 340px; gap: 15px; }
     .card-wrap { width: 140px; height: 210px; }
