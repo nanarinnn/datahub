@@ -5,11 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>캐릭터 추천 | YUYEON ONLY</title>
     <style>
-        body { background: #0e0e12; color: #fff; font-family: 'Noto Sans KR', sans-serif; padding: 40px; }
-        .home-btn { color: rgba(255,255,255,0.4); text-decoration: none; margin-bottom: 20px; display: block; }
+        /* 폰트 적용 */
+        @font-face {
+            font-family: 'Paperlogy';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-display: swap;
+        }
+
+        body { 
+            background: #0e0e12; 
+            color: #fff; 
+            font-family: 'Paperlogy', sans-serif; /* 통일된 폰트 */
+            padding: 40px; 
+        }
         
-        /* 제목을 왼쪽으로 정렬하고 여백 추가 */
-        h1 { text-align: left; margin-bottom: 20px; font-size: 1.8rem; }
+        .home-btn { 
+            color: rgba(255,255,255,0.4); 
+            text-decoration: none; 
+            margin-bottom: 20px; 
+            display: block; 
+        }
+        
+        h1 { 
+            text-align: left; 
+            margin-bottom: 20px; 
+            font-size: 1.8rem; 
+        }
 
         .gallery { 
             display: grid; 
@@ -22,8 +44,8 @@
         .work-item { 
             display: flex; 
             flex-direction: column;
-            width: 100%; /* 박스가 부모 그리드 칸을 꽉 채우도록 */
-            max-width: 300px; /* 전체적인 카드 크기를 줄임 (이미지 크기 조절 핵심) */
+            width: 100%; 
+            max-width: 300px; 
             border: 1px solid #333; 
             border-radius: 12px; 
             overflow: hidden; 
@@ -34,7 +56,10 @@
             background: #1c1c2e;
         }
         
-        .work-item:hover { transform: translateY(-10px); border-color: #6c3bff; }
+        .work-item:hover { 
+            transform: translateY(-10px); 
+            border-color: #6c3bff; 
+        }
         
         .work-item img { 
             width: 100%; 
@@ -42,13 +67,17 @@
             display: block;    
         }
         
-        .work-item h3 { padding: 15px; margin: 0; font-size: 1rem; text-align: center; }
+        .work-item h3 { 
+            padding: 15px; 
+            margin: 0; 
+            font-size: 1rem; 
+            text-align: center; 
+        }
 
         /* 모바일 최적화 */
         @media (max-width: 600px) {
             body { padding: 20px; }
-            h1 { text-align: left; } /* 모바일에서도 왼쪽 정렬 유지 */
-            .work-item { max-width: 100%; } /* 모바일에서는 가로 폭 전체 사용 */
+            .work-item { max-width: 100%; } 
         }
     </style>
 </head>
