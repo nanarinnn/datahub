@@ -3,44 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>사의찬미 "사내" | YUYEON ONLY</title>
- <style>
-    /* 1. 폰트 정의 (가장 상단에 배치) */
-    @font-face {
-        font-family: 'Paperlogy';
-        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2') format('woff2');
-        font-weight: 700;
-        font-display: swap;
-    }
+    <title>사의찬미 | YUYEON ONLY</title>
+    <style>
+        @font-face {
+            font-family: 'Paperlogy';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2') format('woff2');
+            font-weight: 700;
+        }
+        body { background: #0e0e12; color: #fff; font-family: 'Paperlogy', sans-serif; padding: 40px; }
+        .back-btn { color: rgba(255,255,255,0.4); text-decoration: none; display: block; margin-bottom: 20px; }
 
-    /* 2. 폰트 적용 */
-    body { 
-        background: #0e0e12; 
-        color: #fff; 
-        font-family: 'Paperlogy', sans-serif; /* 전체 페이지에 적용 */
-        padding: 40px; 
-    }
+        /* 좌우 2단 레이아웃 */
+        .main-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; max-width: 1000px; margin: 0 auto; }
+        
+        .poster img { width: 100%; border-radius: 12px; display: block; }
+        
+        .info h1 { margin-top: 0; font-size: 1.5rem; }
+        .characters { display: flex; gap: 15px; margin: 20px 0; }
+        .char-card { text-align: center; background: #1c1c2e; padding: 10px; border-radius: 8px; flex: 1; font-size: 0.9rem; }
+        .char-card img { width: 100%; border-radius: 5px; display: block; margin-bottom: 5px; }
+        
+        .description { background: #1c1c2e; padding: 20px; border-radius: 12px; margin-top: 20px; line-height: 1.6; }
 
-    h1 { font-family: 'Paperlogy', sans-serif; } /* 제목도 확실하게 적용 */
-    
-    .back-btn { 
-        color: rgba(255,255,255,0.4); 
-        text-decoration: none; 
-        display: block; 
-        margin-bottom: 20px; 
-    }
-    
-    .content { max-width: 800px; margin: 0 auto; }
-    
-    img { width: 100%; border-radius: 12px; }
+        /* 모바일 대응 (화면 좁아지면 1단으로) */
+        @media (max-width: 768px) {
+            body { padding: 20px; }
+            .main-layout { grid-template-columns: 1fr; gap: 20px; }
+        }
     </style>
 </head>
 <body>
     <a href="work.html" class="back-btn">← 뒤로가기</a>
-    <div class="content">
-        <h1>뮤지컬 사의찬미 "사내"</h1>
-        <img src="workimage/work1.png" alt="사의찬미">
-        <p>여기에 작품에 대한 세부 내용을 적어보세요!</p>
+    
+    <div class="main-layout">
+        <div class="poster">
+            <img src="workimage/work1.png" alt="포스터">
+        </div>
+
+        <div class="info">
+            <h1>우린 새로운 세상으로 갈거야, 준비됐어?</h1>
+            <h3>캐릭터 목록</h3>
+            <div class="characters">
+                <div class="char-card"><img src="workimage/char1.png" alt="김우진">김우진</div>
+                <div class="char-card"><img src="workimage/char2.png" alt="윤심덕">윤심덕</div>
+                <div class="char-card"><img src="workimage/char3.png" alt="사내">사내</div>
+            </div>
+            <div class="description">
+                <h2>작품 소개</h2>
+                <p>여기에 사의찬미 작품에 대한 설명을 자세히 적어주세요.</p>
+            </div>
+        </div>
     </div>
 </body>
 </html>
