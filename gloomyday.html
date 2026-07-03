@@ -14,9 +14,18 @@
             src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-5Medium.woff2') format('woff2');
         }
         
-        body { background: #0e0e12; color: #fff; font-family: 'Paperlogy-Bold', sans-serif; padding: 80px 40px 40px 40px; margin: 0; }
-       .back-btn { 
-            position: absolute; top: 30px; left: 30px; 
+        body { 
+            background: #0e0e12; 
+            color: #fff; 
+            font-family: 'Paperlogy-Bold', sans-serif; 
+            padding: 40px; 
+            margin: 0; 
+        }
+
+        /* 뒤로가기 버튼: 이제 absolute가 아닌 flow 내에 위치 */
+        .back-btn { 
+            display: block; 
+            margin-bottom: 20px; 
             color: rgba(255,255,255,0.4); 
             text-decoration: none; 
             font-size: 0.8rem; 
@@ -24,7 +33,6 @@
         }
         .back-btn:hover { color: #fff; }
 
-        /* 글자 끊김 방지 */
         h1, h3, .char-name, .actor-name { word-break: keep-all; }
 
         .main-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; max-width: 1100px; margin: 0 auto; }
@@ -38,9 +46,8 @@
         .char-name { font-size: 0.95rem; font-weight: bold; }
         .actor-name { font-size: 0.75rem; color: rgba(255,255,255,0.5); display: block; margin-top: 2px; white-space: nowrap; }
         
-        /* 박스 스타일 */
         .description, .thoughts-box { 
-            background: #1c1c2e; padding: 5px 20px; border-radius: 12px; line-height: 1.6; 
+            background: #1c1c2e; padding: 15px 20px; border-radius: 12px; line-height: 1.6; 
             font-size: 0.85rem; font-family: 'Paperlogy-Medium', sans-serif; 
         }
         .video-box { 
@@ -52,15 +59,9 @@
 
         /* 모바일 최적화 */
         @media (max-width: 768px) {
-            /* 위쪽 패딩을 50px 정도로 줄여서 간격을 좁힙니다 */
-            body { padding: 50px 20px 20px 20px; } 
-            
+            body { padding: 20px; }
             .main-layout { grid-template-columns: 1fr; gap: 20px; }
             .info h1 { font-size: 1.4rem; }
-            .char-name { font-size: 0.85rem; }
-            
-            /* 모바일에서는 뒤로가기 버튼 위치를 조금 더 위로 올립니다 */
-            .back-btn { top: 15px; left: 15px; }
         }
     </style>
 </head>
@@ -100,13 +101,7 @@
             <div class="thoughts-box">
                 <p>사내라는 캐릭터는 굉장히 매력적이지만, 배우로서는 표현하기 힘든 캐릭터라고 생각해.<br>
                 이 작품을 쓴 작가도 모를 만큼, 無에서 有를 만드는 캐릭터이니까.<br>
-                하지만, 작품이 지금까지 공연되었다는 건, <br>
-                이 캐릭터를 만들어가며, 연기하는 배우들도 매력을 느낀다는 이야기가 아닐까 싶어.<br>
-                희곡의 원래 결말은 "윤심덕이 김우진을 총으로 쏜다, 그리고 윤심덕도 머리에 총을 겨누며 자살을 한다"<br>
-                하지만, 우진과 심덕은 자아를 찾아서 결국 관부연락선에서 투신을 해.<br>
-                사내는 자아를 찾아가는 둘에게 분노를 표하며, 둘을 죽이려고 하지만, 결국 실패하고 말아.<br>
                 마지막은 사내가 허탈한 듯 변해버린 희곡의 결말을 읽으며 극은 끝나.<br>
-                둘의 행복한 모습이 담긴 결말을 말이야.<br>
                 사내는 자신의 목표를 위해 둘을 이용했지만, 결국 자신의 목표를 이루지 못한 채,<br>
                 결국 쓸쓸한 결말을 맞이해.<br>
                 사내는 참 매력적이기도 하지만, 어떻게 보면 외로움의 형상 그 자체라고 볼 수도 있을지도?</p>
