@@ -20,9 +20,33 @@
         
         .info h1 { margin-top: 0; font-size: 1.5rem; }
         .characters { display: flex; gap: 15px; margin: 20px 0; }
-        .char-card { text-align: center; background: #1c1c2e; padding: 10px; border-radius: 8px; flex: 1; font-size: 0.9rem; }
-        .char-card img { width: 100%; border-radius: 5px; display: block; margin-bottom: 5px; }
-        
+        .char-card { 
+    text-align: center; 
+    background: #1c1c2e; 
+    padding: 15px; 
+    border-radius: 12px; 
+    flex: 1; 
+}
+        .char-name {
+    font-size: 1rem;       
+    font-weight: bold;
+    margin-top: 10px;
+}
+        .actor-name {
+    font-size: 0.75rem;    
+    color: rgba(255, 255, 255, 0.5); 
+    display: block;        
+    margin-top: 4px;
+}
+        .char-card img { 
+            width: 100%;           /* 부모 박스(char-card) 너비에 맞춤 */
+            aspect-ratio: 1 / 1;   /* 가로:세로 비율을 1:1 정사각형으로 강제 */
+            object-fit: cover;     /* 이미지가 잘리지 않게 비율을 맞춰 채움 */
+            border-radius: 8px;    /* 모서리를 둥글게 하면 더 예쁩니다 */
+            display: block; 
+            margin-bottom: 8px; 
+        }
+        .char-card:hover {background: #2a2a40; }
         .description { background: #1c1c2e; padding: 20px; border-radius: 12px; margin-top: 20px; line-height: 1.6; }
 
         /* 모바일 대응 (화면 좁아지면 1단으로) */
@@ -43,15 +67,31 @@
         <div class="info">
             <h1>우린 새로운 세상으로 갈거야, 준비됐어?</h1>
             <h3>캐릭터 목록</h3>
+            
             <div class="characters">
-                <div class="char-card"><img src="workimage/char1.png" alt="김우진">김우진</div>
-                <div class="char-card"><img src="workimage/char2.png" alt="윤심덕">윤심덕</div>
-                <div class="char-card"><img src="workimage/char3.png" alt="사내">사내</div>
+<div class="characters">
+    <div class="char-card">
+        <img src="workimage/woojin.png" alt="김우진">
+        <div class="char-name">김우진</div>
+        <span class="actor-name">(배우: 주민진)</span>
+    </div>
+
+    <div class="char-card">
+        <img src="workimage/simdeok.png" alt="윤심덕">
+        <div class="char-name">윤심덕</div>
+        <span class="actor-name">(배우: 안유진)</span>
+    </div>
+
+    <div class="char-card">
+        <img src="workimage/sanae.png" alt="사내">
+        <div class="char-name">사내</div>
+        <span class="actor-name">(배우: 정민)</span>
+    </div>
+</div>
             </div>
             <div class="description">
                 <h2>작품 소개</h2>
                 <p>여기에 사의찬미 작품에 대한 설명을 자세히 적어주세요.</p>
-            </div>
         </div>
     </div>
 </body>
