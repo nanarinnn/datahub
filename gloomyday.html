@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>사의찬미 | YUYEON ONLY</title>
-    <style>
+    <style>        
         @font-face {
             font-family: 'Paperlogy';
             src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2') format('woff2');
@@ -13,35 +13,29 @@
         body { background: #0e0e12; color: #fff; font-family: 'Paperlogy', sans-serif; padding: 40px; }
         .back-btn { color: rgba(255,255,255,0.4); text-decoration: none; display: block; margin-bottom: 20px; }
 
-        /* 2단 레이아웃 */
+        /* 글자 끊김 방지 핵심 속성 (전체 적용) */
+        h1, h3, .char-name, .actor-name { word-break: keep-all; }
+
         .main-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; max-width: 1100px; margin: 0 auto; }
-        
         .poster img { width: 100%; border-radius: 12px; display: block; }
-        
         .info h1 { margin: 0 0 20px 0; font-size: 1.6rem; }
-        
-        /* 제목 스타일 */
         h3 { margin: 25px 0 10px 0; font-size: 1.2rem; }
         
-        /* 캐릭터 목록 */
         .characters { display: flex; gap: 15px; }
         .char-card { text-align: center; background: #1c1c2e; padding: 10px; border-radius: 12px; flex: 1; }
         .char-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 8px; display: block; margin-bottom: 5px; }
         .char-name { font-size: 0.95rem; font-weight: bold; }
-        .actor-name { font-size: 0.75rem; color: rgba(255,255,255,0.5); display: block; margin-top: 2px; }
+        .actor-name { font-size: 0.75rem; color: rgba(255,255,255,0.5); display: block; margin-top: 2px; white-space: nowrap; }
         
-        /* 작품 소개 영역 */
         .description { background: #1c1c2e; padding: 20px; border-radius: 12px; line-height: 1.6; }
 
         /* 모바일 최적화 */
-        @media (max-width: 768px) {body { padding: 20px; } /* 모바일에서 좌우 여백을 조금 줄여 공간 확보 */
-    
-    .main-layout { 
-        grid-template-columns: 1fr; 
-        gap: 20px; 
-    }
-    .info h1 { font-size: 1.4rem; }
-    .char-name { font-size: 0.85rem; }
+        @media (max-width: 768px) {
+            body { padding: 20px; }
+            .main-layout { grid-template-columns: 1fr; gap: 20px; }
+            .info h1 { font-size: 1.4rem; }
+            .char-name { font-size: 0.85rem; }
+        }
     </style>
 </head>
 <body>
