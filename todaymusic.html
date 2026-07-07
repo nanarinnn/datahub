@@ -21,51 +21,49 @@
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            justify-content: center; 
             min-height: 100vh; 
             margin: 0;
-            padding: 40px;
+            padding: 80px 20px 40px 20px;
         }
 
-        /* 홈 버튼: 왼쪽 상단 고정 */
-        .back-btn { 
-            position: absolute; 
-            top: 30px; 
-            left: 30px;
-        }
-        .back-btn img { 
-            height: 45px; 
-            width: auto; 
-            display: block; 
-        }
+        .back-btn { position: absolute; top: 30px; left: 30px; }
+        .back-btn img { height: 45px; width: auto; }
 
-        /* 그리드 컨테이너: 박스 2개 배치 */
-        .coming-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+        .content-container {
             width: 100%;
-            max-width: 600px;
+            max-width: 900px;
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 2개로 분할 */
+            gap: 20px;
         }
 
-        /* Coming Soon 박스 스타일 */
-        .coming-box { 
-            height: 200px;
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
+        /* 공통 카드 스타일 */
+        .card {
             background: #1c1c2e; 
+            padding: 15px; 
+            border-radius: 12px;
+        }
+
+        /* 영상 스타일 */
+        .video-box iframe {
+            width: 100%; aspect-ratio: 16 / 9; display: block; border: none;
+        }
+        .video-title {
+            margin-top: 15px;
+            font-family: 'Paperlogy-Bold', sans-serif;
+            text-align: center;
+        }
+
+        /* Coming Soon 스타일 */
+        .coming-box { 
+            display: flex; align-items: center; justify-content: center; 
             border: 2px dashed #333; 
             color: rgba(255, 255, 255, 0.3); 
-            border-radius: 12px;
-            font-family: 'Paperlogy-Bold', sans-serif;
-            font-size: 1.2rem;
+            min-height: 200px;
         }
 
-        /* 모바일 반응형: 화면이 좁아지면 1줄로 변경 */
-        @media (max-width: 600px) {
-            .coming-container { grid-template-columns: 1fr; }
-            .coming-box { height: 150px; }
+        @media (max-width: 768px) {
+            .content-container { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -75,9 +73,17 @@
         <img src="button/home_button.png" alt="홈으로">
     </a>
 
-    <div class="coming-container">
-        <div class="coming-box"><h3>Coming Soon</h3></div>
-        <div class="coming-box"><h3>Coming Soon</h3></div>
+    <div class="content-container">
+        <div class="card">
+            <div class="video-box">
+                <iframe src="https://www.youtube.com/embed/CQFh1nwEsKs?si=Ht-dbH5NDdTOq6Dv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <div class="video-title">뮤지컬 '스토리 오브 마이 라이프', 나비</div>
+        </div>
+
+        <div class="card coming-box">
+            <h3>Coming Soon</h3>
+        </div>
     </div>
 
 </body>
