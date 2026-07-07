@@ -27,10 +27,11 @@
             padding: 40px;
         }
 
-        /* 이미지 버튼 스타일 */
+        /* 홈 버튼: 왼쪽 상단 고정 */
         .back-btn { 
-            display: inline-block; 
-            margin-bottom: 40px; /* 제목/박스와의 간격 */
+            position: absolute; 
+            top: 30px; 
+            left: 30px;
         }
         .back-btn img { 
             height: 45px; 
@@ -38,10 +39,17 @@
             display: block; 
         }
 
+        /* 그리드 컨테이너: 박스 2개 배치 */
+        .coming-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            width: 100%;
+            max-width: 600px;
+        }
+
         /* Coming Soon 박스 스타일 */
         .coming-box { 
-            width: 100%;
-            max-width: 400px;
             height: 200px;
             display: flex; 
             align-items: center; 
@@ -54,11 +62,10 @@
             font-size: 1.2rem;
         }
 
-        /* 모바일 반응형 */
+        /* 모바일 반응형: 화면이 좁아지면 1줄로 변경 */
         @media (max-width: 600px) {
-            body { padding: 20px; }
-            .back-btn { margin-bottom: 30px; }
-            .coming-box { height: 150px; font-size: 1rem; }
+            .coming-container { grid-template-columns: 1fr; }
+            .coming-box { height: 150px; }
         }
     </style>
 </head>
@@ -68,8 +75,9 @@
         <img src="button/home_button.png" alt="홈으로">
     </a>
 
-    <div class="coming-box">
-        <h3>Coming Soon</h3>
+    <div class="coming-container">
+        <div class="coming-box"><h3>Coming Soon</h3></div>
+        <div class="coming-box"><h3>Coming Soon</h3></div>
     </div>
 
 </body>
