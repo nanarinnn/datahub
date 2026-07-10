@@ -48,9 +48,7 @@
         @media (max-width: 768px) {
             body { padding: 20px; }
             .main-layout { grid-template-columns: 1fr; gap: 30px; }
-            .characters { display: flex; gap: 5px; overflow-x: visible; }
-            .char-card { flex: 1;  min-width: 0; padding: 5px; }
-            .char-name { font-size: 0.75rem; }
+            .characters { overflow-x: auto; padding-bottom: 5px; } /* 캐릭터가 많을 때 스크롤 처리 */
             .char-card { min-width: 90px; }
             .audio-item { flex-direction: column; align-items: flex-start; gap: 8px; }
             .audio-item audio { width: 100%; }
@@ -76,17 +74,7 @@
                 <div class="audio-item"><h4>태생 5품</h4><audio controls><source src="audio/11 태생 5품(REP.).mp3" type="audio/mpeg"></audio></div>
                 <div class="audio-item"><h4>파문의 악몽</h4><audio controls><source src="audio/14 파문의 악몽(REP.).mp3" type="audio/mpeg"></audio></div>
             </div>
-
-            <h3>당시의 실제 공연 영상</h3>
-            <div class="video-box">
-                <iframe src="https://www.youtube.com/embed/8AyD-_tuzW0?si=mb2w9O5ATsAEaIOH" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
-            </div>
-            <div class="video-box">
-                <iframe src="https://www.youtube.com/embed/wd_HKnjSvhY?si=FAq-Ird-8-WRG3-S" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
-            </div>
-            <p class="video-caption">* 내 영상을 쓰게 될줄은 몰랐다;;</p>
         </div>
-
         <div class="info">
             <h1>"신의 선택을 받은 자"</h1>
             <h3>캐릭터 목록</h3>
@@ -130,6 +118,15 @@
             작품 설명에 나온 '서유정'과 '바텐더', 그리고 '악마'. 난 이 극을 보면서 '서유정'역의 배우들을 꽤 많이 좋아했어. 정말.. 멋있다고 느꼈거든. 
             내가 왜 그렇게 느꼈는지는, 영상을 보면 알 수 있을지도?<br><br>극을 보다 보면 가끔 이해가 안 될 때도 있어. 
             하지만, 그 부분에 대해 한번 쯤 복기하며 생각해보는 극도 나름의 즐거움이 있다고 생각해.</div>
+        </div>
+        <h3>당시의 실제 공연 영상</h3>
+            <div class="video-box">
+                <iframe src="https://www.youtube.com/embed/8AyD-_tuzW0?si=mb2w9O5ATsAEaIOH" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-box">
+                <iframe src="https://www.youtube.com/embed/wd_HKnjSvhY?si=FAq-Ird-8-WRG3-S" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <p class="video-caption">* 내 영상을 쓰게 될줄은 몰랐다;;</p>
         </div>
     </div>
 </body>
