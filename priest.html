@@ -48,7 +48,9 @@
         @media (max-width: 768px) {
             body { padding: 20px; }
             .main-layout { grid-template-columns: 1fr; gap: 30px; }
-            .characters { overflow-x: auto; padding-bottom: 5px; } /* 캐릭터가 많을 때 스크롤 처리 */
+            .characters { display: flex; gap: 5px; overflow-x: visible; }
+            .char-card { flex: 1;  min-width: 0; padding: 5px; }
+            .char-name { font-size: 0.75rem; }
             .char-card { min-width: 90px; }
             .audio-item { flex-direction: column; align-items: flex-start; gap: 8px; }
             .audio-item audio { width: 100%; }
