@@ -7,51 +7,57 @@
     <style>        
         @font-face { font-family: 'Paperlogy-Bold'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2') format('woff2'); }
         @font-face { font-family: 'Paperlogy-Medium'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-5Medium.woff2') format('woff2'); }
+        * { box-sizing: border-box; }
         
-        * { box-sizing: border-box; } /* 레이아웃 밀림 방지 기본 설정 */
-
         body { background: #0e0e12; color: #fff; font-family: 'Paperlogy-Bold', sans-serif; padding: 40px; margin: 0; }
         .back-btn { display: block; margin-bottom: 20px; }
         .back-btn img { height: 60px; width: auto; display: block; }
         
-        /* PC 기본 2단 레이아웃 */
         .main-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; max-width: 1100px; margin: 0 auto; width: 100%; }
-        .left-section, .info { width: 100%; min-width: 0; } /* Grid 안에서 아이템이 넘치는 현상 방지 */
-
-        .poster img { width: 100%; max-width: 100%; border-radius: 12px; display: block; }
         
+        .poster img { width: 100%; border-radius: 12px; display: block; }
         h3 { margin: 20px 0 10px 0; font-size: 1.1rem; }
         
-        /* 영상 박스 */
-        .video-box { background: #1c1c2e; padding: 10px; border-radius: 12px; margin-bottom: 10px; overflow: hidden; width: 100%; }
+        .video-box { background: #1c1c2e; padding: 10px; border-radius: 12px; margin-bottom: 10px; width: 100%; }
         .video-box iframe { width: 100%; aspect-ratio: 16 / 9; display: block; border: none; }
-        .video-box .twitter-tweet { width: 100% !important; max-width: 100% !important; }
-
         .video-caption { text-align: center; margin: 5px 0 15px 0; color: #fff; font-size: 0.85rem; }
-
-        /* 오디오 리스트 */
+.video-grid { 
+    display: flex; 
+    gap: 15px; /* 영상 사이 간격 */
+    width: 100%; 
+}
+.video-grid .video-box { 
+    flex: 1; 
+    margin-bottom: 0; /* 기존 마진 제거 */
+}
+.video-caption {
+    text-align: center; /* 텍스트 가운데 정렬 */
+    margin-top: 10px;
+    color: #fff;
+    font-size: 0.85rem;
+    width: 100%; /* 너비를 꽉 채워 가운데 정렬 효과 */
+}
         .audio-list { display: flex; flex-direction: column; gap: 10px; margin-top: 5px; }
-        .audio-item { display: flex; align-items: center; justify-content: space-between; background: #1c1c2e; padding: 10px 15px; border-radius: 12px; border: 1px solid #333; width: 100%; }
-        .audio-item h4 { margin: 0; font-size: 0.85rem; white-space: nowrap; margin-right: 15px; }
-        .audio-item audio { width: 220px; max-width: 100%; filter: invert(1) hue-rotate(180deg); }
+        .audio-item { display: flex; align-items: center; justify-content: space-between; background: #1c1c2e; padding: 10px 15px; border-radius: 12px; border: 1px solid #333; }
+        .audio-item audio { width: 220px; filter: invert(1) hue-rotate(180deg); }
 
-        .info h1 { margin: 0 0 20px 0; font-size: 1.6rem; word-break: keep-all; }
-        .characters { display: flex; gap: 15px; width: 100%; }
-        .char-card { text-align: center; background: #1c1c2e; padding: 10px; border-radius: 12px; flex: 1; min-width: 0; }
+        .info h1 { margin: 0 0 20px 0; font-size: 1.6rem; }
+        .characters { display: flex; gap: 15px; }
+        .char-card { text-align: center; background: #1c1c2e; padding: 10px; border-radius: 12px; flex: 1; }
         .char-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 8px; display: block; margin-bottom: 5px; }
-        .char-name { font-size: 0.9rem; font-weight: bold; word-break: keep-all; }
+        .char-name { font-size: 0.9rem; font-weight: bold; }
         .actor-name { font-size: 0.7rem; color: rgba(255,255,255,0.5); display: block; }
         
-        .description, .thoughts-box { background: #1c1c2e; padding: 15px; border-radius: 12px; font-size: 0.85rem; font-family: 'Paperlogy-Medium', sans-serif; line-height: 1.5; margin-bottom: 15px; }
+        .description, .thoughts-box { background: #1c1c2e; padding: 15px; border-radius: 12px; font-size: 0.85rem; line-height: 1.5; margin-bottom: 15px; }
+.video-container {
+    display: flex;
+    flex-direction: column; 
+    width: 100%;
+}
 
-        /* 모바일 최적화 (768px 이하에서 1단으로 변경) */
         @media (max-width: 768px) {
-            body { padding: 20px; }
-            .main-layout { grid-template-columns: 1fr; gap: 30px; }
-            .characters { overflow-x: auto; padding-bottom: 5px; } /* 캐릭터가 많을 때 스크롤 처리 */
-            .char-card { min-width: 90px; }
-            .audio-item { flex-direction: column; align-items: flex-start; gap: 8px; }
-            .audio-item audio { width: 100%; }
+            .main-layout { grid-template-columns: 1fr; }
+.video-grid { flex-direction: column; }
         }
     </style>
 </head>
@@ -59,10 +65,11 @@
     <a href="work.html" class="back-btn"><img src="button/back_button.png" alt="뒤로"></a>
     
     <div class="main-layout">
+        <!-- 왼쪽: 포스터 + 오디오 -->
         <div class="left-section">
             <div class="poster"><img src="workimage/priest.png" alt="포스터"></div>
             
-            <h3>공연 영상</h3>
+            <h3>공연 영상 (Twitter)</h3>
             <div class="video-box">
                 <blockquote class="twitter-tweet" data-conversation="none" data-theme="dark"><a href="https://twitter.com/Musical__PRIEST/status/1249506650525970432"></a></blockquote>
                 <script async src="https://platform.x.com/widgets.js" charset="utf-8"></script>
@@ -70,13 +77,16 @@
 
             <h3>넘버를 들어보자!</h3>
             <div class="audio-list">
-                <div class="audio-item"><h4>구마의식</h4><audio controls><source src="audio/02 구마의식.mp3" type="audio/mpeg"></audio></div>
-                <div class="audio-item"><h4>태생 5품</h4><audio controls><source src="audio/11 태생 5품(REP.).mp3" type="audio/mpeg"></audio></div>
-                <div class="audio-item"><h4>파문의 악몽</h4><audio controls><source src="audio/14 파문의 악몽(REP.).mp3" type="audio/mpeg"></audio></div>
+                <div class="audio-item"><h4>구마의식</h4><audio controls><source src="audio/02 구마의식.mp3"></audio></div>
+                <div class="audio-item"><h4>태생 5품</h4><audio controls><source src="audio/11 태생 5품(REP.).mp3"></audio></div>
+                <div class="audio-item"><h4>파문의 악몽</h4><audio controls><source src="audio/14 파문의 악몽(REP.).mp3"></audio></div>
             </div>
         </div>
+
+        <!-- 오른쪽: 텍스트 + 실제 공연 영상 -->
         <div class="info">
             <h1>"신의 선택을 받은 자"</h1>
+            
             <h3>캐릭터 목록</h3>
             <div class="characters">
                 <div class="char-card"><img src="workimage/marco.png"><div class="char-name">마르코</div><span class="actor-name">(배우: 기세중)</span></div>
@@ -118,16 +128,18 @@
             작품 설명에 나온 '서유정'과 '바텐더', 그리고 '악마'. 난 이 극을 보면서 '서유정'역의 배우들을 꽤 많이 좋아했어. 정말.. 멋있다고 느꼈거든. 
             내가 왜 그렇게 느꼈는지는, 영상을 보면 알 수 있을지도?<br><br>극을 보다 보면 가끔 이해가 안 될 때도 있어. 
             하지만, 그 부분에 대해 한번 쯤 복기하며 생각해보는 극도 나름의 즐거움이 있다고 생각해.</div>
-        </div>
-        <h3>당시의 실제 공연 영상</h3>
+
+            <h3>당시의 실제 공연 영상</h3>
+<div class="video-container">
+<div class="video-grid">
             <div class="video-box">
-                <iframe src="https://www.youtube.com/embed/8AyD-_tuzW0?si=mb2w9O5ATsAEaIOH" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/8AyD-_tuzW0"></iframe>
             </div>
             <div class="video-box">
-                <iframe src="https://www.youtube.com/embed/wd_HKnjSvhY?si=FAq-Ird-8-WRG3-S" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/wd_HKnjSvhY"></iframe>
             </div>
-            <p class="video-caption">* 내 영상을 쓰게 될줄은 몰랐다;;</p>
         </div>
+<p class="video-caption">* 내 영상을 쓰게 될줄은 몰랐다;;</p>
     </div>
 </body>
 </html>
