@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>미니룸 | YUYEON ONLY</title>
     <style>
         /* 폰트 적용 */
@@ -42,6 +42,11 @@
             width: auto; 
         }
 
+        h1 {
+            margin-top: 0;
+            text-align: center;
+        }
+
         /* 3D 렌더링 영역 */
         #canvas-container {
             width: 100%;
@@ -52,12 +57,22 @@
             border: 2px solid #333;
             overflow: hidden;
             position: relative;
+            touch-action: none; /* [최적화] 모바일에서 3D 조작 시 화면 스크롤 방지 */
         }
 
+        /* 모바일 대응 레이아웃 */
         @media (max-width: 768px) {
-            body { padding: 20px; }
-            .nav-btn img { height: 45px; }
-            #canvas-container { height: 300px; }
+            body { 
+                padding: 15px; /* 모바일에서는 여백을 줄여 공간 확보 */
+            }
+            .nav-btn img { 
+                height: 45px; 
+            }
+            #canvas-container { 
+                /* [최적화] 기기 화면 높이에 비례하게 설정하여 답답함 해소 */
+                height: 60vh; 
+                min-height: 400px; 
+            }
         }
     </style>
 </head>
@@ -83,7 +98,7 @@
 
     <!-- 3D 구현 스크립트 -->
     <script>
-        // 1. 기본 색상 및 이미지 설정 (여기서 색상이나 이미지를 변경할 수 있습니다)
+        // 1. 기본 색상 및 이미지 설정
         let CONFIG = {
             wallColor: '#f5ebe0',
             floorColor: '#e0d4c3',
@@ -106,7 +121,11 @@
 
         // 렌더러 설정
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        
+        // [최적화] 기기 픽셀 비율 대응 (모바일 고해상도 환경에서 흐리게 나오는 현상 방지)
+        renderer.setPixelRatio(window.devicePixelRatio); 
         renderer.setSize(container.clientWidth, container.clientHeight);
+        
         renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
