@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미니룸 | YUYEON ONLY</title>
+    <style>
+        /* 폰트 적용 */
+        @font-face {
+            font-family: 'Paperlogy';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-display: swap;
+        }
+
+        body { 
+            background: #0e0e12; 
+            color: #fff; 
+            font-family: 'Paperlogy', sans-serif; 
+            padding: 40px; 
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        /* 버튼 영역 */
+        .nav-container {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+            max-width: 900px;
+            margin-bottom: 20px;
+        }
+
+        .nav-btn { 
+            display: inline-block;
+        }
+        
+        .nav-btn img { 
+            height: 60px; 
+            width: auto; 
+        }
+
+        /* 3D 렌더링 영역 */
+        #canvas-container {
+            width: 100%;
+            max-width: 900px;
+            height: 500px;
+            background: #1c1c2e;
+            border-radius: 20px;
+            border: 2px solid #333;
+            overflow: hidden;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 20px; }
+            .nav-btn img { height: 45px; }
+            #canvas-container { height: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 상단 버튼 영역 -->
+    <div class="nav-container">
+        <a href="index.html" class="nav-btn">
+            <img src="button/home_button.png" alt="홈">
+        </a>
+    </div>
+
+    <h1>MINIROOM</h1>
+
+    <!-- 3D 모델이 렌더링될 사각형 박스 -->
+    <div id="canvas-container">
+        <!-- 이곳에 Three.js 캔버스가 들어갑니다 -->
+    </div>
+
+    <!-- Three.js 라이브러리 및 OrbitControls 추가 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <!-- 3D 구현 스크립트 -->
+    <script>
+        // 1. 기본 색상 및 이미지 설정 (여기서 색상이나 이미지를 변경할 수 있습니다)
+        let CONFIG = {
+            wallColor: '#f5ebe0',
+            floorColor: '#e0d4c3',
+            counterColor: '#a1887f',
+            tableColor: '#ffffff',
+            chairColor: '#ffb7b2',
+            cupHolderColor: '#e59866',
+            bannerUrl: 'https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=1000&auto=format&fit=crop',
+            frameUrl: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=800&auto=format&fit=crop'
+        };
+
+        // 2. 씬(Scene) 셋업
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color('#090d16');
+
+        // 카메라 설정
+        const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+        camera.position.set(13, 11, 13);
+
+        // 렌더러 설정
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.0;
+        container.appendChild(renderer.domElement);
+
+        // 마우스 컨트롤(OrbitControls)
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.maxPolarAngle = Math.PI / 2 - 0.05; 
+        controls.minDistance = 5;
+        controls.maxDistance = 40;
+        controls.target.set(0, 1.5, -1);
+
+        const textureLoader = new THREE.TextureLoader();
+
+        // 3. 재질(Material) 설정
+        let floorMaterial = new THREE.MeshStandardMaterial({ roughness: 0.8 });
+        let wallMaterial = new THREE.MeshStandardMaterial({ roughness: 0.9 });
+        let counterMaterial = new THREE.MeshStandardMaterial({ roughness: 0.7, metalness: 0.1 });
+        let tableMaterial = new THREE.MeshStandardMaterial({ roughness: 0.5 });
+        let chairMaterial = new THREE.MeshStandardMaterial({ roughness: 0.6 });
+        let cupHolderMaterial = new THREE.MeshStandardMaterial({ roughness: 0.4 });
+        let bannerMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+        let frameMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+
+        function updateMaterials() {
+            floorMaterial.color.set(CONFIG.floorColor);
+            wallMaterial.color.set(CONFIG.wallColor);
+            counterMaterial.color.set(CONFIG.counterColor);
+            tableMaterial.color.set(CONFIG.tableColor);
+            chairMaterial.color.set(CONFIG.chairColor);
+            cupHolderMaterial.color.set(CONFIG.cupHolderColor);
+
+            textureLoader.crossOrigin = 'anonymous';
+            textureLoader.load(CONFIG.bannerUrl, 
+                (texture) => {
+                    bannerMaterial.map = texture;
+                    bannerMaterial.needsUpdate = true;
+                },
+                undefined,
+                (err) => console.log("Banner image load failed.")
+            );
+
+            textureLoader.load(CONFIG.frameUrl, 
+                (texture) => {
+                    frameMaterial.map = texture;
+                    frameMaterial.needsUpdate = true;
+                },
+                undefined,
+                (err) => console.log("Frame image load failed.")
+            );
+        }
+
+        // 4. 조명(Lighting) 설정
+        const ambientLight = new THREE.AmbientLight('#ffffff', 0.6);
+        scene.add(ambientLight);
+
+        const mainLight = new THREE.DirectionalLight('#fff5ea', 1.2);
+        mainLight.position.set(10, 18, 8);
+        mainLight.castShadow = true;
+        mainLight.shadow.mapSize.width = 2048;
+        mainLight.shadow.mapSize.height = 2048;
+        mainLight.shadow.bias = -0.0005;
+        scene.add(mainLight);
+
+        const pointLight = new THREE.PointLight('#ff9a00', 0.8, 10);
+        pointLight.position.set(-3.5, 3.5, -2);
+        scene.add(pointLight);
+
+        // 5. 카페 구조물 만들기
+        const floorGeo = new THREE.BoxGeometry(10, 0.2, 14);
+        const floor = new THREE.Mesh(floorGeo, floorMaterial);
+        floor.position.y = -0.1;
+        floor.receiveShadow = true;
+        scene.add(floor);
+
+        const wallBackGeo = new THREE.BoxGeometry(10, 6, 0.2);
+        const wallBack = new THREE.Mesh(wallBackGeo, wallMaterial);
+        wallBack.position.set(0, 3, -7);
+        wallBack.receiveShadow = true;
+        scene.add(wallBack);
+
+        const wallLeftGeo = new THREE.BoxGeometry(0.2, 6, 14);
+        const wallLeft = new THREE.Mesh(wallLeftGeo, wallMaterial);
+        wallLeft.position.set(-5, 3, 0);
+        wallLeft.receiveShadow = true;
+        scene.add(wallLeft);
+
+        // 6. 데코레이션 (액자 및 배너)
+        const bannerGeo = new THREE.PlaneGeometry(5.5, 2.2);
+        const banner = new THREE.Mesh(bannerGeo, bannerMaterial);
+        banner.position.set(1.5, 3.8, -6.85); 
+        scene.add(banner);
+
+        const bannerFrameGeo = new THREE.BoxGeometry(5.7, 2.4, 0.05);
+        const bannerFrameMat = new THREE.MeshStandardMaterial({ color: 0x3e2723, roughness: 0.8 });
+        const bannerFrame = new THREE.Mesh(bannerFrameGeo, bannerFrameMat);
+        bannerFrame.position.set(1.5, 3.8, -6.89);
+        scene.add(bannerFrame);
+
+        const frameGeo = new THREE.PlaneGeometry(2.4, 3.4);
+        const frame = new THREE.Mesh(frameGeo, frameMaterial);
+        frame.rotation.y = Math.PI / 2;
+        frame.position.set(-4.85, 3.2, 2.5);
+        scene.add(frame);
+
+        const frameBorderGeo = new THREE.BoxGeometry(0.05, 3.6, 2.6);
+        const frameBorder = new THREE.Mesh(frameBorderGeo, bannerFrameMat);
+        frameBorder.position.set(-4.89, 3.2, 2.5);
+        scene.add(frameBorder);
+
+        // 7. 가구 및 소품 배치
+        const counterMainGeo = new THREE.BoxGeometry(2, 2.2, 7);
+        const counterMain = new THREE.Mesh(counterMainGeo, counterMaterial);
+        counterMain.position.set(-3.8, 1.1, -2.5);
+        counterMain.castShadow = true;
+        counterMain.receiveShadow = true;
+        scene.add(counterMain);
+
+        const counterTopGeo = new THREE.BoxGeometry(2.2, 0.15, 7.2);
+        const counterTopMat = new THREE.MeshStandardMaterial({ color: 0x4e342e, roughness: 0.4 });
+        const counterTop = new THREE.Mesh(counterTopGeo, counterTopMat);
+        counterTop.position.set(-3.8, 2.2, -2.5);
+        counterTop.castShadow = true;
+        scene.add(counterTop);
+
+        const coffeeMachineGeo = new THREE.BoxGeometry(1.2, 1.0, 1.5);
+        const coffeeMachineMat = new THREE.MeshStandardMaterial({ color: 0x222222, metalness: 0.8, roughness: 0.2 });
+        const coffeeMachine = new THREE.Mesh(coffeeMachineGeo, coffeeMachineMat);
+        coffeeMachine.position.set(-3.8, 2.7, -4.5);
+        coffeeMachine.castShadow = true;
+        scene.add(coffeeMachine);
+
+        const tableGroup = new THREE.Group();
+        tableGroup.position.set(2, 0, 1.5);
+
+        const tableTopGeo = new THREE.CylinderGeometry(1.6, 1.6, 0.1, 32);
+        const tableTop = new THREE.Mesh(tableTopGeo, tableMaterial);
+        tableTop.position.y = 1.6;
+        tableTop.castShadow = true;
+        tableTop.receiveShadow = true;
+        tableGroup.add(tableTop);
+
+        const tableLegGeo = new THREE.CylinderGeometry(0.12, 0.12, 1.6, 16);
+        const tableLegMat = new THREE.MeshStandardMaterial({ color: 0xcccccc, metalness: 0.7, roughness: 0.3 });
+        const tableLeg = new THREE.Mesh(tableLegGeo, tableLegMat);
+        tableLeg.position.y = 0.8;
+        tableLeg.castShadow = true;
+        tableGroup.add(tableLeg);
+
+        const tableBaseGeo = new THREE.CylinderGeometry(0.8, 0.8, 0.05, 24);
+        const tableBase = new THREE.Mesh(tableBaseGeo, tableLegMat);
+        tableBase.position.y = 0.025;
+        tableGroup.add(tableBase);
+        scene.add(tableGroup);
+
+        function createChair(positionX, positionZ, rotateY) {
+            const chair = new THREE.Group();
+            chair.position.set(positionX, 0, positionZ);
+            chair.rotation.y = rotateY;
+
+            const seatGeo = new THREE.BoxGeometry(1.1, 0.15, 1.1);
+            const seat = new THREE.Mesh(seatGeo, chairMaterial);
+            seat.position.y = 1.0;
+            seat.castShadow = true;
+            chair.add(seat);
+
+            const backrestGeo = new THREE.BoxGeometry(1.1, 0.8, 0.15);
+            const backrest = new THREE.Mesh(backrestGeo, chairMaterial);
+            backrest.position.set(0, 1.4, -0.45);
+            backrest.castShadow = true;
+            chair.add(backrest);
+
+            const legGeo = new THREE.CylinderGeometry(0.05, 0.04, 1.0, 8);
+            const legMat = new THREE.MeshStandardMaterial({ color: 0x3e2723, roughness: 0.7 });
+            
+            const legPositions = [
+                [-0.45, 0.5, -0.45], [0.45, 0.5, -0.45],
+                [-0.45, 0.5, 0.45], [0.45, 0.5, 0.45]
+            ];
+
+            legPositions.forEach((pos) => {
+                const leg = new THREE.Mesh(legGeo, legMat);
+                leg.position.set(pos[0], pos[1], pos[2]);
+                leg.castShadow = true;
+                chair.add(leg);
+            });
+            scene.add(chair);
+        }
+
+        createChair(2, -0.7, 0); 
+        createChair(2, 3.7, Math.PI); 
+
+        const displayShelfGeo = new THREE.BoxGeometry(1.8, 1.8, 2.5);
+        const displayShelf = new THREE.Mesh(displayShelfGeo, counterMaterial);
+        displayShelf.position.set(-3.8, 0.9, 2.2);
+        displayShelf.castShadow = true;
+        scene.add(displayShelf);
+
+        const displayShelfTopGeo = new THREE.BoxGeometry(1.9, 0.1, 2.6);
+        const displayShelfTop = new THREE.Mesh(displayShelfTopGeo, counterTopMat);
+        displayShelfTop.position.set(-3.8, 1.85, 2.2);
+        scene.add(displayShelfTop);
+
+        const cupHolderGeo = new THREE.CylinderGeometry(0.2, 0.14, 0.4, 16);
+        const pyramidPositions = [
+            { x: -3.8, y: 2.1, z: 1.6 }, { x: -3.8, y: 2.1, z: 2.2 }, { x: -3.8, y: 2.1, z: 2.8 },
+            { x: -3.8, y: 2.5, z: 1.9 }, { x: -3.8, y: 2.5, z: 2.5 },
+            { x: -3.8, y: 2.9, z: 2.2 }
+        ];
+
+        pyramidPositions.forEach((pos) => {
+            const cup = new THREE.Mesh(cupHolderGeo, cupHolderMaterial);
+            cup.position.set(pos.x, pos.y, pos.z);
+            cup.castShadow = true;
+            scene.add(cup);
+        });
+
+        // 8. 설정된 색상 적용 및 실행
+        updateMaterials();
+
+        // 9. 리사이즈 및 애니메이션 렌더링 루프
+        window.addEventListener('resize', onWindowResize, false);
+
+        function onWindowResize() {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update(); 
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
