@@ -19,17 +19,63 @@
             font-family: 'Paperlogy', sans-serif; 
             padding: 40px; 
             margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         
-        .back-btn { 
-            display: inline-block; /* 영역을 이미지 크기만큼만 잡음 */
-            margin-bottom: 10px;   /* 제목과의 간격 확보 */
+        /* 버튼 영역 */
+        .nav-container {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+            max-width: 900px;
+            margin-bottom: 20px;
+        }
+
+        .nav-btn { 
+            display: inline-block;
         }
         
-        .back-btn img { 
-            height: 60px; /* 원하는 크기로 조절 */
-            width: auto;  /* 비율 유지 */
+        .nav-btn img { 
+            height: 60px; 
+            width: auto; 
         }
-          </style>
+
+        /* 3D 렌더링 영역 */
+        #canvas-container {
+            width: 100%;
+            max-width: 900px;
+            height: 500px;
+            background: #1c1c2e;
+            border-radius: 20px;
+            border: 2px solid #333;
+            overflow: hidden;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 20px; }
+            .nav-btn img { height: 45px; }
+            #canvas-container { height: 300px; }
+        }
+    </style>
 </head>
+<body>
+
+    <!-- 상단 버튼 영역 -->
+    <div class="nav-container">
+        <a href="index.html" class="nav-btn">
+            <img src="button/home_button.png" alt="홈">
+        </a>
+    </div>
+
+    <h1>MINIROOM</h1>
+
+    <!-- 3D 모델이 렌더링될 사각형 박스 -->
+    <div id="canvas-container">
+        <!-- 이곳에 Three.js 또는 R3F 캔버스가 들어갑니다 -->
+    </div>
+
+</body>
 </html>
