@@ -68,10 +68,27 @@
   .back-vertical { background-size: cover; background-repeat: no-repeat; background-position: center; }
   .back-horizontal { background-size: contain; background-repeat: no-repeat; background-position: center; background-color: #0e0e12; }
 
-  @media (max-width: 600px) {
+@media (max-width: 600px) {
+    /* 레이아웃 겹침 방지: 위에서부터 배치하고 윗부분 여백 확보 */
+    body {
+      justify-content: flex-start; 
+      padding-top: 90px; 
+      padding-bottom: 40px; 
+    }
+
+    /* 홈 버튼 모바일 맞춤 크기 및 위치 조정 */
+    .back-btn {
+      top: 15px;
+      left: 15px;
+    }
+    .back-btn img {
+      height: 45px; 
+    }
+
+    /* 기존 카드 레이아웃 설정 유지 */
     .deck { flex-wrap: wrap; justify-content: center; max-width: 340px; gap: 15px; }
     .card-wrap { width: 140px; height: 210px; }
-    h1 { font-size: 1.8rem; margin-bottom: 2rem; }
+    h1 { font-size: 1.8rem; margin-bottom: 2rem; text-align: center; }
   }
 </style>
 </head>
