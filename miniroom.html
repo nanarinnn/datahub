@@ -112,7 +112,7 @@
         controls.enableDamping = true;
         controls.dampingFactor = 0.05;
         controls.maxPolarAngle = Math.PI / 2 - 0.05; 
-        controls.minDistance = 2;
+        controls.minDistance = 1;
         controls.maxDistance = 80;
         controls.target.set(0, 1.5, 0);
 
@@ -157,16 +157,15 @@
                 undefined, (err) => console.log("가로 액자 대기 중")
             );
 
-            // 💡 컵홀더 이미지 회전 및 정면 위치 조정 (offset.x 조절)
+            // 💡 컵홀더 옆면에만 이미지가 나오고, 얼굴이 정면을 보게 배치
             textureLoader.load(CONFIG.cupUrl, 
                 (texture) => {
                     texture.wrapS = THREE.RepeatWrapping;
                     texture.wrapT = THREE.ClampToEdgeWrapping;
                     
-                    // 좌우 반전 복구 및 정면으로 얼굴 위치 맞추기
                     texture.center.set(0.5, 0.5);
                     texture.repeat.set(1, 1);
-                    texture.offset.x = 0.5; // 👈 이 값을 0 또는 0.5 단위로 조절하면 컵을 감싸는 얼굴 위치가 회전합니다!
+                    texture.offset.x = 0.0; // 정면 위치
 
                     cupBodyMaterial.map = texture;
                     cupBodyMaterial.needsUpdate = true;
@@ -283,9 +282,9 @@
 
         scene.add(counterGroup);
 
-        // 컵홀더 배치
+        // 💡 컵홀더 재질 순서 수정: [옆면(이미지), 윗면(단색), 아랫면(단색)] 순서 적용
         const cupHolderGeo = new THREE.CylinderGeometry(0.2, 0.14, 0.4, 16);
-        const cupMaterials = [cupCapMaterial, cupBodyMaterial, cupCapMaterial];
+        const cupMaterials = [cupBodyMaterial, cupCapMaterial, cupCapMaterial];
 
         const pyramidPositions = [
             { x: -2.5, y: 2.5, z: -1.5 }, { x: -2.0, y: 2.5, z: -1.5 }, { x: -1.5, y: 2.5, z: -1.5 },
