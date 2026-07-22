@@ -250,6 +250,40 @@
         horizontalBorder.position.set(-6.89, 3.5, 1.5);
         scene.add(horizontalBorder);
 
+        const coffeeMachineGroup = new THREE.Group();
+        coffeeMachineGroup.position.set(3.0, 2.275, -4.2); // 배너 뒤쪽 빈 공간에 배치
+
+        // 1. 머신 본체 (다크 메탈 느낌)
+        const bodyGeo = new THREE.BoxGeometry(1.2, 1.4, 1.0);
+        const bodyMat = new THREE.MeshStandardMaterial({ color: 0x2b2b2b, metalness: 0.8, roughness: 0.3 });
+        const body = new THREE.Mesh(bodyGeo, bodyMat);
+        body.position.y = 0.7;
+        body.castShadow = true;
+        coffeeMachineGroup.add(body);
+
+        // 2. 머신 상단 호퍼(원두통)
+        const hopperGeo = new THREE.BoxGeometry(0.8, 0.4, 0.7);
+        const hopperMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.5 });
+        const hopper = new THREE.Mesh(hopperGeo, hopperMat);
+        hopper.position.set(0, 1.6, 0);
+        hopper.castShadow = true;
+        coffeeMachineGroup.add(hopper);
+
+        // 3. 추출구 및 그룹헤드 (은색 메탈)
+        const groupHeadGeo = new THREE.CylinderGeometry(0.15, 0.15, 0.3, 16);
+        const metalMat = new THREE.MeshStandardMaterial({ color: 0xdddddd, metalness: 0.9, roughness: 0.1 });
+        const groupHead = new THREE.Mesh(groupHeadGeo, metalMat);
+        groupHead.position.set(0, 0.6, 0.35);
+        coffeeMachineGroup.add(groupHead);
+
+        // 4. 물받이 트레이
+        const trayGeo = new THREE.BoxGeometry(1.2, 0.1, 1.1);
+        const tray = new THREE.Mesh(trayGeo, metalMat);
+        tray.position.set(0, 0.05, 0.05);
+        coffeeMachineGroup.add(tray);
+
+        scene.add(coffeeMachineGroup);
+
         // 카운터 (L자형)
         const counterGroup = new THREE.Group();
 
