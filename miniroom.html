@@ -112,7 +112,7 @@
         controls.enableDamping = true;
         controls.dampingFactor = 0.05;
         controls.maxPolarAngle = Math.PI / 2 - 0.05; 
-        controls.minDistance = 1;
+        controls.minDistance = 2;
         controls.maxDistance = 80;
         controls.target.set(0, 1.5, 0);
 
@@ -157,7 +157,6 @@
                 undefined, (err) => console.log("가로 액자 대기 중")
             );
 
-            // 💡 컵홀더 옆면에만 이미지가 나오고, 얼굴이 정면을 보게 배치
             textureLoader.load(CONFIG.cupUrl, 
                 (texture) => {
                     texture.wrapS = THREE.RepeatWrapping;
@@ -165,7 +164,7 @@
                     
                     texture.center.set(0.5, 0.5);
                     texture.repeat.set(1, 1);
-                    texture.offset.x = 0.5; // 정면 위치
+                    texture.offset.x = 0.0;
 
                     cupBodyMaterial.map = texture;
                     cupBodyMaterial.needsUpdate = true;
@@ -282,22 +281,17 @@
 
         scene.add(counterGroup);
 
-        // 💡 컵홀더 재질 순서 수정: [옆면(이미지), 윗면(단색), 아랫면(단색)] 순서 적용
+        // 컵홀더 피라미드
         const cupHolderGeo = new THREE.CylinderGeometry(0.25, 0.18, 0.5, 16);
         const cupMaterials = [cupBodyMaterial, cupCapMaterial, cupCapMaterial];
 
         const pyramidPositions = [
-            // [1단 바닥층] 앞뒤 3x3 격자 형태로 9개 배치
-            { x: -3.0, y: 2.1, z: -1.8 }, { x: -2.5, y: 2.1, z: -1.8 }, { x: -2.0, y: 2.1, z: -1.8 },
-            { x: -3.0, y: 2.1, z: -1.5 }, { x: -2.5, y: 2.1, z: -1.5 }, { x: -2.0, y: 2.1, z: -1.5 },
-            { x: -3.0, y: 2.1, z: -1.2 }, { x: -2.5, y: 2.1, z: -1.2 }, { x: -2.0, y: 2.1, z: -1.2 },
-
-            // [2단 중간층] 2x2 형태로 4개 배치 (바닥층의 중심 위에 안착)
-            { x: -2.75, y: 2.5, z: -1.65 }, { x: -2.25, y: 2.5, z: -1.65 },
-            { x: -2.75, y: 2.5, z: -1.35 }, { x: -2.25, y: 2.5, z: -1.35 },
-
-            // [3단 꼭대기층] 정중앙에 1개
-            { x: -2.5, y: 2.9, z: -1.5 }
+            { x: -3.2, y: 2.35, z: -1.9 }, { x: -2.5, y: 2.35, z: -1.9 }, { x: -1.8, y: 2.35, z: -1.9 },
+            { x: -3.2, y: 2.35, z: -1.5 }, { x: -2.5, y: 2.35, z: -1.5 }, { x: -1.8, y: 2.35, z: -1.5 },
+            { x: -3.2, y: 2.35, z: -1.1 }, { x: -2.5, y: 2.35, z: -1.1 }, { x: -1.8, y: 2.35, z: -1.1 },
+            { x: -2.85, y: 2.85, z: -1.7 }, { x: -2.15, y: 2.85, z: -1.7 },
+            { x: -2.85, y: 2.85, z: -1.3 }, { x: -2.15, y: 2.85, z: -1.3 },
+            { x: -2.5, y: 3.35, z: -1.5 }
         ];
 
         pyramidPositions.forEach((pos) => {
@@ -307,11 +301,11 @@
             scene.add(cup);
         });
 
-        // 미니 탁상용 배너
+        // 💡 미니 탁상용 배너 (위치를 왼쪽으로 살짝 이동)
         const standingBannerGroup = new THREE.Group();
-        standingBannerGroup.position.set(3.0, 2.275, -1.0); 
+        standingBannerGroup.position.set(2.4, 2.275, -1.0); // x좌표를 3.0에서 2.4로 왼쪽으로 이동
         standingBannerGroup.rotation.y = -Math.PI / 8; 
-        standingBannerGroup.scale.set(0.6, 0.6, 0.6);
+        standingBannerGroup.scale.set(0.7, 0.7, 0.7);
 
         const sbGeo = new THREE.PlaneGeometry(1.4, 3.2);
         const sbMesh = new THREE.Mesh(sbGeo, standingBannerMaterial);
