@@ -283,13 +283,21 @@
         scene.add(counterGroup);
 
         // 💡 컵홀더 재질 순서 수정: [옆면(이미지), 윗면(단색), 아랫면(단색)] 순서 적용
-        const cupHolderGeo = new THREE.CylinderGeometry(0.2, 0.14, 0.4, 16);
+        const cupHolderGeo = new THREE.CylinderGeometry(0.25, 0.18, 0.5, 16);
         const cupMaterials = [cupBodyMaterial, cupCapMaterial, cupCapMaterial];
 
         const pyramidPositions = [
-            { x: -2.5, y: 2.5, z: -1.5 }, { x: -2.0, y: 2.5, z: -1.5 }, { x: -1.5, y: 2.5, z: -1.5 },
-            { x: -2.25, y: 2.9, z: -1.5 }, { x: -1.75, y: 2.9, z: -1.5 },
-            { x: -2.0, y: 3.3, z: -1.5 }
+            // [1단 바닥층] 앞뒤 3x3 격자 형태로 9개 배치
+            { x: -3.0, y: 2.1, z: -1.8 }, { x: -2.5, y: 2.1, z: -1.8 }, { x: -2.0, y: 2.1, z: -1.8 },
+            { x: -3.0, y: 2.1, z: -1.5 }, { x: -2.5, y: 2.1, z: -1.5 }, { x: -2.0, y: 2.1, z: -1.5 },
+            { x: -3.0, y: 2.1, z: -1.2 }, { x: -2.5, y: 2.1, z: -1.2 }, { x: -2.0, y: 2.1, z: -1.2 },
+
+            // [2단 중간층] 2x2 형태로 4개 배치 (바닥층의 중심 위에 안착)
+            { x: -2.75, y: 2.5, z: -1.65 }, { x: -2.25, y: 2.5, z: -1.65 },
+            { x: -2.75, y: 2.5, z: -1.35 }, { x: -2.25, y: 2.5, z: -1.35 },
+
+            // [3단 꼭대기층] 정중앙에 1개
+            { x: -2.5, y: 2.9, z: -1.5 }
         ];
 
         pyramidPositions.forEach((pos) => {
@@ -303,7 +311,7 @@
         const standingBannerGroup = new THREE.Group();
         standingBannerGroup.position.set(3.0, 2.275, -1.0); 
         standingBannerGroup.rotation.y = -Math.PI / 8; 
-        standingBannerGroup.scale.set(0.5, 0.5, 0.5);
+        standingBannerGroup.scale.set(0.6, 0.6, 0.6);
 
         const sbGeo = new THREE.PlaneGeometry(1.4, 3.2);
         const sbMesh = new THREE.Mesh(sbGeo, standingBannerMaterial);
