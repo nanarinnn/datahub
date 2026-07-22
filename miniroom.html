@@ -165,7 +165,7 @@
                     
                     texture.center.set(0.5, 0.5);
                     texture.repeat.set(1, 1);
-                    texture.offset.x = 0.0; // 정면 위치
+                    texture.offset.x = 0.5; // 정면 위치
 
                     cupBodyMaterial.map = texture;
                     cupBodyMaterial.needsUpdate = true;
@@ -303,7 +303,7 @@
         const standingBannerGroup = new THREE.Group();
         standingBannerGroup.position.set(3.0, 2.275, -1.0); 
         standingBannerGroup.rotation.y = -Math.PI / 8; 
-        standingBannerGroup.scale.set(0.35, 0.35, 0.35);
+        standingBannerGroup.scale.set(0.5, 0.5, 0.5);
 
         const sbGeo = new THREE.PlaneGeometry(1.4, 3.2);
         const sbMesh = new THREE.Mesh(sbGeo, standingBannerMaterial);
