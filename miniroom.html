@@ -76,7 +76,6 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 
     <script>
-        // 🎨 디자인 설정
         let CONFIG = {
             wallColor: '#e8e0f0',
             floorColor: '#d8cce5',
@@ -86,24 +85,21 @@
             chairColor: '#d1a3d1',
             cupHolderColor: '#a855f7',
             
-            // 기존 이미지
             bannerUrl: './birthday/banner.png', 
             frameUrl: './birthday/birthday_2.png',
             horizontalFrameUrl: './birthday/birthday_1.png', 
             cupUrl: './birthday/cupholder.png',
             standingBannerUrl: './birthday/banner_stand.png',
             
-            // 신규 집기 및 포토월 이미지 
             counterBannerUrl: './birthday/plancard.png', 
-            tablePropUrl: './birthday/table_prop.png',         
-            signboardUrl: './birthday/signboard.png',          
+            tablePropUrl: './birthday/acr.png',         
+            signboardUrl: './birthday/front.png',          
             
-            // 왼쪽 벽면 6분할 갤러리 이미지
             photo1Url: './birthday/horizon.jpg', 
-            photo2Url: './birthday/nai.jpg',
-            photo3Url: './birthday/study.jpg',
+            photo2Url: './birthday/study.jpg',
+            photo3Url: './birthday/hazu.jpg',
             photo4Url: './birthday/kirakira.jpg',
-            photo5Url: './birthday/hazu.jpg',
+            photo5Url: './birthday/nai.jpg',
             photo6Url: './birthday/lavu.jpg'
         };
 
@@ -133,7 +129,6 @@
 
         const textureLoader = new THREE.TextureLoader();
 
-        // 텍스처 로드 헬퍼 함수
         function loadTex(url, material, name) {
             textureLoader.load(url, 
                 (texture) => { material.map = texture; material.needsUpdate = true; },
@@ -141,7 +136,6 @@
             );
         }
 
-        // 기본 재질
         let floorMaterial = new THREE.MeshStandardMaterial({ roughness: 0.8 });
         let wallMaterial = new THREE.MeshStandardMaterial({ roughness: 0.9 });
         let counterMaterial = new THREE.MeshStandardMaterial({ roughness: 0.6, metalness: 0.1 });
@@ -153,7 +147,6 @@
         let cupBodyMaterial = new THREE.MeshStandardMaterial({ roughness: 0.4 });
         let cupCapMaterial = new THREE.MeshStandardMaterial({ color: CONFIG.cupHolderColor, roughness: 0.4 });
 
-        // 이미지 재질 모음
         let bannerMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
         let frameMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
         let horizontalFrameMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
@@ -163,9 +156,9 @@
         let tablePropMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
         let signboardMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
 
-        // 🌟 [신규] 갤러리 그룹 선언 (위치는 고정)
+        // 🌟 [수정] 갤러리 그룹 위치를 왼쪽으로 더 밀어내어 가로 액자와 간격 확보 (Z값 2.4로 이동)
         const photoGroup = new THREE.Group();
-        photoGroup.position.set(-6.85, 3.5, 4.25); 
+        photoGroup.position.set(-6.85, 3.5, 3.9); 
         photoGroup.rotation.y = Math.PI / 2;
         scene.add(photoGroup);
 
@@ -187,7 +180,6 @@
             loadTex(CONFIG.tablePropUrl, tablePropMat, '테이블소품');
             loadTex(CONFIG.signboardUrl, signboardMat, '입간판');
 
-            // 컵홀더 매핑
             textureLoader.load(CONFIG.cupUrl, 
                 (texture) => {
                     texture.wrapS = THREE.RepeatWrapping;
@@ -200,12 +192,10 @@
                 }
             );
 
-            // 🌟 [핵심] 이미지 원본 비율에 맞게 3D 모델(Plane) 크기를 자동 계산하는 갤러리 생성기
             buildDynamicGallery();
         }
 
         function buildDynamicGallery() {
-            // 기존 갤러리 초기화 (중복 렌더링 방지)
             while(photoGroup.children.length > 0){ 
                 photoGroup.remove(photoGroup.children[0]); 
             }
@@ -215,54 +205,47 @@
                 CONFIG.photo4Url, CONFIG.photo5Url, CONFIG.photo6Url
             ];
 
-            // 6개 이미지를 비동기로 모두 불러온 후 레이아웃 계산 시작
             Promise.all(photoUrls.map(url => {
                 return new Promise((resolve) => {
                     textureLoader.load(url, (texture) => resolve(texture), undefined, () => resolve(null));
                 });
             })).then(textures => {
-                const targetHeight = 1.6; // 사진들의 일관된 높이 고정 (단일 줄 기준)
-                const gap = 0.15;         // 사진 사이 간격
+                const targetHeight = 1.2; 
+                const gap = 0.12;         
 
-                // 줄(row) 배치 함수
                 function createRow(rowTextures, yPos) {
                     let meshes = [];
                     let totalWidth = 0;
 
                     rowTextures.forEach(tex => {
-                        let width = targetHeight; // 기본 정사각형 비율 (이미지 로드 실패 시)
-                        let mat = new THREE.MeshBasicMaterial({ color: 0x4a3a5c }); // 기본 배경색
+                        let width = targetHeight; 
+                        // 🌟 [수정] 이미지 없을 때 나오는 샘플 박스 색상을 부드럽고 가벼운 톤으로 변경
+                        let mat = new THREE.MeshBasicMaterial({ color: 0x3b2d54 }); 
 
                         if (tex) {
-                            // 원본 이미지의 가로/세로 비율 계산
                             const aspect = tex.image.width / tex.image.height;
-                            width = targetHeight * aspect; // 계산된 비율에 맞춰 가로 너비 확장/축소
+                            width = targetHeight * aspect; 
                             mat = new THREE.MeshBasicMaterial({ map: tex });
                         }
 
                         const geo = new THREE.PlaneGeometry(width, targetHeight);
                         const mesh = new THREE.Mesh(geo, mat);
                         meshes.push({ mesh, width });
-                        totalWidth += width; // 그룹의 전체 폭 합산
+                        totalWidth += width; 
                     });
 
-                    // 전체 폭 계산 (사진 너비 합산 + 사진 사이 간격 합산)
                     totalWidth += gap * (meshes.length - 1);
-                    
-                    // 시작점 X좌표 (전체 폭의 절반만큼 왼쪽으로 이동하여 자동 가운데 정렬)
                     let startX = -totalWidth / 2; 
 
                     meshes.forEach(item => {
                         item.mesh.position.set(startX + item.width / 2, yPos, 0.01);
                         photoGroup.add(item.mesh);
-                        startX += item.width + gap; // 다음 사진 위치로 이동
+                        startX += item.width + gap; 
                     });
                 }
 
-                // 윗줄 (0, 1, 2번 인덱스) 생성
-                createRow(textures.slice(0, 3), 0.9);
-                // 아랫줄 (3, 4, 5번 인덱스) 생성
-                createRow(textures.slice(3, 6), -0.9);
+                createRow(textures.slice(0, 3), 0.7);
+                createRow(textures.slice(3, 6), -0.7);
             });
         }
 
@@ -301,14 +284,14 @@
         // 메인 배너
         const bannerFrameMat = new THREE.MeshStandardMaterial({ color: 0x2a1b3d, roughness: 0.8 });
         
-        const bannerGeo = new THREE.PlaneGeometry(5.5, 2.2);
+        const bannerGeo = new THREE.PlaneGeometry(7.0, 2.8);
         const banner = new THREE.Mesh(bannerGeo, bannerMaterial);
-        banner.position.set(0, 4.5, -6.85); 
+        banner.position.set(0.0, 4.2, -6.85); 
         scene.add(banner);
 
-        const bannerFrameGeo = new THREE.BoxGeometry(5.7, 2.4, 0.05);
+        const bannerFrameGeo = new THREE.BoxGeometry(7.2, 3.0, 0.05);
         const bannerFrame = new THREE.Mesh(bannerFrameGeo, bannerFrameMat);
-        bannerFrame.position.set(0, 4.5, -6.89);
+        bannerFrame.position.set(0, 4.2, -6.89);
         scene.add(bannerFrame);
 
         // 세로 액자
@@ -386,13 +369,13 @@
         counterGroup.add(counterSideTop);
         scene.add(counterGroup);
 
-        // 카운터 밑부분 플랜카드 폭 꽉 차게 
+        // 카운터 플랜카드
         const counterBannerGeo = new THREE.PlaneGeometry(8.4, 2.0);
         const counterBanner = new THREE.Mesh(counterBannerGeo, counterBannerMat);
         counterBanner.position.set(0, 1.1, -0.39); 
         scene.add(counterBanner);
 
-        // 입간판 (A형)
+        // 입간판
         const signboardGroup = new THREE.Group();
         signboardGroup.position.set(2.5, 0, 1.5);
         signboardGroup.rotation.y = -Math.PI / 6;
@@ -476,7 +459,6 @@
         tableGroup.add(tableBase);
         scene.add(tableGroup);
 
-        // 테이블 위 소품
         const tablePropGeo = new THREE.PlaneGeometry(0.4, 0.6);
         const tableProp = new THREE.Mesh(tablePropGeo, tablePropMat);
         tableProp.position.set(0, 1.95, 4.5); 
@@ -525,10 +507,8 @@
         createChair(-2.8, 4.5, Math.PI / 2); 
         createChair(2.8, 4.5, -Math.PI / 2); 
 
-        // 모든 재질 업데이트 
         updateMaterials();
 
-        // 반응형 및 애니메이션
         window.addEventListener('resize', onWindowResize, false);
         function onWindowResize() {
             camera.aspect = container.clientWidth / container.clientHeight;
