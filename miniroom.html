@@ -75,7 +75,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 
-    <script> 
+    <script>
         let CONFIG = {
             wallColor: '#e8e0f0',
             floorColor: '#d8cce5',
@@ -95,12 +95,11 @@
             tablePropUrl: './birthday/acr.png',         
             signboardUrl: './birthday/front.png',          
             
+            // 🌟 4장만 사용하도록 1~4번 사진 설정
             photo1Url: './birthday/vertial.jpg', 
             photo2Url: './birthday/study.jpg',
             photo3Url: './birthday/hazu.jpg',
-            photo4Url: './birthday/kirakira.jpg',
-            photo5Url: './birthday/nai.jpg',
-            photo6Url: './birthday/lavu.jpg'
+            photo4Url: './birthday/kirakira.jpg'
         };
 
         const container = document.getElementById('canvas-container');
@@ -194,14 +193,15 @@
             buildDynamicGallery();
         }
 
+        // 🌟 4장(2열 2행) 동적 배치 함수로 수정
         function buildDynamicGallery() {
             while(photoGroup.children.length > 0){ 
                 photoGroup.remove(photoGroup.children[0]); 
             }
 
             const photoUrls = [
-                CONFIG.photo1Url, CONFIG.photo2Url, CONFIG.photo3Url, 
-                CONFIG.photo4Url, CONFIG.photo5Url, CONFIG.photo6Url
+                CONFIG.photo1Url, CONFIG.photo2Url, 
+                CONFIG.photo3Url, CONFIG.photo4Url
             ];
 
             Promise.all(photoUrls.map(url => {
@@ -242,8 +242,9 @@
                     });
                 }
 
-                createRow(textures.slice(0, 3), 0.7);
-                createRow(textures.slice(3, 6), -0.7);
+                // 2장씩 위/아래 2열로 배치 (총 4장)
+                createRow(textures.slice(0, 2), 0.7);
+                createRow(textures.slice(2, 4), -0.7);
             });
         }
 
