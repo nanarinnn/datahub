@@ -76,6 +76,7 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 
     <script>
+        // 🎨 디자인 설정
         let CONFIG = {
             wallColor: '#e8e0f0',
             floorColor: '#d8cce5',
@@ -85,11 +86,25 @@
             chairColor: '#d1a3d1',
             cupHolderColor: '#a855f7',
             
+            // 기존 이미지
             bannerUrl: './birthday/banner.png', 
             frameUrl: './birthday/birthday_2.png',
             horizontalFrameUrl: './birthday/birthday_1.png', 
             cupUrl: './birthday/cupholder.png',
-            standingBannerUrl: './birthday/banner_stand.png' 
+            standingBannerUrl: './birthday/banner_stand.png',
+            
+            // 신규 집기 및 포토월 이미지 
+            counterBannerUrl: './birthday/plancard.png', 
+            tablePropUrl: './birthday/table_prop.png',         
+            signboardUrl: './birthday/signboard.png',          
+            
+            // 왼쪽 벽면 6분할 갤러리 이미지
+            photo1Url: './birthday/horizon.jpg', 
+            photo2Url: './birthday/nai.jpg',
+            photo3Url: './birthday/study.jpg',
+            photo4Url: './birthday/kirakira.jpg',
+            photo5Url: './birthday/hazu.jpg',
+            photo6Url: './birthday/lavu.jpg'
         };
 
         const container = document.getElementById('canvas-container');
@@ -118,20 +133,41 @@
 
         const textureLoader = new THREE.TextureLoader();
 
+        // 텍스처 로드 헬퍼 함수
+        function loadTex(url, material, name) {
+            textureLoader.load(url, 
+                (texture) => { material.map = texture; material.needsUpdate = true; },
+                undefined, (err) => console.log(`${name} 대기 중`)
+            );
+        }
+
+        // 기본 재질
         let floorMaterial = new THREE.MeshStandardMaterial({ roughness: 0.8 });
         let wallMaterial = new THREE.MeshStandardMaterial({ roughness: 0.9 });
         let counterMaterial = new THREE.MeshStandardMaterial({ roughness: 0.6, metalness: 0.1 });
         let counterTopMat = new THREE.MeshStandardMaterial({ color: CONFIG.counterTopColor, roughness: 0.4 });
         let tableMaterial = new THREE.MeshStandardMaterial({ roughness: 0.4 });
         let chairMaterial = new THREE.MeshStandardMaterial({ roughness: 0.5 });
+        let metalMat = new THREE.MeshStandardMaterial({ color: 0xdddddd, metalness: 0.9, roughness: 0.1 });
         
         let cupBodyMaterial = new THREE.MeshStandardMaterial({ roughness: 0.4 });
         let cupCapMaterial = new THREE.MeshStandardMaterial({ color: CONFIG.cupHolderColor, roughness: 0.4 });
 
+        // 이미지 재질 모음
         let bannerMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
         let frameMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
         let horizontalFrameMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
         let standingBannerMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+        
+        let counterBannerMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+        let tablePropMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+        let signboardMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+
+        // 🌟 [신규] 갤러리 그룹 선언 (위치는 고정)
+        const photoGroup = new THREE.Group();
+        photoGroup.position.set(-6.85, 3.5, 4.25); 
+        photoGroup.rotation.y = Math.PI / 2;
+        scene.add(photoGroup);
 
         function updateMaterials() {
             floorMaterial.color.set(CONFIG.floorColor);
@@ -142,61 +178,108 @@
             chairMaterial.color.set(CONFIG.chairColor);
             cupCapMaterial.color.set(CONFIG.cupHolderColor);
 
-            textureLoader.load(CONFIG.bannerUrl, 
-                (texture) => { bannerMaterial.map = texture; bannerMaterial.needsUpdate = true; },
-                undefined, (err) => console.log("배너 대기 중")
-            );
+            loadTex(CONFIG.bannerUrl, bannerMaterial, '메인배너');
+            loadTex(CONFIG.frameUrl, frameMaterial, '세로액자');
+            loadTex(CONFIG.horizontalFrameUrl, horizontalFrameMaterial, '가로액자');
+            loadTex(CONFIG.standingBannerUrl, standingBannerMaterial, '스탠딩배너');
+            
+            loadTex(CONFIG.counterBannerUrl, counterBannerMat, '카운터플랜카드');
+            loadTex(CONFIG.tablePropUrl, tablePropMat, '테이블소품');
+            loadTex(CONFIG.signboardUrl, signboardMat, '입간판');
 
-            textureLoader.load(CONFIG.frameUrl, 
-                (texture) => { frameMaterial.map = texture; frameMaterial.needsUpdate = true; },
-                undefined, (err) => console.log("세로 액자 대기 중")
-            );
-
-            textureLoader.load(CONFIG.horizontalFrameUrl, 
-                (texture) => { horizontalFrameMaterial.map = texture; horizontalFrameMaterial.needsUpdate = true; },
-                undefined, (err) => console.log("가로 액자 대기 중")
-            );
-
+            // 컵홀더 매핑
             textureLoader.load(CONFIG.cupUrl, 
                 (texture) => {
                     texture.wrapS = THREE.RepeatWrapping;
                     texture.wrapT = THREE.ClampToEdgeWrapping;
-                    
                     texture.center.set(0.5, 0.5);
                     texture.repeat.set(1, 1);
                     texture.offset.x = 0.5;
-
                     cupBodyMaterial.map = texture;
                     cupBodyMaterial.needsUpdate = true;
-                },
-                undefined, (err) => console.log("컵홀더 대기 중")
+                }
             );
 
-            textureLoader.load(CONFIG.standingBannerUrl, 
-                (texture) => {
-                    standingBannerMaterial.map = texture;
-                    standingBannerMaterial.needsUpdate = true;
-                },
-                undefined, (err) => console.log("스탠딩 배너 대기 중")
-            );
+            // 🌟 [핵심] 이미지 원본 비율에 맞게 3D 모델(Plane) 크기를 자동 계산하는 갤러리 생성기
+            buildDynamicGallery();
+        }
+
+        function buildDynamicGallery() {
+            // 기존 갤러리 초기화 (중복 렌더링 방지)
+            while(photoGroup.children.length > 0){ 
+                photoGroup.remove(photoGroup.children[0]); 
+            }
+
+            const photoUrls = [
+                CONFIG.photo1Url, CONFIG.photo2Url, CONFIG.photo3Url, 
+                CONFIG.photo4Url, CONFIG.photo5Url, CONFIG.photo6Url
+            ];
+
+            // 6개 이미지를 비동기로 모두 불러온 후 레이아웃 계산 시작
+            Promise.all(photoUrls.map(url => {
+                return new Promise((resolve) => {
+                    textureLoader.load(url, (texture) => resolve(texture), undefined, () => resolve(null));
+                });
+            })).then(textures => {
+                const targetHeight = 1.6; // 사진들의 일관된 높이 고정 (단일 줄 기준)
+                const gap = 0.15;         // 사진 사이 간격
+
+                // 줄(row) 배치 함수
+                function createRow(rowTextures, yPos) {
+                    let meshes = [];
+                    let totalWidth = 0;
+
+                    rowTextures.forEach(tex => {
+                        let width = targetHeight; // 기본 정사각형 비율 (이미지 로드 실패 시)
+                        let mat = new THREE.MeshBasicMaterial({ color: 0x4a3a5c }); // 기본 배경색
+
+                        if (tex) {
+                            // 원본 이미지의 가로/세로 비율 계산
+                            const aspect = tex.image.width / tex.image.height;
+                            width = targetHeight * aspect; // 계산된 비율에 맞춰 가로 너비 확장/축소
+                            mat = new THREE.MeshBasicMaterial({ map: tex });
+                        }
+
+                        const geo = new THREE.PlaneGeometry(width, targetHeight);
+                        const mesh = new THREE.Mesh(geo, mat);
+                        meshes.push({ mesh, width });
+                        totalWidth += width; // 그룹의 전체 폭 합산
+                    });
+
+                    // 전체 폭 계산 (사진 너비 합산 + 사진 사이 간격 합산)
+                    totalWidth += gap * (meshes.length - 1);
+                    
+                    // 시작점 X좌표 (전체 폭의 절반만큼 왼쪽으로 이동하여 자동 가운데 정렬)
+                    let startX = -totalWidth / 2; 
+
+                    meshes.forEach(item => {
+                        item.mesh.position.set(startX + item.width / 2, yPos, 0.01);
+                        photoGroup.add(item.mesh);
+                        startX += item.width + gap; // 다음 사진 위치로 이동
+                    });
+                }
+
+                // 윗줄 (0, 1, 2번 인덱스) 생성
+                createRow(textures.slice(0, 3), 0.9);
+                // 아랫줄 (3, 4, 5번 인덱스) 생성
+                createRow(textures.slice(3, 6), -0.9);
+            });
         }
 
         // 조명
         const ambientLight = new THREE.AmbientLight('#e9d5ff', 0.6); 
         scene.add(ambientLight);
-
         const mainLight = new THREE.DirectionalLight('#ffffff', 1.0);
         mainLight.position.set(5, 18, 10);
         mainLight.castShadow = true;
         mainLight.shadow.mapSize.width = 2048;
         mainLight.shadow.mapSize.height = 2048;
         scene.add(mainLight);
-
         const pointLight = new THREE.PointLight('#c084fc', 1.2, 12);
         pointLight.position.set(-3.5, 3.5, -2);
         scene.add(pointLight);
 
-        // 방 구조물
+        // 방 구조물 (바닥 및 벽면)
         const floorGeo = new THREE.BoxGeometry(14, 0.2, 14);
         const floor = new THREE.Mesh(floorGeo, floorMaterial);
         floor.position.y = -0.1;
@@ -215,9 +298,9 @@
         wallLeft.receiveShadow = true;
         scene.add(wallLeft);
 
-        // 벽 액자 3개
+        // 메인 배너
         const bannerFrameMat = new THREE.MeshStandardMaterial({ color: 0x2a1b3d, roughness: 0.8 });
-
+        
         const bannerGeo = new THREE.PlaneGeometry(5.5, 2.2);
         const banner = new THREE.Mesh(bannerGeo, bannerMaterial);
         banner.position.set(0, 4.5, -6.85); 
@@ -228,109 +311,114 @@
         bannerFrame.position.set(0, 4.5, -6.89);
         scene.add(bannerFrame);
 
+        // 세로 액자
         const frameGeo = new THREE.PlaneGeometry(2.4, 3.4);
         const frame = new THREE.Mesh(frameGeo, frameMaterial);
         frame.rotation.y = Math.PI / 2;
-        frame.position.set(-6.85, 3.5, -3.5); 
+        frame.position.set(-6.85, 3.5, -4.2); 
         scene.add(frame);
-
+        
         const frameBorderGeo = new THREE.BoxGeometry(0.05, 3.6, 2.6);
         const frameBorder = new THREE.Mesh(frameBorderGeo, bannerFrameMat);
-        frameBorder.position.set(-6.89, 3.5, -3.5);
+        frameBorder.position.set(-6.89, 3.5, -4.2);
         scene.add(frameBorder);
 
+        // 가로 액자
         const horizontalFrameGeo = new THREE.PlaneGeometry(4.2, 3.0);
         const horizontalFrame = new THREE.Mesh(horizontalFrameGeo, horizontalFrameMaterial);
         horizontalFrame.rotation.y = Math.PI / 2;
-        horizontalFrame.position.set(-6.85, 3.5, 1.5); 
+        horizontalFrame.position.set(-6.85, 3.5, -0.3); 
         scene.add(horizontalFrame);
 
         const horizontalBorderGeo = new THREE.BoxGeometry(0.05, 3.2, 4.4);
         const horizontalBorder = new THREE.Mesh(horizontalBorderGeo, bannerFrameMat);
-        horizontalBorder.position.set(-6.89, 3.5, 1.5);
+        horizontalBorder.position.set(-6.89, 3.5, -0.3);
         scene.add(horizontalBorder);
 
+        // 커피 머신
         const coffeeMachineGroup = new THREE.Group();
-        coffeeMachineGroup.position.set(3.0, 2.275, -4.2); // 배너 뒤쪽 빈 공간에 배치
-
-        // 1. 머신 본체 (다크 메탈 느낌)
+        coffeeMachineGroup.position.set(3.0, 2.275, -4.2); 
         const bodyGeo = new THREE.BoxGeometry(1.2, 1.4, 1.0);
         const bodyMat = new THREE.MeshStandardMaterial({ color: 0x2b2b2b, metalness: 0.8, roughness: 0.3 });
         const body = new THREE.Mesh(bodyGeo, bodyMat);
         body.position.y = 0.7;
         body.castShadow = true;
         coffeeMachineGroup.add(body);
-
-        // 2. 머신 상단 호퍼(원두통)
         const hopperGeo = new THREE.BoxGeometry(0.8, 0.4, 0.7);
         const hopperMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.5 });
         const hopper = new THREE.Mesh(hopperGeo, hopperMat);
         hopper.position.set(0, 1.6, 0);
         hopper.castShadow = true;
         coffeeMachineGroup.add(hopper);
-
-        // 3. 추출구 및 그룹헤드 (은색 메탈)
         const groupHeadGeo = new THREE.CylinderGeometry(0.15, 0.15, 0.3, 16);
-        const metalMat = new THREE.MeshStandardMaterial({ color: 0xdddddd, metalness: 0.9, roughness: 0.1 });
         const groupHead = new THREE.Mesh(groupHeadGeo, metalMat);
         groupHead.position.set(0, 0.6, 0.35);
         coffeeMachineGroup.add(groupHead);
-
-        // 4. 물받이 트레이
         const trayGeo = new THREE.BoxGeometry(1.2, 0.1, 1.1);
         const tray = new THREE.Mesh(trayGeo, metalMat);
         tray.position.set(0, 0.05, 0.05);
         coffeeMachineGroup.add(tray);
-
         scene.add(coffeeMachineGroup);
 
-        // 카운터 (L자형)
+        // 카운터 
         const counterGroup = new THREE.Group();
-
         const counterMainGeo = new THREE.BoxGeometry(6.0, 2.2, 2.2); 
         const counterMain = new THREE.Mesh(counterMainGeo, counterMaterial);
         counterMain.position.set(-1.2, 1.1, -1.5);
         counterMain.castShadow = true;
         counterMain.receiveShadow = true;
         counterGroup.add(counterMain);
-
         const counterMainTopGeo = new THREE.BoxGeometry(6.1, 0.15, 2.3);
         const counterMainTop = new THREE.Mesh(counterMainTopGeo, counterTopMat);
         counterMainTop.position.set(-1.2, 2.2, -1.5);
         counterMainTop.castShadow = true;
         counterGroup.add(counterMainTop);
-
         const counterSideGeo = new THREE.BoxGeometry(2.4, 2.2, 5.0); 
         const counterSide = new THREE.Mesh(counterSideGeo, counterMaterial);
         counterSide.position.set(3.0, 1.1, -2.9);
         counterSide.castShadow = true;
         counterSide.receiveShadow = true;
         counterGroup.add(counterSide);
-
         const counterSideTopGeo = new THREE.BoxGeometry(2.5, 0.15, 5.1);
         const counterSideTop = new THREE.Mesh(counterSideTopGeo, counterTopMat);
         counterSideTop.position.set(3.0, 2.2, -2.9);
         counterSideTop.castShadow = true;
         counterGroup.add(counterSideTop);
-
         scene.add(counterGroup);
 
-        // 💡 컵홀더 피라미드 (컵 높이가 커진 만큼 y좌표를 위로 올려서 바닥에 잘리지 않도록 조정)
+        // 카운터 밑부분 플랜카드 폭 꽉 차게 
+        const counterBannerGeo = new THREE.PlaneGeometry(8.4, 2.0);
+        const counterBanner = new THREE.Mesh(counterBannerGeo, counterBannerMat);
+        counterBanner.position.set(0, 1.1, -0.39); 
+        scene.add(counterBanner);
+
+        // 입간판 (A형)
+        const signboardGroup = new THREE.Group();
+        signboardGroup.position.set(2.5, 0, 1.5);
+        signboardGroup.rotation.y = -Math.PI / 6;
+        const signGeo = new THREE.PlaneGeometry(1.2, 1.8);
+        const signFront = new THREE.Mesh(signGeo, signboardMat);
+        signFront.position.set(0, 0.9, 0.2);
+        signFront.rotation.x = -0.15; 
+        signboardGroup.add(signFront);
+        const signBack = new THREE.Mesh(signGeo, wallMaterial); 
+        signBack.position.set(0, 0.9, -0.2);
+        signBack.rotation.x = 0.15;
+        signBack.rotation.y = Math.PI;
+        signboardGroup.add(signBack);
+        scene.add(signboardGroup);
+
+        // 컵홀더 피라미드 
         const cupHolderGeo = new THREE.CylinderGeometry(0.25, 0.18, 0.5, 16);
         const cupMaterials = [cupBodyMaterial, cupCapMaterial, cupCapMaterial];
-
         const pyramidPositions = [
-    // [1단 바닥층] x, z 간격을 좁혀서 컵들을 모아줍니다.
-    { x: -2.8, y: 2.525, z: -1.8 }, { x: -2.3, y: 2.525, z: -1.8 }, { x: -1.8, y: 2.525, z: -1.8 },
-    { x: -2.8, y: 2.525, z: -1.5 }, { x: -2.3, y: 2.525, z: -1.5 }, { x: -1.8, y: 2.525, z: -1.5 },
-    { x: -2.8, y: 2.525, z: -1.2 }, { x: -2.3, y: 2.525, z: -1.2 }, { x: -1.8, y: 2.525, z: -1.2 },
-    // [2단 중간층]
-    { x: -2.55, y: 3.025, z: -1.65 }, { x: -2.05, y: 3.025, z: -1.65 },
-    { x: -2.55, y: 3.025, z: -1.35 }, { x: -2.05, y: 3.025, z: -1.35 },
-    // [3단 꼭대기층]
-    { x: -2.3, y: 3.525, z: -1.5 }
-];
-
+            { x: -2.8, y: 2.525, z: -1.8 }, { x: -2.3, y: 2.525, z: -1.8 }, { x: -1.8, y: 2.525, z: -1.8 },
+            { x: -2.8, y: 2.525, z: -1.5 }, { x: -2.3, y: 2.525, z: -1.5 }, { x: -1.8, y: 2.525, z: -1.5 },
+            { x: -2.8, y: 2.525, z: -1.2 }, { x: -2.3, y: 2.525, z: -1.2 }, { x: -1.8, y: 2.525, z: -1.2 },
+            { x: -2.55, y: 3.025, z: -1.65 }, { x: -2.05, y: 3.025, z: -1.65 },
+            { x: -2.55, y: 3.025, z: -1.35 }, { x: -2.05, y: 3.025, z: -1.35 },
+            { x: -2.3, y: 3.525, z: -1.5 }
+        ];
         pyramidPositions.forEach((pos) => {
             const cup = new THREE.Mesh(cupHolderGeo, cupMaterials);
             cup.position.set(pos.x, pos.y, pos.z);
@@ -338,42 +426,36 @@
             scene.add(cup);
         });
 
-        // 미니 탁상용 배너 (크기 0.7 고정 및 왼쪽 이동 유지)
+        // 미니 탁상용 배너 
         const standingBannerGroup = new THREE.Group();
         standingBannerGroup.position.set(2.7, 2.275, -1.8); 
         standingBannerGroup.rotation.y = -Math.PI / 8; 
-        standingBannerGroup.scale.set(0.7, 0.7, 0.7); // 요청하신 크기 0.7 고정
-
+        standingBannerGroup.scale.set(0.7, 0.7, 0.7); 
         const sbGeo = new THREE.PlaneGeometry(1.4, 3.2);
         const sbMesh = new THREE.Mesh(sbGeo, standingBannerMaterial);
         sbMesh.position.set(0, 1.6, 0.05); 
         standingBannerGroup.add(sbMesh);
-
         const sbBackGeo = new THREE.PlaneGeometry(1.4, 3.2);
         const sbBackMat = new THREE.MeshStandardMaterial({ color: 0xeeeeee });
         const sbBack = new THREE.Mesh(sbBackGeo, sbBackMat);
         sbBack.rotation.y = Math.PI;
         sbBack.position.set(0, 1.6, 0.04);
         standingBannerGroup.add(sbBack);
-
         const poleGeo = new THREE.CylinderGeometry(0.03, 0.03, 3.6);
         const poleMat = new THREE.MeshStandardMaterial({ color: 0x999999, metalness: 0.6, roughness: 0.2 });
-
         const pole1 = new THREE.Mesh(poleGeo, poleMat);
         pole1.position.set(0, 1.6, -0.05);
         pole1.rotation.z = Math.PI / 8;
         standingBannerGroup.add(pole1);
-
         const pole2 = new THREE.Mesh(poleGeo, poleMat);
         pole2.position.set(0, 1.6, -0.05);
         pole2.rotation.z = -Math.PI / 8;
         standingBannerGroup.add(pole2);
-
         scene.add(standingBannerGroup);
 
         // 원형 책상 및 의자
         const tableGroup = new THREE.Group();
-        tableGroup.position.set(0, 0, 3.0); 
+        tableGroup.position.set(0, 0, 4.5); 
 
         const tableTopGeo = new THREE.CylinderGeometry(2.0, 2.0, 0.1, 32);
         const tableTop = new THREE.Mesh(tableTopGeo, tableMaterial);
@@ -393,6 +475,18 @@
         tableBase.position.y = 0.025;
         tableGroup.add(tableBase);
         scene.add(tableGroup);
+
+        // 테이블 위 소품
+        const tablePropGeo = new THREE.PlaneGeometry(0.4, 0.6);
+        const tableProp = new THREE.Mesh(tablePropGeo, tablePropMat);
+        tableProp.position.set(0, 1.95, 4.5); 
+        tableProp.rotation.y = -Math.PI / 4; 
+        scene.add(tableProp);
+        
+        const tablePropBase = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.05, 0.1), metalMat);
+        tablePropBase.position.set(0, 1.65, 4.5); 
+        tablePropBase.rotation.y = -Math.PI / 4;
+        scene.add(tablePropBase);
 
         function createChair(positionX, positionZ, rotateY) {
             const chair = new THREE.Group();
@@ -428,11 +522,13 @@
             scene.add(chair);
         }
 
-        createChair(-2.8, 3.0, Math.PI / 2); 
-        createChair(2.8, 3.0, -Math.PI / 2); 
+        createChair(-2.8, 4.5, Math.PI / 2); 
+        createChair(2.8, 4.5, -Math.PI / 2); 
 
+        // 모든 재질 업데이트 
         updateMaterials();
 
+        // 반응형 및 애니메이션
         window.addEventListener('resize', onWindowResize, false);
         function onWindowResize() {
             camera.aspect = container.clientWidth / container.clientHeight;
