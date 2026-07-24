@@ -95,11 +95,13 @@
             tablePropUrl: './birthday/acr.png',         
             signboardUrl: './birthday/front.png',          
             
-            // 🌟 4장만 사용하도록 1~4번 사진 설정
+            // 사진 파일 경로 (실제 파일명과 대소문자, 확장자 확인 필수!)
             photo1Url: './birthday/vertial.jpg', 
             photo2Url: './birthday/study.jpg',
             photo3Url: './birthday/hazu.jpg',
-            photo4Url: './birthday/kirakira.jpg'
+            photo4Url: './birthday/kirakira.jpg',
+            photo5Url: './birthday/nai.jpg',
+            photo6Url: './birthday/lavu.jpg'
         };
 
         const container = document.getElementById('canvas-container');
@@ -155,8 +157,9 @@
         let tablePropMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
         let signboardMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
 
+        // 갤러리 그룹 위치 (옆 액자와 충분한 간격 확보)
         const photoGroup = new THREE.Group();
-        photoGroup.position.set(-6.85, 3.5, 3.9); 
+        photoGroup.position.set(-6.85, 3.5, 4); 
         photoGroup.rotation.y = Math.PI / 2;
         scene.add(photoGroup);
 
@@ -193,7 +196,7 @@
             buildDynamicGallery();
         }
 
-        // 🌟 4장(2열 2행) 동적 배치 함수로 수정
+        // 가로 2장 × 세로 3장(총 6장) 동적 배치 함수
         function buildDynamicGallery() {
             while(photoGroup.children.length > 0){ 
                 photoGroup.remove(photoGroup.children[0]); 
@@ -201,7 +204,8 @@
 
             const photoUrls = [
                 CONFIG.photo1Url, CONFIG.photo2Url, 
-                CONFIG.photo3Url, CONFIG.photo4Url
+                CONFIG.photo3Url, CONFIG.photo4Url,
+                CONFIG.photo5Url, CONFIG.photo6Url
             ];
 
             Promise.all(photoUrls.map(url => {
@@ -209,8 +213,8 @@
                     textureLoader.load(url, (texture) => resolve(texture), undefined, () => resolve(null));
                 });
             })).then(textures => {
-                const targetHeight = 1.2; 
-                const gap = 0.12;         
+                const targetHeight = 1.0; 
+                const gap = 0.2;          
 
                 function createRow(rowTextures, yPos) {
                     let meshes = [];
@@ -218,7 +222,7 @@
 
                     rowTextures.forEach(tex => {
                         let width = targetHeight; 
-                        let mat = new THREE.MeshBasicMaterial({ color: 0x3b2d54 }); 
+                        let mat = new THREE.MeshBasicMaterial({ color: 0x4a3b65 }); 
 
                         if (tex) {
                             const aspect = tex.image.width / tex.image.height;
@@ -242,9 +246,10 @@
                     });
                 }
 
-                // 2장씩 위/아래 2열로 배치 (총 4장)
-                createRow(textures.slice(0, 2), 0.7);
-                createRow(textures.slice(2, 4), -0.7);
+                // 2장씩 총 3줄(세로 3행)로 배치
+                createRow(textures.slice(0, 2), 1.1);   // 윗줄
+                createRow(textures.slice(2, 4), 0.0);   // 가운데줄
+                createRow(textures.slice(4, 6), -1.1);  // 아랫줄
             });
         }
 
