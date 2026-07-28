@@ -1,1 +1,332 @@
 
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>방명록 | YUYEON ONLY</title>
+    <style>
+        /* 폰트 적용 */
+        @font-face {
+            font-family: 'Paperlogy';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-display: swap;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body { 
+            background: #0e0e12; 
+            color: #fff; 
+            font-family: 'Paperlogy', sans-serif; 
+            padding: 40px; 
+            margin: 0;
+        }
+        
+        .back-btn { 
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        
+        .back-btn img { 
+            height: 60px;
+            width: auto;
+            display: block;
+        }
+        
+        h1 { 
+            text-align: left; 
+            margin-top: 0;
+            margin-bottom: 8px; 
+            font-size: 1.8rem; 
+        }
+
+        .page-desc {
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+            font-weight: normal;
+        }
+
+        /* --- 전체 컨테이너 (작성 폼 + 방명록 목록) --- */
+        .container {
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        /* --- 방명록 작성 폼 --- */
+        .guestbook-form {
+            background: #1c1c2e;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 40px;
+            transition: border-color 0.3s;
+        }
+
+        .guestbook-form:focus-within {
+            border-color: #6c3bff;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .input-field, .textarea-field {
+            background: #0e0e12;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #fff;
+            font-family: 'Paperlogy', sans-serif;
+            padding: 12px 15px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-field:focus, .textarea-field:focus {
+            border-color: #6c3bff;
+        }
+
+        .input-field {
+            flex: 1;
+        }
+
+        .textarea-field {
+            width: 100%;
+            height: 100px;
+            resize: vertical;
+            margin-bottom: 15px;
+        }
+
+        .submit-btn {
+            background: #6c3bff;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 25px;
+            font-family: 'Paperlogy', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            display: block;
+            margin-left: auto;
+        }
+
+        .submit-btn:hover {
+            background: #8252ff;
+            transform: translateY(-2px);
+        }
+
+        /* --- 방명록 카드가 들어가는 그리드 --- */
+        .guestbook-list { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            gap: 20px; 
+            width: 100%;
+        }
+
+        /* --- 개별 방명록 카드 --- */
+        .guest-item { 
+            display: flex; 
+            flex-direction: column;
+            background: #1c1c2e;
+            border: 1px solid #333; 
+            border-radius: 12px; 
+            padding: 20px;
+            transition: 0.3s; 
+            position: relative;
+        }
+        
+        .guest-item:hover { 
+            transform: translateY(-5px); 
+            border-color: #6c3bff; 
+        }
+
+        .guest-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+            margin-bottom: 12px;
+        }
+
+        .guest-name {
+            font-size: 1.05rem;
+            color: #fff;
+        }
+
+        .guest-date {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: normal;
+        }
+
+        .guest-content {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.5;
+            white-space: pre-line;
+            word-break: break-all;
+            flex-grow: 1;
+            font-weight: normal;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            font-size: 0.8rem;
+            padding: 0;
+            margin-left: 8px;
+        }
+
+        .delete-btn:hover {
+            color: #ff4d4d;
+        }
+
+        .empty-msg {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            color: rgba(255, 255, 255, 0.3);
+            border: 2px dashed #333;
+            border-radius: 12px;
+            font-weight: normal;
+        }
+
+        /* 모바일 최적화 */
+        @media (max-width: 600px) {
+            body { padding: 20px; }
+            .form-row { flex-direction: column; }
+            .submit-btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-btn">
+        <img src="button/home_button.png" alt="홈으로">
+    </a>
+    
+    <h1>방명록</h1>
+    <div class="page-desc">자유롭게 한 줄 남겨주세요!</div>
+
+    <div class="container">
+        <!-- 방명록 입력 폼 -->
+        <form class="guestbook-form" id="guestForm">
+            <div class="form-row">
+                <input type="text" id="nickname" class="input-field" placeholder="닉네임" required maxlength="15">
+                <input type="password" id="password" class="input-field" placeholder="비밀번호 (삭제용)" required maxlength="20">
+            </div>
+            <textarea id="message" class="textarea-field" placeholder="남기고 싶은 이야기를 적어주세요..." required></textarea>
+            <button type="submit" class="submit-btn">남기기</button>
+        </form>
+
+        <!-- 방명록 리스트 -->
+        <div class="guestbook-list" id="guestList">
+            <!-- JavaScript로 카드가 자동 추가됩니다 -->
+        </div>
+    </div>
+
+    <script>
+        // 초기 데이터 로드
+        document.addEventListener('DOMContentLoaded', loadEntries);
+
+        const form = document.getElementById('guestForm');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const nickname = document.getElementById('nickname').value;
+            const password = document.getElementById('password').value;
+            const message = document.getElementById('message').value;
+            const date = new Date().toLocaleDateString('ko-KR', {
+                year: '2-digit',
+                month: '2-digit',
+                day: '2-digit'
+            });
+
+            const newEntry = {
+                id: Date.now(),
+                nickname,
+                password,
+                message,
+                date
+            };
+
+            const entries = getEntries();
+            entries.unshift(newEntry); // 최신글이 위로 오도록 추가
+            saveEntries(entries);
+
+            // 폼 초기화 및 새로고침
+            form.reset();
+            loadEntries();
+        });
+
+        function getEntries() {
+            const data = localStorage.getItem('yuyeon_guestbook');
+            return data ? JSON.parse(data) : [];
+        }
+
+        function saveEntries(entries) {
+            localStorage.setItem('yuyeon_guestbook', JSON.stringify(entries));
+        }
+
+        function loadEntries() {
+            const listContainer = document.getElementById('guestList');
+            const entries = getEntries();
+
+            if (entries.length === 0) {
+                listContainer.innerHTML = `<div class="empty-msg">첫 방명록을 남겨보세요!</div>`;
+                return;
+            }
+
+            listContainer.innerHTML = entries.map(entry => `
+                <div class="guest-item">
+                    <div class="guest-header">
+                        <span class="guest-name">${escapeHtml(entry.nickname)}</span>
+                        <div>
+                            <span class="guest-date">${entry.date}</span>
+                            <button class="delete-btn" onclick="deleteEntry(${entry.id})">✕</button>
+                        </div>
+                    </div>
+                    <div class="guest-content">${escapeHtml(entry.message)}</div>
+                </div>
+            `).join('');
+        }
+
+        function deleteEntry(id) {
+            const inputPw = prompt("글 작성 시 입력한 비밀번호를 입력하세요:");
+            if (!inputPw) return;
+
+            const entries = getEntries();
+            const target = entries.find(e => e.id === id);
+
+            if (target && target.password === inputPw) {
+                const updated = entries.filter(e => e.id !== id);
+                saveEntries(updated);
+                loadEntries();
+                alert("삭제되었습니다.");
+            } else {
+                alert("비밀번호가 일치하지 않습니다.");
+            }
+        }
+
+        // XSS 방지용 태그 이스케이프 함수
+        function escapeHtml(str) {
+            return str
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
