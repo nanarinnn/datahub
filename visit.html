@@ -60,11 +60,6 @@
             padding: 30px;
         }
 
-        /* Disqus 영역 다크모드 대응 */
-        #disqus_thread {
-            color-scheme: dark;
-        }
-
         /* 모바일 최적화 */
         @media (max-width: 600px) {
             body { padding: 20px; }
@@ -82,32 +77,17 @@
     <div class="page-desc">자유롭게 한 줄 남겨주세요!</div>
 
     <div class="guestbook-container">
-        <!-- Disqus 방명록 위젯이 로드되는 영역 -->
-        <div id="disqus_thread"></div>
+        <!-- Cusdis 방명록 위젯 영역 -->
+        <div id="cusdis_thread"
+          data-host="https://cusdis.com"
+          data-app-id="e36e53ca-cb06-4384-9b75-34178d456523"
+          data-page-id="yuyeon_guestbook"
+          data-page-url="visit.html"
+          data-page-title="방명록"
+          data-theme="dark"
+        ></div>
+        <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
     </div>
-
-    <script>
-        /**
-        *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-        *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-        */
-        
-        var disqus_config = function () {
-            this.page.url = window.location.href;  // 현재 페이지 URL
-            this.page.identifier = 'yuyeon_guestbook'; // 방명록 식별자 ID
-        };
-
-        (function() { // DON'T EDIT BELOW THIS LINE
-            var d = document, s = d.createElement('script');
-            
-            // ★ 중요: 본인의 Disqus Shortname으로 아래 주소를 교체해주세요.
-            s.src = 'https://YOUR_DISQUS_SHORTNAME.disqus.com/embed.js';
-            
-            s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-        })();
-    </script>
-    <noscript>방명록을 불러오려면 JavaScript를 활성화하세요. <a href="https://disqus.com/?ref_noscript">Disqus 댓글 플랫폼</a></noscript>
 
 </body>
 </html>
