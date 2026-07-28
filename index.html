@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YUYEON ONLY</title>
     <style>
+        /* 폰트 적용 */
+        @font-face {
+            font-family: 'Paperlogy';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-display: swap;
+        }
+
         body { 
             background: #0e0e12; 
             display: flex; 
@@ -12,13 +20,15 @@
             align-items: center; 
             justify-content: center; 
             height: 100vh;
+            margin: 0;
+            font-family: 'Paperlogy', sans-serif;
         }
         
         .title-img { width: 400px; margin-bottom: 30px; } 
         
         .menu { display: flex; gap: 5px; align-items: center; }
 
-        .menu a { display: flex; align-items: center; justify-content: center; }
+        .menu a { display: flex; align-items: center; justify-content: center; text-decoration: none; }
 
         .menu a img { 
             height: 60px;
@@ -28,7 +38,28 @@
             transition: transform 0.3s; 
         }
         
-        .menu a:hover img { transform: scale(1.1); }
+        /* 텍스트 형태의 방명록 버튼 전용 스타일 */
+        .text-btn {
+            height: 60px;
+            padding: 0 20px;
+            background: #1c1c2e;
+            color: #fff;
+            border: 1px solid #333;
+            border-radius: 12px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: transform 0.3s, border-color 0.3s, background-color 0.3s;
+        }
+
+        .menu a:hover img,
+        .menu a:hover .text-btn { 
+            transform: scale(1.1); 
+        }
+
+        .menu a:hover .text-btn {
+            border-color: #6c3bff;
+            background: #25253e;
+        }
         
         /* 모바일용 설정 */
         @media (max-width: 600px) {
@@ -38,12 +69,14 @@
                 flex-direction: row;     
                 flex-wrap: wrap;         
                 justify-content: center; 
-                gap: 10px;               /* 버튼 간격을 15px로 늘려 시원하게 배치 */
+                gap: 10px;               /* 버튼 간격 */
                 max-width: 320px;        
             }
             
-            /* 버튼 크기를 55px로 키워 터치 편의성 향상 */
-            .menu a img { height: 60px; } 
+            .menu a img,
+            .text-btn { 
+                height: 60px; 
+            } 
         }
     </style>
 </head>
@@ -56,7 +89,8 @@
         <a href="flip.html"><img src="indeximage/button2.png" alt="카드 뒤집기"></a>
         <a href="todaymusic.html"><img src="indeximage/button3.png" alt="오늘의 추천곡"></a>
         <a href="miniroom.html"><img src="indeximage/button4.png" alt="미니룸"></a>
-        <a href="visit.html"><alt="방명록"></a>
+        <!-- 방명록 텍스트 버튼 -->
+        <a href="visit.html" class="text-btn">방명록</a>
     </div>
 
 </body>
