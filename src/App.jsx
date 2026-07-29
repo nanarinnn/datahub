@@ -211,7 +211,7 @@ export default function App() {
                   <h3 className="text-base sm:text-lg font-bold text-white">작품/캐릭터 소개</h3>
                   <div className="bg-[#1c1c2e] p-4 sm:p-5 rounded-2xl border border-white/10 text-xs sm:text-sm text-white/80 leading-relaxed space-y-2 font-normal">
                     <p>"1926년 8월 4일 새벽 4시, 관부연락선 도쿠주마루.<br/>한 여자와 남자가 바다로 몸을 던진다." (공연 中)</p>
-                    <p>천재 극작가 김우진, 조선의 소프라노 윤심덕, 그리고 그 둘을 잇는 사내.<br/>김우진 and 사내는 한 편의 희곡을 쓴다. 희곡의 결말은 어땠을까?</p>
+                    <p>천재 극작가 김우진, 조선의 소프라노 윤심덕, 그리고 그 둘을 잇는 사내.<br/>김우진과 사내는 한 편의 희곡을 쓴다. 희곡의 결말은 어땠을까?</p>
                   </div>
                 </div>
 
