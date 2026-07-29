@@ -228,7 +228,8 @@ export default function App() {
               </div>
             </div>
           </div>
-        )}        {/* WORK DETAIL: 프리스트 */}
+        )}
+        {/* WORK DETAIL: 프리스트 */}
         {activeTab === 'work' && selectedWork === 'priest' && (
           <div className="w-full space-y-6 animate-fade-in">
             <button 
@@ -239,9 +240,20 @@ export default function App() {
             </button>
 
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8">
+              {/* 왼쪽 영역: 포스터 및 오디오 */}
               <div className="md:col-span-5 space-y-4">
                 <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
-                  <img src="/workimage/priest.png" alt="프리스트" className="w-full" />
+                  <img src="/workimage/priest.png" alt="프리스트 포스터" className="w-full" />
+                </div>
+                
+                <h3>공연 영상</h3>
+                <div className="bg-[#1c1c2e] p-3 rounded-2xl border border-white/10">
+                  <iframe 
+                    className="w-full aspect-video rounded-xl" 
+                    src="https://platform.twitter.com/embed/Tweet.html?id=1249506650525970432&theme=dark" 
+                    title="프리스트 트위터 영상" 
+                    allowFullScreen 
+                  />
                 </div>
 
                 <h3 className="text-base sm:text-lg font-bold text-white">넘버를 들어보자!</h3>
@@ -259,42 +271,34 @@ export default function App() {
                     <audio controls className="h-8 w-full sm:w-44 filter invert"><source src="/audio/14 파문의 악몽(REP.).mp3" /></audio>
                   </div>
                 </div>
-
-                <h3 className="text-base sm:text-lg font-bold text-white">당시의 실제 공연 영상</h3>
-                <div className="bg-[#1c1c2e] p-3 sm:p-4 rounded-2xl border border-white/10 space-y-3">
-                  <div className="grid grid-cols-1 gap-3">
-                    <iframe className="w-full aspect-video rounded-xl" src="https://www.youtube.com/embed/8AyD-_tuzW0" title="video1" allowFullScreen />
-                    <iframe className="w-full aspect-video rounded-xl" src="https://www.youtube.com/embed/wd_HKnjSvhY" title="video2" allowFullScreen />
-                  </div>
-                  <p className="text-center text-xs text-white/50 mt-1">* 일부 영상은 외부 링크입니다;</p>
-                </div>
               </div>
 
+              {/* 오른쪽 영역: 텍스트 설명 및 유튜브 영상 */}
               <div className="md:col-span-7 space-y-6">
-                <h1 className="text-xl sm:text-3xl font-bold text-white leading-snug">"신의 심판을 받아라!"</h1>
+                <h1 className="text-xl sm:text-3xl font-bold text-white leading-snug">"신의 선택을 받은 자"</h1>
                 
                 <div className="space-y-3">
                   <h3 className="text-base sm:text-lg font-bold text-white">캐릭터 목록</h3>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                    <div className="bg-[#1c1c2e] p-2 rounded-xl text-center border border-white/5">
-                      <img src="/workimage/marco.png" className="w-full aspect-square object-cover rounded-lg mb-1" alt="마르코" />
-                      <div className="font-bold text-xs">마르코</div>
-                      <div className="text-[10px] text-white/50">(배역명: 김유연)</div>
+                    <div className="bg-[#1c1c2e] p-2.5 sm:p-3 rounded-xl text-center border border-white/5">
+                      <img src="/workimage/marco.png" className="w-full aspect-square object-cover rounded-lg mb-2" alt="마르코" />
+                      <div className="font-bold text-xs sm:text-sm">마르코</div>
+                      <div className="text-[10px] sm:text-xs text-white/50">(배우: 기세중)</div>
                     </div>
-                    <div className="bg-[#1c1c2e] p-2 rounded-xl text-center border border-white/5">
-                      <img src="/workimage/yohan.png" className="w-full aspect-square object-cover rounded-lg mb-1" alt="요한" />
-                      <div className="font-bold text-xs">요한</div>
-                      <div className="text-[10px] text-white/50">(배역명: 박세환)</div>
+                    <div className="bg-[#1c1c2e] p-2.5 sm:p-3 rounded-xl text-center border border-white/5">
+                      <img src="/workimage/yohan.png" className="w-full aspect-square object-cover rounded-lg mb-2" alt="요한" />
+                      <div className="font-bold text-xs sm:text-sm">요한</div>
+                      <div className="text-[10px] sm:text-xs text-white/50">(배우: 백기범)</div>
                     </div>
-                    <div className="bg-[#1c1c2e] p-2 rounded-xl text-center border border-white/5">
-                      <img src="/workimage/yujeong.png" className="w-full aspect-square object-cover rounded-lg mb-1" alt="유정" />
-                      <div className="font-bold text-xs">유정</div>
-                      <div className="text-[10px] text-white/50">(배역명: 정유정)</div>
+                    <div className="bg-[#1c1c2e] p-2.5 sm:p-3 rounded-xl text-center border border-white/5">
+                      <img src="/workimage/yujeong.png" className="w-full aspect-square object-cover rounded-lg mb-2" alt="서유정" />
+                      <div className="font-bold text-xs sm:text-sm">서유정</div>
+                      <div className="text-[10px] sm:text-xs text-white/50">(배우: 이지숙)</div>
                     </div>
-                    <div className="bg-[#1c1c2e] p-2 rounded-xl text-center border border-white/5">
-                      <img src="/workimage/bar.png" className="w-full aspect-square object-cover rounded-lg mb-1" alt="바르톨로" />
-                      <div className="font-bold text-xs">바르톨로</div>
-                      <div className="text-[10px] text-white/50">(배역명: 신동욱)</div>
+                    <div className="bg-[#1c1c2e] p-2.5 sm:p-3 rounded-xl text-center border border-white/5">
+                      <img src="/workimage/bar.png" className="w-full aspect-square object-cover rounded-lg mb-2" alt="바텐더" />
+                      <div className="font-bold text-xs sm:text-sm">바텐더</div>
+                      <div className="text-[10px] sm:text-xs text-white/50">(배우: 최호승)</div>
                     </div>
                   </div>
                 </div>
@@ -302,33 +306,46 @@ export default function App() {
                 <div className="space-y-3">
                   <h3 className="text-base sm:text-lg font-bold text-white">작품 소개</h3>
                   <div className="bg-[#1c1c2e] p-4 sm:p-5 rounded-2xl border border-white/10 text-xs sm:text-sm text-white/80 leading-relaxed font-normal">
-                    "악령에게 점령된 마르코를 구해야 한다!"(공연 안내)<br/>신부인 요한과 마르코의 구마의식을 그려내고 있습니다. 구마의식과 마르코라는 캐릭터 사이 이야기가 굉장히 몰입감 있습니다.
+                    "신부님, 악마는 실제로 존재하나요?"(공연 中)<br/>
+                    신자의 질문에 마르코는 과거로 돌아가 떠올린다. 과거의 마르코에게는 어떤 일이 있었을까?
                   </div>
                 </div>
 
                 <div className="space-y-3">
                   <h3 className="text-base sm:text-lg font-bold text-white">작품에 대한 대략적인 이야기</h3>
                   <div className="bg-[#1c1c2e] p-4 sm:p-5 rounded-2xl border border-white/10 text-xs sm:text-sm text-white/80 leading-relaxed space-y-3 font-normal">
-                    <p>이 작품은 요한의 사제로서의 삶과 마르코의 구마의식이 교차하며 전개됩니다. 각 배역명의 연기력이 작품의 몰입감을 높이고 있어요.</p>
-                    <p>현재 유정은 마르코와 신부 요한 사이에서 갈등하며, 유정이 현실적인 구마의식을 그려내며 현실적으로 유정이 성장합니다.</p>
-                    <p>마르코의 변화와 구마의식 과정이 인상적이며, 요한과의 관계에서 보여주는 갈등이 작품의 핵심입니다. 현실적이고 깊이 있는 이야기를 담고 있습니다.</p>
-                    <p>현실적으로 조금씩 변화하며 요한의 신앙과의 갈등이 심화되는 과정이 매우 인상적입니다. 마르코의 내면의 변화와 요한의 신앙 사이의 균형이 이 작품의 매력입니다.</p>
-                    <p>구마의식의 과정 속에서 마르코가 어떻게 변화하는지, 요한이 신앙과 현실 사이에서 어떤 선택을 하는지가 이 작품의 핵심적인 감동 포인트입니다.</p>
-                    <p>현실적으로 이야기를 풀어가면서도 뮤지컬 특유의 음악적 표현이 돋보이는 작품으로, 각 넘버마다 캐릭터의 감정이 깊이 있게 전달됩니다.</p>
-                    <p>특히 바르톨로와 요한의 관계, 유정과의 삼각 구도가 작품의 긴장감을 높이며, 마르코의 구마의식이 클라이맥스를 향해 치달을수록 관객의 몰입도가 극대화됩니다.</p>
+                    <p>이 작품은 진정한 오컬트라고 볼 수 있을 것 같아.<br/>난 배우님 때문에 보게 되었지만, 어쩌다 보니 다른 배우님에 치이게 되는 계기가 되었던 작품이기도 해.</p>
+                    <p>극의 첫 시작은 마르코가 신자에게 질문을 받으며 시작해. 그리고는 과거를 회상하는 듯이 극이 시작되지.</p>
+                    <p>마르코는 원래 사제였지만, 과거 구마예식에서 문제를 일으켰다는 이유로 파문 돼. 그리고는 의대생인 요한과 함께 야매(?) 구마예식을 하러 다니지. <br/>그 그렇게 다니던 중, 마르코는 기이한 기운을 느껴. 평소에 경험하던 악마들과는 다른 느낌.</p>
+                    <p>그렇게 하루하루 보내던 나날 중, 요한의 어머니(무당)가 정신병원에서 하나의 의뢰를 받아. 요한은 어머니를 따라 정신병원으로 가게 되고, 마르코는 그걸 말리려고 했지만, 결국 말리지는 못해.</p>
+                    <p>정신병원에 있던 환자 "서유정"은 이미 악마에게 빙의된 채, 요한을 끌어들이고, 결국 마르코도 정신병원으로 오게 만들어. 그리고는 마르코의 과거를 보여주며, 마르코를 고통으로 끌어들이지. 마르코가 과거에 파문되었던 그 날을 보여주며 말이야.</p>
+                    <p>마르코는 어릴 때부터 성당에서 지냈는데, 그 성당의 신부님이 구마예식을 하면서 죽고, 그 옆에 있던 가브리엘라 수녀 또한 죽어. 수녀의 죽음에는 수녀가 원했다는 정당한 이유가 있었지만, 마르코는 여전히, 그녀의 죽음이 자신의 잘못이라고 생각하며, 그날의 기억에서 헤어나오지 못한 채 계속 묶여서 지내고 있었던 거야.</p>
+                    <p>그 기억에 또 다시 잠식되어 가던 찰나, 베드로(=바텐더)가 극적으로 나타나서는 마르코를 구하며, 결국 마르코, 베드로, 요한이 함께 구마를 성공적으로 완료하게 돼. 그 일을 계기로 마르코는 정식 사제가 되고 극은 끝나.</p>
+                    <p>여담으로는 극에서는 "666"이라는 숫자를 중요하게 여기는 듯이 나오는데, 그 숫자가 악마의 숫자라나 뭐라나..</p>
                   </div>
                 </div>
 
                 <div className="space-y-3">
                   <h3 className="text-base sm:text-lg font-bold text-white">캐릭터와 배우에 대한 나나링의 사담</h3>
                   <div className="bg-[#1c1c2e] p-4 sm:p-5 rounded-2xl border border-white/10 text-xs sm:text-sm text-white/80 leading-relaxed space-y-3 font-normal">
-                    <p>캐릭터의 매력이 대단해.. 정말 모든 것이 완벽했다. 특히 매력적으로 표현되는 배역명이 작품 속에서 빛나고 있었다. 꼭 관람해보세요. 캐릭터가 정말로 살아있는 느낌이 들어서 좋았다.</p>
-                    <p><strong>'마르코'</strong>는 정말 유정이, 바르톨로 같은 사이에서 갈등하며 성장하는 인상적인 캐릭터야. 이런 캐릭터를 연기할 수 있는 배우가 정말 대단해.</p>
-                    <p><strong>'요한'</strong>은 신앙적이고 헌신적인 모습으로 마르코와의 구마의식에서 빛나며, 요한의 갈등과 성장이 인상 깊었어. 요한은 마지막까지 자신의 신앙을 지키려 했고 1회차부터 감동이었어.</p>
-                    <p><strong>'유정'</strong>은 정말 감정 표현이 풍부하고 배역에 완벽히 몰입하여 관객에게 감동을 전달하며, 구마의식의 과정 속에서 유정이 보여주는 성장이 인상적이었어.</p>
-                    <p><strong>'바르톨로'</strong>는 감정적인 바르톨로라는 배역에 잘 어울리는 배역이었다. 이 캐릭터는 관객에게 강렬한 인상을 남겨. 배역에 완전히 몰입하여 마르코와의 대립 장면에서 빛났다.</p>
-                    <p>'유정'과 '바르톨로'는 배역명이 2명인데 이 작품 전체에서 '유정'과 '바르톨로', 현실적인 '심덕'. 세 명의 캐릭터가 각자의 매력을 발산한다. 정말.. 멋진 작품이었다. 감동해서 눈물이 났다. 이 작품은 꼭 관람하길 추천한다!</p>
-                    <p>현재 관람 후에도 "666"이라는 숫자에 반응하게 되는 인상적인.. 작품이다. 그 숫자를 보면 숫자가 이렇게 의미를 가질 수 있다는 것이 놀랍다.</p>
+                    <p>캐릭터 자체는 매력적인가.. 글쎄. 잘 모르겠어. 소재 자체는 엄청나게 매력적이라고 생각해. 대학로에서도 '구마'라는 소재를 가진 작품은 찾기 힘들었으니까.<br/>생각보다 캐릭터 하나하나가 촘촘하게 만들어져 있어.</p>
+                    <p>'마르코'는 어린 시절의 기억 속에 사로잡혀 나오지 못하지만, 결국 자신의 의지와 타인의 도움으로 자신을 옭아매고 있던 끈을 끊어내지.</p>
+                    <p>'요한'은 현실에서는 의대생이라는 타이틀을 가지고 있지만, 무당인 엄마의 영향으로, 요한도 귀신을 보며 결국 학업에도 영향을 받게 돼. (극의 마지막에는 아마.. 의사가 결국 됐던 걸로 기억하는데.) 귀신을 본다는 이유로 어릴 적부터 놀림을 받지만, 결국 마지막에는 1인분을 하며 지내게 돼.</p>
+                    <p>'서유정'은 어릴 적, 발레를 하며 다른 캐릭터에 비해 나은 생활을 보냈지만, 아버지의 죽음으로 모든 것이 망가져 결국 정신병원에 입원, 악마에게 빙의되며 결국 구마를 당하게 돼. 하지만, 그녀가 구마 되던 그 순간, 그녀의 모습은 그 어디에서도 볼 수 없는 평온한 모습이야.</p>
+                    <p>'바텐더'는 평범한 바의 바텐더처럼 밝은 모습의 캐릭터야. 이 극에서 볼 수 있는 유일한.. 밝은 캐릭터라고 생각해. 마지막 부분에서 마르코의 끈을 끊게 도와주는 인물이기도 하고.</p>
+                    <p>'서유정'과 '바텐더'역의 배우들은 1인 2역을 소화하게 돼. 작품 설명에 나온 '서유정'과 '바텐더', 그리고 '악마'. 난 이 극을 보면서 '서유정'역의 배우들을 꽤 많이 좋아했어. 정말.. 멋있다고 느꼈거든. 내가 왜 그렇게 느꼈는지는, 영상을 보면 알 수 있을지도?</p>
+                    <p>극을 보다 보면 가끔 이해가 안 될 때도 있어. 하지만, 그 부분에 대해 한번 쯤 복기하며 생각해보는 극도 나름의 즐거움이 있다고 생각해.</p>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <h3 className="text-base sm:text-lg font-bold text-white">당시의 실제 공연 영상</h3>
+                  <div className="bg-[#1c1c2e] p-3 sm:p-4 rounded-2xl border border-white/10 space-y-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <iframe className="w-full aspect-video rounded-xl" src="https://www.youtube.com/embed/8AyD-_tuzW0" title="실제 공연 영상1" allowFullScreen />
+                      <iframe className="w-full aspect-video rounded-xl" src="https://www.youtube.com/embed/wd_HKnjSvhY" title="실제 공연 영상2" allowFullScreen />
+                    </div>
+                    <p className="text-center text-xs text-white/50 mt-2">* 내 영상을 쓰게 될줄은 몰랐다;;</p>
                   </div>
                 </div>
               </div>
