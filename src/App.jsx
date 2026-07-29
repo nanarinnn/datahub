@@ -263,11 +263,20 @@ export default function App() {
                 <h3 className="text-base sm:text-lg font-bold text-white">공연 영상</h3>
                 <div className="bg-[#1c1c2e] p-3 rounded-2xl border border-white/10">
                   <iframe 
-                    className="w-full h-[320px] sm:h-[480px] rounded-xl" 
+                    className="w-full h-[280px] sm:h-[360px] rounded-xl" 
                     src="https://platform.twitter.com/embed/Tweet.html?id=1249506650525970432&theme=dark" 
                     title="프리스트 트위터 영상" 
                     allowFullScreen 
                   />
+                </div>
+
+                <h3 className="text-base sm:text-lg font-bold text-white">당시의 실제 공연 영상</h3>
+                <div className="bg-[#1c1c2e] p-3 sm:p-4 rounded-2xl border border-white/10 space-y-3">
+                  <div className="grid grid-cols-1 gap-3">
+                    <iframe className="w-full aspect-video rounded-xl" src="https://www.youtube.com/embed/8AyD-_tuzW0" title="실제 공연 영상1" allowFullScreen />
+                    <iframe className="w-full aspect-video rounded-xl" src="https://www.youtube.com/embed/wd_HKnjSvhY" title="실제 공연 영상2" allowFullScreen />
+                  </div>
+                  <p className="text-center text-xs text-white/50 mt-2">* 내 영상을 쓰게 될줄은 몰랐다;;</p>
                 </div>
               </div>
 
@@ -333,17 +342,6 @@ export default function App() {
                     <p>'바텐더'는 평범한 바의 바텐더처럼 밝은 모습의 캐릭터야. 이 극에서 볼 수 있는 유일한.. 밝은 캐릭터라고 생각해. 마지막 부분에서 마르코의 끈을 끊게 도와주는 인물이기도 하고.</p>
                     <p>'서유정'과 '바텐더'역의 배우들은 1인 2역을 소화하게 돼. 작품 설명에 나온 '서유정'과 '바텐더', 그리고 '악마'. 난 이 극을 보면서 '서유정'역의 배우들을 꽤 많이 좋아했어. 정말.. 멋있다고 느꼈거든. 내가 왜 그렇게 느꼈는지는, 영상을 보면 알 수 있을지도?</p>
                     <p>극을 보다 보면 가끔 이해가 안 될 때도 있어. 하지만, 그 부분에 대해 한번 쯤 복기하며 생각해보는 극도 나름의 즐거움이 있다고 생각해.</p>
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <h3 className="text-base sm:text-lg font-bold text-white">당시의 실제 공연 영상</h3>
-                  <div className="bg-[#1c1c2e] p-3 sm:p-4 rounded-2xl border border-white/10 space-y-3">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <iframe className="w-full aspect-video rounded-xl" src="https://www.youtube.com/embed/8AyD-_tuzW0" title="실제 공연 영상1" allowFullScreen />
-                      <iframe className="w-full aspect-video rounded-xl" src="https://www.youtube.com/embed/wd_HKnjSvhY" title="실제 공연 영상2" allowFullScreen />
-                    </div>
-                    <p className="text-center text-xs text-white/50 mt-2">* 내 영상을 쓰게 될줄은 몰랐다;;</p>
                   </div>
                 </div>
               </div>
