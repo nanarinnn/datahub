@@ -44,7 +44,7 @@ export default function App() {
   }, [activeTab]);
 
   const menuItems = [
-    { id: 'work', label: '캐릭터 추천', desc: '나나링이 좋아하는 작품/캐릭터 소개', icon: Sparkles, gradient: 'from-purple-600/30 to-indigo-600/30 border-purple-500/40 text-white' },
+    { id: 'work', label: '작품/캐릭터 추천', desc: '나나링이 좋아하는 작품/캐릭터 소개', icon: Sparkles, gradient: 'from-purple-600/30 to-indigo-600/30 border-purple-500/40 text-white' },
     { id: 'flip', label: '카드 뒤집기', desc: '특별 포토 카드 뒤집기 미니게임', icon: Gamepad2, gradient: 'from-pink-600/30 to-rose-600/30 border-pink-500/40 text-pink-300' },
     { id: 'todaymusic', label: '오늘의 추천곡', desc: '나나링의 애정하는 곡들을 풀어보아요', icon: Music, gradient: 'from-cyan-600/30 to-blue-600/30 border-cyan-500/40 text-cyan-300' },
     { id: 'miniroom', label: '미니룸 3D', desc: '입체적이고 아기자기한 3D 카페', icon: Heart, gradient: 'from-fuchsia-600/30 to-purple-600/30 border-fuchsia-500/40 text-fuchsia-300' },
@@ -94,7 +94,7 @@ export default function App() {
         {activeTab === 'work' && !selectedWork && (
           <div className="w-full space-y-6 sm:space-y-8 animate-fade-in">
             <div className="border-b border-white/10 pb-4">
-              <h2 className="text-2xl sm:text-3xl font-bold text-white">캐릭터 추천</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-white">작품/캐릭터 추천</h2>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
@@ -125,7 +125,6 @@ export default function App() {
                 <div className="p-3">
                   <span className="text-xs font-semibold text-white/70">뮤지컬</span>
                   <h3 className="text-sm font-bold text-white mt-0.5">뮤지컬 프리스트</h3>
-                  <p className="text-xs text-white/60 mt-0.5">작품과 캐릭터를 모두 만나보자!</p>
                 </div>
               </div>
 
@@ -141,7 +140,6 @@ export default function App() {
                 <div className="p-3">
                   <span className="text-xs font-semibold text-white/70">뮤지컬</span>
                   <h3 className="text-sm font-bold text-white mt-0.5">뮤지컬 마마 돈 크라이</h3>
-                  <p className="text-xs text-white/60 mt-0.5">작품과 캐릭터를 모두 만나보자!</p>
                 </div>
               </div>
 
