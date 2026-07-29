@@ -452,16 +452,11 @@ export default function App() {
                 - object-contain으로 이미지 잘림 방지 */}
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-6 w-full max-w-3xl">
               {cards.map((card) => {
-                const isHorizontalFlipped = card.isFlipped && card.orientation === 'horizontal';
-                // 가로형 카드가 뒤집혔을 때 colspan 2 처리
                 return (
                   <div
                     key={card.id}
                     onClick={() => toggleFlip(card.id)}
-                    className={`cursor-pointer perspective transition-all duration-500 ${
-                      isHorizontalFlipped ? 'col-span-2 sm:col-span-1 aspect-[8/5]' : 'aspect-[4/5]'
-                    }`}
-                    style={{ transitionProperty: 'aspect-ratio' }}
+                    className="cursor-pointer perspective aspect-[4/5]"
                   >
                     <div className={`relative w-full h-full duration-700 transform-style-3d transition-transform ${card.isFlipped ? 'rotate-y-180' : ''}`}>
                       {/* Front face – 뒷면 디자인(클릭 전 보이는 면) */}
@@ -469,8 +464,8 @@ export default function App() {
                         <img src={card.backImageUrl} alt="Back" className="w-full h-full object-contain" />
                       </div>
                       {/* Back face – 실제 카드 사진(뒤집힌 후 보이는 면) */}
-                      <div className="absolute inset-0 bg-[#1c1c2e] border-2 border-pink-500/50 rounded-xl sm:rounded-2xl overflow-hidden backface-hidden rotate-y-180 shadow-2xl flex items-center justify-center">
-                        <img src={card.frontImageUrl} alt={card.title} className="w-full h-full object-contain" />
+                      <div className="absolute inset-0 bg-[#12121a] border-2 border-pink-500/50 rounded-xl sm:rounded-2xl overflow-hidden backface-hidden rotate-y-180 shadow-2xl flex items-center justify-center p-2">
+                        <img src={card.frontImageUrl} alt={card.title} className="w-full h-full object-contain rounded-lg" />
                       </div>
                     </div>
                   </div>
