@@ -244,10 +244,10 @@ export default function App() {
                   <img src="/workimage/priest.png" alt="프리스트 포스터" className="w-full" />
                 </div>
                 
-                <h3>공연 영상</h3>
+                <h3 className="text-base sm:text-lg font-bold text-white">공연 영상</h3>
                 <div className="bg-[#1c1c2e] p-3 rounded-2xl border border-white/10">
                   <iframe 
-                    className="w-full aspect-video rounded-xl" 
+                    className="w-full h-[320px] sm:h-[480px] rounded-xl" 
                     src="https://platform.twitter.com/embed/Tweet.html?id=1249506650525970432&theme=dark" 
                     title="프리스트 트위터 영상" 
                     allowFullScreen 
