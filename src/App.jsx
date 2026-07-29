@@ -67,7 +67,7 @@ export default function App() {
                 YUYEON ONLY
               </h1>
               <p className="text-xs sm:text-sm font-light tracking-widest text-white/60 uppercase">
-                YUYEON ARCHIVE
+                WITH NANARIN
               </p>
             </div>
 
