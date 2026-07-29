@@ -244,16 +244,6 @@ export default function App() {
                   <img src="/workimage/priest.png" alt="프리스트 포스터" className="w-full" />
                 </div>
                 
-                <h3 className="text-base sm:text-lg font-bold text-white">공연 영상</h3>
-                <div className="bg-[#1c1c2e] p-3 rounded-2xl border border-white/10">
-                  <iframe 
-                    className="w-full h-[320px] sm:h-[480px] rounded-xl" 
-                    src="https://platform.twitter.com/embed/Tweet.html?id=1249506650525970432&theme=dark" 
-                    title="프리스트 트위터 영상" 
-                    allowFullScreen 
-                  />
-                </div>
-
                 <h3 className="text-base sm:text-lg font-bold text-white">넘버를 들어보자!</h3>
                 <div className="bg-[#1c1c2e] p-3 sm:p-4 rounded-2xl border border-white/10 space-y-2.5">
                   <div className="p-2.5 bg-[#0e0e12] rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
@@ -268,6 +258,16 @@ export default function App() {
                     <span className="text-xs sm:text-sm font-bold text-white">파문의 악몽</span>
                     <audio controls className="h-8 w-full sm:w-44 filter invert"><source src="/audio/14 파문의 악몽(REP.).mp3" /></audio>
                   </div>
+                </div>
+
+                <h3 className="text-base sm:text-lg font-bold text-white">공연 영상</h3>
+                <div className="bg-[#1c1c2e] p-3 rounded-2xl border border-white/10">
+                  <iframe 
+                    className="w-full h-[320px] sm:h-[480px] rounded-xl" 
+                    src="https://platform.twitter.com/embed/Tweet.html?id=1249506650525970432&theme=dark" 
+                    title="프리스트 트위터 영상" 
+                    allowFullScreen 
+                  />
                 </div>
               </div>
 
