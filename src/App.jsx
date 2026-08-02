@@ -48,7 +48,7 @@ export default function App() {
     { id: 'work', label: '작품/캐릭터 추천', desc: '나나링이 좋아하는 작품/캐릭터 소개', icon: Sparkles, cardBg: 'bg-[#1e2353]', borderColor: 'border-[#5865f2]/40 hover:border-[#5865f2]', badgeColor: 'bg-[#5865f2]', textColor: 'text-white' },
     { id: 'flip', label: '카드 뒤집기', desc: '특별 포토 카드 뒤집기 미니게임', icon: Gamepad2, cardBg: 'bg-[#1e2353]', borderColor: 'border-[#ec48bd]/40 hover:border-[#ec48bd]', badgeColor: 'bg-[#ec48bd]', textColor: 'text-[#ec48bd]' },
     { id: 'todaymusic', label: '오늘의 추천곡', desc: '나나링의 애정하는 곡들을 풀어보아요', icon: Music, cardBg: 'bg-[#1e2353]', borderColor: 'border-[#00b0f4]/40 hover:border-[#00b0f4]', badgeColor: 'bg-[#00b0f4]', textColor: 'text-[#00b0f4]' },
-    { id: 'restaurant', label: '맛집 추천', desc: '공연 관람 전후 즐기는 검증 맛집', icon: Utensils, cardBg: 'bg-[#1e2353]', borderColor: 'border-[#35ed7e]/40 hover:border-[#35ed7e]', badgeColor: 'bg-[#35ed7e]', textColor: 'text-[#35ed7e]' },
+    { id: 'restaurant', label: '나나링픽 가게', desc: '나나링이 직접 방문해 본 가게들', icon: Utensils, cardBg: 'bg-[#1e2353]', borderColor: 'border-[#35ed7e]/40 hover:border-[#35ed7e]', badgeColor: 'bg-[#35ed7e]', textColor: 'text-[#35ed7e]' },
     { id: 'miniroom', label: '미니룸 3D', desc: '입체적이고 아기자기한 3D 카페', icon: Heart, cardBg: 'bg-[#1e2353]', borderColor: 'border-[#ec48bd]/40 hover:border-[#ec48bd]', badgeColor: 'bg-[#ec48bd]', textColor: 'text-[#ec48bd]' },
     { id: 'visit', label: '방명록', desc: '유연에게 전하는 메세지', icon: MessageSquare, cardBg: 'bg-[#1e2353]', borderColor: 'border-[#5865f2]/40 hover:border-[#5865f2]', badgeColor: 'bg-[#5865f2]', textColor: 'text-white' },
   ];
