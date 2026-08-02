@@ -16,7 +16,7 @@ const RESTAURANT_LIST = [
     recommendedMenu: '모듬순대, 순대국밥, 소머리국밥',
     address: '전남 해남군 산이면 관광레저로 1673 (신창리 483-3)',
     naverMapUrl: 'https://map.naver.com/p/search/%ED%95%B4%EB%82%A8%20%EC%8B%A0%EC%B0%BD%EC%86%90%EC%88%9C%EB%8C%80%EA%B5%AD%EB%B0%A5',
-    imageUrl: 'https://images.unsplash.com/photo-1547496592-1b9d4bee6c6d?auto=format&fit=crop&w=800&q=80',
+    imageUrl: '/workimage/sundaegukbap.jpg',
     tags: ['전남 해남', '한식/국밥', '나나링픽']
   },
   {
@@ -31,7 +31,7 @@ const RESTAURANT_LIST = [
     recommendedMenu: '수제 에그타르트, 아인슈페너, 크림라떼',
     address: '전남 목포시 원산중앙로 45 (북항)',
     naverMapUrl: 'https://map.naver.com/p/search/%EB%AA%A9%ED%8F%AC%20%EB%B6%81%ED%95%AD%20%EC%97%90%EA%B7%B8%ED%83%80%EB%A5%B4%ED%8A%B8',
-    imageUrl: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80',
+    imageUrl: '/workimage/eggtart.jpg',
     tags: ['전남 목포', '카페/디저트', '나나링픽']
   }
 ];
@@ -53,21 +53,22 @@ export default function RestaurantGuide() {
     return matchesArea && matchesQuery;
   });
 
-  // Leaflet Map Initialization
+  // Initialize Leaflet Map with VWorld Official Korean Map Tiles
   useEffect(() => {
     if (!mapContainerRef.current) return;
     if (mapInstanceRef.current) return;
 
     const map = L.map(mapContainerRef.current, {
       center: [selectedPlace.lat, selectedPlace.lng],
-      zoom: 12,
+      zoom: 13,
       zoomControl: false
     });
 
-    // Dark tile layer for Discord theme
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    // Official Korean Government National Map (VWorld 2D Korean Map Tiles - 100% Hangeul)
+    L.tileLayer('https://xdworld.vworld.kr/2d/Base/service/{z}/{x}/{y}.png', {
       maxZoom: 19,
-      attribution: '&copy; <a href="https://carto.com/">CARTO</a>'
+      minZoom: 6,
+      attribution: '&copy; VWorld 공간정보'
     }).addTo(map);
 
     L.control.zoom({ position: 'topright' }).addTo(map);
@@ -116,14 +117,14 @@ export default function RestaurantGuide() {
       
       marker.on('click', () => {
         setSelectedPlace(place);
-        map.flyTo([place.lat, place.lng], 13, { duration: 1.2 });
+        map.flyTo([place.lat, place.lng], 14, { duration: 1.2 });
       });
 
       markersRef.current[place.id] = marker;
     });
 
     if (selectedPlace) {
-      map.flyTo([selectedPlace.lat, selectedPlace.lng], 13, { duration: 1.2 });
+      map.flyTo([selectedPlace.lat, selectedPlace.lng], 14, { duration: 1.2 });
     }
   }, [filteredList, selectedPlace]);
 
@@ -141,7 +142,7 @@ export default function RestaurantGuide() {
         <div className="flex items-center gap-2">
           <span className="text-xs font-extrabold px-3 py-1 rounded-full bg-[#03C75A]/20 border border-[#03C75A]/40 text-[#03C75A] uppercase flex items-center gap-1.5">
             <MapPin className="w-3.5 h-3.5" />
-            NAVER MAP LINKED
+            KOREAN MAP TILES
           </span>
         </div>
       </div>
@@ -151,7 +152,7 @@ export default function RestaurantGuide() {
         <div className="flex items-center justify-between px-1">
           <span className="text-xs font-extrabold text-white flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-[#03C75A]" />
-            현재 지도 중심 위치: <span className="text-[#35ed7e]">{selectedPlace.name} ({selectedPlace.area})</span>
+            현재 지도 중심 위치: <span className="text-[#03C75A] font-bold">{selectedPlace.name} ({selectedPlace.area})</span>
           </span>
           <a
             href={selectedPlace.naverMapUrl}
@@ -159,18 +160,18 @@ export default function RestaurantGuide() {
             rel="noopener noreferrer"
             className="text-[11px] font-extrabold text-[#03C75A] hover:underline flex items-center gap-1 bg-[#03C75A]/10 px-2.5 py-1 rounded-lg border border-[#03C75A]/30"
           >
-            <span>네이버 지도로 이동</span>
+            <span>네이버 지도로 크게 보기</span>
             <ExternalLink className="w-3 h-3" />
           </a>
         </div>
 
-        {/* 인터랙티브 맵 컨테이너 */}
-        <div className="relative w-full rounded-2xl overflow-hidden border-2 border-[#03C75A]/50 shadow-2xl bg-[#0a0d3a]">
-          <div ref={mapContainerRef} className="w-full h-[320px] sm:h-[400px] z-0" />
+        {/* 인터랙티브 한글 지도 컨테이너 */}
+        <div className="relative w-full h-[320px] sm:h-[400px] rounded-2xl overflow-hidden border-2 border-[#03C75A]/50 shadow-2xl bg-[#1e2353]">
+          <div ref={mapContainerRef} className="w-full h-full z-0" />
           
           <div className="absolute top-3 left-3 z-[400] bg-[#0a0d3a]/90 backdrop-blur-md px-3.5 py-2 rounded-xl border border-[#03C75A]/40 text-xs font-extrabold text-white flex items-center gap-2 shadow-lg">
             <Navigation className="w-4 h-4 text-[#03C75A] animate-bounce" />
-            <span>지도 핀(Pin)을 누르면 선택된 위치로 지도가 이동합니다!</span>
+            <span>지도 핀(Pin)을 누르면 해당 위치로 이동합니다!</span>
           </div>
 
           <div className="absolute bottom-3 right-3 z-[400]">
@@ -178,10 +179,10 @@ export default function RestaurantGuide() {
               href={selectedPlace.naverMapUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2 rounded-xl bg-[#03C75A] text-white font-extrabold text-xs shadow-xl flex items-center gap-2 hover:bg-[#02b351] transition-all"
+              className="px-4 py-2.5 rounded-xl bg-[#03C75A] text-white font-extrabold text-xs shadow-2xl flex items-center gap-2 hover:bg-[#02b351] transition-all"
             >
               <MapPin className="w-4 h-4" />
-              <span>{selectedPlace.name} 네이버 지도 열기</span>
+              <span>{selectedPlace.name} 네이버 지도 바로가기</span>
               <ExternalLink className="w-3.5 h-3.5" />
             </a>
           </div>
@@ -232,7 +233,7 @@ export default function RestaurantGuide() {
               onClick={() => {
                 setSelectedPlace(place);
                 if (mapInstanceRef.current) {
-                  mapInstanceRef.current.flyTo([place.lat, place.lng], 13, { duration: 1.2 });
+                  mapInstanceRef.current.flyTo([place.lat, place.lng], 14, { duration: 1.2 });
                 }
               }}
               className={`group bg-[#1e2353] border rounded-2xl overflow-hidden transition-all duration-300 shadow-xl flex flex-col justify-between cursor-pointer ${
@@ -242,7 +243,7 @@ export default function RestaurantGuide() {
               }`}
             >
               <div>
-                {/* Image Banner with Fallback System */}
+                {/* Image Banner with Local Static Images */}
                 <div className="relative aspect-[16/9] overflow-hidden bg-[#23272a] flex items-center justify-center">
                   <img
                     src={place.imageUrl}
