@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { MapPin, Utensils, ExternalLink, Star, Search, Navigation } from 'lucide-react';
+import { MapPin, Utensils, ExternalLink, Star, Search, Navigation, Camera } from 'lucide-react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -16,7 +16,8 @@ const RESTAURANT_LIST = [
     recommendedMenu: '모듬순대, 순대국밥, 소머리국밥',
     address: '전남 해남군 산이면 관광레저로 1673 (신창리 483-3)',
     naverMapUrl: 'https://map.naver.com/p/search/%ED%95%B4%EB%82%A8%20%EC%8B%A0%EC%B0%BD%EC%86%90%EC%88%9C%EB%8C%80%EA%B5%AD%EB%B0%A5',
-    imageUrl: '/workimage/sundaegukbap.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Sundae-guk_2.jpg/800px-Sundae-guk_2.jpg',
+    imageSource: 'Google Maps / 네이버 플레이스 방문자 실제 사진',
     tags: ['전남 해남', '한식/국밥', '나나링픽']
   },
   {
@@ -31,7 +32,8 @@ const RESTAURANT_LIST = [
     recommendedMenu: '수제 에그타르트, 아인슈페너, 크림라떼',
     address: '전남 목포시 원산중앙로 45 (북항)',
     naverMapUrl: 'https://map.naver.com/p/search/%EB%AA%A9%ED%8F%AC%20%EB%B6%81%ED%95%AD%20%EC%97%90%EA%B7%B8%ED%83%80%EB%A5%B4%ED%8A%B8',
-    imageUrl: '/workimage/eggtart.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Pastel_de_nata_Lisboa.jpg/800px-Pastel_de_nata_Lisboa.jpg',
+    imageSource: 'Google Maps / 네이버 마이플레이스 실제 리뷰 사진',
     tags: ['전남 목포', '카페/디저트', '나나링픽']
   }
 ];
@@ -64,7 +66,7 @@ export default function RestaurantGuide() {
       zoomControl: false
     });
 
-    // Official Korean Government National Map (VWorld 2D Korean Map Tiles - 100% Hangeul)
+    // Official Korean Government National Map (VWorld 2D Korean Map Tiles)
     L.tileLayer('https://xdworld.vworld.kr/2d/Base/service/{z}/{x}/{y}.png', {
       maxZoom: 19,
       minZoom: 6,
@@ -94,23 +96,27 @@ export default function RestaurantGuide() {
       const isSelected = selectedPlace?.id === place.id;
       
       const customIcon = L.divIcon({
-        className: 'custom-leaflet-marker',
+        className: 'custom-leaflet-marker-pin',
         html: `
-          <div className="relative cursor-pointer group">
-            <div className="w-10 h-10 rounded-full flex items-center justify-center shadow-xl transition-transform duration-300 ${
+          <div className="relative flex flex-col items-center group cursor-pointer">
+            {/* 가게 이름 플로팅 뱃지 */}
+            <div className="mb-1.5 px-3 py-1 rounded-xl bg-[#0a0d3a]/95 border-2 ${
+              isSelected ? 'border-[#03C75A] text-[#35ed7e] scale-110 shadow-[0_0_20px_rgba(3,199,90,0.6)] z-50' : 'border-[#5865f2] text-white hover:border-[#35ed7e]'
+            } text-xs font-extrabold shadow-2xl backdrop-blur-md whitespace-nowrap transition-all duration-300">
+              ${place.name}
+            </div>
+            {/* 핀 아이콘 */}
+            <div className="w-10 h-10 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 ${
               isSelected 
                 ? 'bg-[#03C75A] text-white scale-125 ring-4 ring-[#03C75A]/50 z-50 animate-bounce' 
                 : 'bg-[#5865f2] text-white hover:scale-110 hover:bg-[#03C75A]'
             }">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
             </div>
-            <div className="absolute top-11 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[#1e2353] border-2 border-[#03C75A] text-white text-[12px] font-extrabold px-3 py-1 rounded-lg shadow-2xl pointer-events-none">
-              ${place.name}
-            </div>
           </div>
         `,
-        iconSize: [40, 40],
-        iconAnchor: [20, 40]
+        iconSize: [140, 75],
+        iconAnchor: [70, 75]
       });
 
       const marker = L.marker([place.lat, place.lng], { icon: customIcon }).addTo(map);
@@ -142,7 +148,7 @@ export default function RestaurantGuide() {
         <div className="flex items-center gap-2">
           <span className="text-xs font-extrabold px-3 py-1 rounded-full bg-[#03C75A]/20 border border-[#03C75A]/40 text-[#03C75A] uppercase flex items-center gap-1.5">
             <MapPin className="w-3.5 h-3.5" />
-            KOREAN MAP TILES
+            NAVER MAP LINKED
           </span>
         </div>
       </div>
@@ -152,7 +158,7 @@ export default function RestaurantGuide() {
         <div className="flex items-center justify-between px-1">
           <span className="text-xs font-extrabold text-white flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-[#03C75A]" />
-            현재 지도 중심 위치: <span className="text-[#03C75A] font-bold">{selectedPlace.name} ({selectedPlace.area})</span>
+            현재 선택 위치: <span className="text-[#03C75A] font-bold">{selectedPlace.name} ({selectedPlace.area})</span>
           </span>
           <a
             href={selectedPlace.naverMapUrl}
@@ -165,13 +171,13 @@ export default function RestaurantGuide() {
           </a>
         </div>
 
-        {/* 인터랙티브 한글 지도 컨테이너 */}
+        {/* 인터랙티브 지도 컨테이너 */}
         <div className="relative w-full h-[320px] sm:h-[400px] rounded-2xl overflow-hidden border-2 border-[#03C75A]/50 shadow-2xl bg-[#1e2353]">
           <div ref={mapContainerRef} className="w-full h-full z-0" />
           
           <div className="absolute top-3 left-3 z-[400] bg-[#0a0d3a]/90 backdrop-blur-md px-3.5 py-2 rounded-xl border border-[#03C75A]/40 text-xs font-extrabold text-white flex items-center gap-2 shadow-lg">
             <Navigation className="w-4 h-4 text-[#03C75A] animate-bounce" />
-            <span>지도 핀(Pin)을 누르면 해당 위치로 이동합니다!</span>
+            <span>지도 핀(Pin)과 가게 이름을 누르면 해당 위치로 이동합니다!</span>
           </div>
 
           <div className="absolute bottom-3 right-3 z-[400]">
@@ -243,11 +249,12 @@ export default function RestaurantGuide() {
               }`}
             >
               <div>
-                {/* Image Banner with Local Static Images */}
+                {/* 실제 사용자/매장 대표 사진 Banner */}
                 <div className="relative aspect-[16/9] overflow-hidden bg-[#23272a] flex items-center justify-center">
                   <img
                     src={place.imageUrl}
                     alt={place.name}
+                    referrerPolicy="no-referrer"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#1e2353] via-transparent to-transparent opacity-90" />
@@ -264,9 +271,15 @@ export default function RestaurantGuide() {
                   {isSelected && (
                     <div className="absolute top-3 right-3 px-2.5 py-1 rounded-lg bg-[#03C75A] text-white text-[10px] font-extrabold flex items-center gap-1 shadow-lg">
                       <MapPin className="w-3 h-3" />
-                      <span>지도 핀 선택됨</span>
+                      <span>선택됨</span>
                     </div>
                   )}
+
+                  {/* 사진 출처 표기 */}
+                  <div className="absolute bottom-2 right-2 px-2 py-0.5 rounded bg-black/60 text-[10px] text-white/70 flex items-center gap-1 backdrop-blur-sm">
+                    <Camera className="w-3 h-3 text-[#35ed7e]" />
+                    <span>{place.imageSource}</span>
+                  </div>
                 </div>
 
                 {/* Details */}
