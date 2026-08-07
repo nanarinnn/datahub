@@ -160,16 +160,18 @@ export default function App() {
                 </div>
               </div>
 
-              {/* COMING SOON */}
-              <div className="group bg-[#1e2353]/50 border border-dashed border-[#5865f2]/20 rounded-2xl overflow-hidden cursor-default select-none">
-                <div className="relative aspect-[3/4] flex flex-col items-center justify-center gap-3 bg-[#23272a]/40">
-                  <span className="text-3xl text-[#5865f2]">✦</span>
-                  <span className="text-xs font-bold tracking-[0.2em] text-white/40 uppercase">Coming Soon</span>
+              {/* 뮤지컬 배니싱 */}
+              <div 
+                onClick={() => setSelectedWork('vanishing')}
+                className="group bg-[#1e2353] border border-[#5865f2]/30 rounded-2xl overflow-hidden hover:border-[#00b0f4] hover:shadow-2xl hover:shadow-[#00b0f4]/20 transition-all duration-300 cursor-pointer"
+              >
+                <div className="relative aspect-[3/4] overflow-hidden bg-[#23272a]">
+                  <img src="/vanishing/poster.png" alt="뮤지컬 배니싱" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1e2353] via-transparent to-transparent opacity-90" />
                 </div>
                 <div className="p-3.5">
-                  <span className="text-[11px] font-semibold text-white/30">뮤지컬</span>
-                  <h3 className="text-sm font-bold text-white/30 mt-1">준비 중이에요</h3>
-                  <p className="text-xs text-white/30 mt-0.5">곧 새로운 작품을 소개할게요!</p>
+                  <span className="text-[11px] font-bold px-2 py-0.5 rounded bg-[#00b0f4] text-white">뮤지컬</span>
+                  <h3 className="text-sm font-extrabold text-white mt-1.5 group-hover:text-[#00b0f4] transition-colors">뮤지컬 배니싱</h3>
                 </div>
               </div>
             </div>
@@ -500,7 +502,152 @@ export default function App() {
           </div>
         )}
 
-        {/* === CARD FLIP GAME === */}
+        {/* WORK DETAIL: 뮤지컬 배니싱 */}
+        {activeTab === 'work' && selectedWork === 'vanishing' && (
+          <div className="w-full space-y-6 animate-fade-in">
+            <button 
+              onClick={() => setSelectedWork(null)}
+              className="flex items-center gap-2 px-4 py-2.5 bg-[#35ed7e] text-[#000000] hover:bg-[#2bd870] rounded-xl text-xs sm:text-sm font-extrabold shadow-lg shadow-[#35ed7e]/20 active:scale-95 transition-all"
+            >
+              <ArrowLeft className="w-4 h-4" /> 뒤로가기
+            </button>
+
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8">
+              {/* 왼쪽 영역: 포스터, 음원 플레이어, 트위터 영상 */}
+              <div className="md:col-span-5 space-y-4">
+                <div className="rounded-2xl overflow-hidden border border-[#5865f2]/40 shadow-2xl bg-[#23272a]">
+                  <img src="/vanishing/poster.png" alt="뮤지컬 배니싱 포스터" className="w-full" />
+                </div>
+
+                <h3 className="text-base sm:text-lg font-extrabold text-white flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#5865f2]" />
+                  넘버를 들어보자!
+                </h3>
+                <div className="bg-[#1e2353] p-3.5 sm:p-4 rounded-2xl border border-[#5865f2]/30 space-y-2.5 shadow-xl">
+                  <div className="p-2.5 bg-[#23272a] rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border border-[#5865f2]/20">
+                    <span className="text-xs sm:text-sm font-bold text-white">인체의 비밀</span>
+                    <audio controls className="h-8 w-full sm:w-44 filter invert"><source src="/audio/vanishing_01_secret.mp3" /></audio>
+                  </div>
+                  <div className="p-2.5 bg-[#23272a] rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border border-[#5865f2]/20">
+                    <span className="text-xs sm:text-sm font-bold text-white">햇빛 속으로</span>
+                    <audio controls className="h-8 w-full sm:w-44 filter invert"><source src="/audio/vanishing_05_sunlight.mp3" /></audio>
+                  </div>
+                  <div className="p-2.5 bg-[#23272a] rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border border-[#5865f2]/20">
+                    <span className="text-xs sm:text-sm font-bold text-white">나를 마셔</span>
+                    <audio controls className="h-8 w-full sm:w-44 filter invert"><source src="/audio/vanishing_11_drinkme.mp3" /></audio>
+                  </div>
+                  <div className="p-2.5 bg-[#23272a] rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border border-[#5865f2]/20">
+                    <span className="text-xs sm:text-sm font-bold text-white">우열론</span>
+                    <audio controls className="h-8 w-full sm:w-44 filter invert"><source src="/audio/vanishing_11_wooyeol.mp3" /></audio>
+                  </div>
+                </div>
+
+                <h3 className="text-base sm:text-lg font-extrabold text-white flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#ec48bd]" />
+                  공연 영상
+                </h3>
+                <div className="bg-[#1e2353] p-3.5 sm:p-4 rounded-2xl border border-[#5865f2]/30 space-y-3 shadow-xl">
+                  <iframe 
+                    className="w-full aspect-video rounded-xl" 
+                    src="https://www.youtube.com/embed/9qld6lherUI" 
+                    title="뮤지컬 배니싱 공연 영상" 
+                    allowFullScreen 
+                  />
+                </div>
+              </div>
+
+              {/* 오른쪽 영역: 작품 정보 및 캐릭터 */}
+              <div className="md:col-span-7 space-y-6">
+                <h1 className="text-xl sm:text-3xl font-extrabold text-white leading-snug">"경계의 순간, 새벽녘 그들의 만남"</h1>
+
+                <div className="space-y-3">
+                  <h3 className="text-base sm:text-lg font-extrabold text-white flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#35ed7e]" />
+                    작품 소개
+                  </h3>
+                  <div className="bg-[#1e2353] p-4 sm:p-5 rounded-2xl border border-[#5865f2]/30 text-xs sm:text-sm text-white/90 leading-relaxed font-normal shadow-xl">
+                    "사라지는 거야, 마치 꿈속에서처럼" (공연 中)<br/>
+                    1920년대, 경성의 한 폐가. 경성의전(경성의학전문대학)을 다니던 의신과 명렬은 시체 해부에 나서고, 그곳에서 미지의 존재인 케이를 만나게 돼. 그들에게는 어떤 일이 있었을까?
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <h3 className="text-base sm:text-lg font-extrabold text-white flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#5865f2]" />
+                    작품에 대한 이야기
+                  </h3>
+                  <div className="bg-[#1e2353] p-4 sm:p-5 rounded-2xl border border-[#5865f2]/30 text-xs sm:text-sm text-white/90 leading-relaxed space-y-3 font-normal shadow-xl">
+                    <p>이 작품은 뱀파이어와 시대적 배경을 엮은 작품이기도 해. 1920년대의 뱀파이어라, 독특한 소재라고 생각해.</p>
+                    <p>극의 첫 시작은 명렬의 독백으로 시작해. 의신이 남긴 하나의 연구노트를 보며.<br/>명렬의 독백이 끝나며, 하나의 시체를 들고 오면서 의신이 등장해. 둘은 폐가에서 시체 해부를 시작해. 의신은 금방 죽어서 사후 경직이 남아있는 상태라며 새로운 것을 접하는 연구자의 자세를 보이고, 명렬은 누군가에게 들킬까봐 걱정하며 의신과 함께 그 자리에 있어.</p>
+                    <p>시체를 해부하려는 순간, 폐가의 불이 꺼지며 케이가 등장해. 케이는 오랜 시간 혼자서 지냈기에, 그들을 경계하지.<br/>명렬이 방의 불을 키자, 케이의 살이 타들어가면서 전형적인 뱀파이어의 특성을 보여. 명렬은 그저 케이를 괴물이라 여구하며 그 자리를 피하려고 하지만, 의신은 달랐어. 케이의 특성을 질병으로 보며 그의 병을 치료해주겠다고 해. 반드시 자신을 찾아오라며 케이에게 말하지. 케이는 자신에게 다가오는 의신을 보며 마음이 흔들려. 그리고는 의신을 찾아가.</p>
+                    <p>의신은 평범한 인간과 달랐던 그의 모습을 보며 연구 욕심이 생겨, 그와 함께 연구를 시작해. 케이의 피를 이용한 연구이기도 하지만, 케이의 질병을 치료해주기 위한 연구이기도 해.</p>
+                    <p>둘은 그렇게 연구를 하지만, 반면 명렬은 소외가 되고 있어.</p>
+                    <p>둘의 모습을 보며 명렬은 소외감과 열등감을 느끼고 있던 와중, 그들에게 하나의 사건이 발생해.</p>
+                    <p>케이가 의신을 위해, 학생 한명을 죽여. 그 모습을 알게 된 의신은 케이에게 연구를 중단하겠다고 선언하지만, 케이는 그 선언을 받아들이지 못해 결국 의신도 자신과 같은 존재로 만들어.</p>
+                    <p>그렇게 케이와 의신은 함께 어둠속으로 사라지고, 명렬은 의신이 남긴 연구노트를 바탕으로 케이의 피를 이용해서 연구를 계속하려고 해. 명렬은 의신에게 접근해서 케이의 피를 얻으려 했지만, 의신은 케이는 이제 필요 없다고 해. 자신이 그와 같은 존재가 되었으니 말이야. 연구의 목적은 케이를 치료하기 위한 목적이 아니라, 시대적 배경이 일제강점기잖아? 명렬은 케이의 피를 이용해서 전장의 병사들을 죽지 않는 존재로 만드려고했던게 목표였어.</p>
+                    <p>반면 의신은 여전히 자신과 케이의 질병을 해결하고 싶었기 때문에, 백신을 만들기 위해 명렬을 따라나선거야.</p>
+                    <p>결국 백신은 만드는데에 성공하지만, 의신에게는 백신이 들지 않아. 자신에게 너무 많은 실험을 했기 때문에.</p>
+                    <p>하지만 백신을 만드는 모습을 명렬에게 들키고 말아. 그래서 명렬은 의신을 막으려고 해.</p>
+                    <p>결국 몸싸움으로 번지면서 명렬이 백신과 의신을 없애려고 하지만, 그 순간 케이가 나타나서 의신 대신 총을 맞아.</p>
+                    <p>동시에 백신도 맞았기 때문에 케이는 결국 인간으로서의 죽음을 맞게 되지.</p>
+                    <p>의신은 명렬에게 배신감을 느끼고 명렬 또한 자신과 같은 존재로 만들어.</p>
+                    <p>그리고는 의신 자신은, 케이와 함께 햇빛 속으로 향하면서 사라져.</p>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <h3 className="text-base sm:text-lg font-extrabold text-white flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#ec48bd]" />
+                    캐릭터에 대한 이야기
+                  </h3>
+                  <div className="space-y-4">
+                    {/* 의신 */}
+                    <div className="bg-[#1e2353] p-4 rounded-2xl border border-[#5865f2]/30 flex flex-col sm:flex-row gap-4 items-start font-normal shadow-xl">
+                      <img src="/vanishing/uishin.jpg" alt="의신" className="w-20 h-20 sm:w-24 sm:h-24 object-cover object-top rounded-xl shrink-0 bg-[#23272a]" />
+                      <div className="space-y-2 text-xs sm:text-sm text-white/90 leading-relaxed">
+                        <h4 className="font-extrabold text-sm sm:text-base text-white">의신 (배우: 정민)</h4>
+                        <p>의신은 진정한 연구자라고 생각해. 천재적인 재능을 가졌지만, 현실의 벽에 막혀서 의신은 유학을 가지는 못해.(대학에서 유학을 보내주는 프로그램이 있는데 일본인이 가게 됨) 케이의 질병을 치료해주기 위해 그와 연구를 시작했지만, 결국은 케이와 함께 햇빛 속으로 사라지며 죽음을 맞이해. 어떻게 보면 케이를 하나의 도구로만 사용한게 아니라, 하나의 존재로서 인식했다는 점이 명렬과 달랐던 점이 아닐까 싶어.</p>
+                      </div>
+                    </div>
+
+                    {/* 케이 */}
+                    <div className="bg-[#1e2353] p-4 rounded-2xl border border-[#5865f2]/30 flex flex-col sm:flex-row gap-4 items-start font-normal shadow-xl">
+                      <img src="/vanishing/k.jpg" alt="케이" className="w-20 h-20 sm:w-24 sm:h-24 object-cover object-top rounded-xl shrink-0 bg-[#23272a]" />
+                      <div className="space-y-2 text-xs sm:text-sm text-white/90 leading-relaxed">
+                        <h4 className="font-extrabold text-sm sm:text-base text-white">케이 (배우: 이주광)</h4>
+                        <p>케이의 유일한 꿈은 "햇빛 속을 다른 누군가와 걸어가는 것". 케이도 원래는 평범한 인간이었어. 하지만 과거에 외국인에게 목을 물리면서 뱀파이어가 되지. 그리고는 몇백년을 혼자 살았지만, 그 문을 열어준 게 의신이었던거야. 의신은 다른 사람처럼 괴물로 보지 않았고, 자신에게 진심으로 다가왔으니 말이야. 그래서 케이는 의신이 명렬에게 간다고 했을 때도 잡지 않았어. 의신의 행복을 바랐기 때문이었지 않았을까 싶어. 결국 마지막은 의신이 만든 백신을 맞고는 의신과 함께 햇빛 속을 걸어가며 자신의 꿈을 이루고는 삶의 끝을 맞이 해. 그 때 의신이 물어. 케이에게 "너의 진짜 이름이 무엇이냐"고. 케이는 의신이 지어준 이름인 "케이"라며 대답하고는 둘은 함께 끝을 맞이해.</p>
+                      </div>
+                    </div>
+
+                    {/* 명렬 */}
+                    <div className="bg-[#1e2353] p-4 rounded-2xl border border-[#5865f2]/30 flex flex-col sm:flex-row gap-4 items-start font-normal shadow-xl">
+                      <img src="/vanishing/myeongryeol.png" alt="명렬" className="w-20 h-20 sm:w-24 sm:h-24 object-cover object-top rounded-xl shrink-0 bg-[#23272a]" />
+                      <div className="space-y-2 text-xs sm:text-sm text-white/90 leading-relaxed">
+                        <h4 className="font-extrabold text-sm sm:text-base text-white">명렬 (배우: 이용규)</h4>
+                        <p>의신을 존경하지만, 그만큼 열등감도 많은 캐릭터라고 생각해. 아버지의 빽으로 대학에 들어와서, 어떤 것을 해도 용납이 되는 사람. 그래서 의신과 케이가 사라졌을 때, 의신의 연구노트를 세상에 밝히면서 명렬의 세상을 맞이해.(이 연구는 세상에 밝혀져서는 안될 연구였지만) 그래서 명렬은 순식간에 엄청난 의사가 되어 있어. 아버지의 빽과 연구 성과라면 무서울 게 없었지. 그래서 자신이 우월한 존재라며 생각하게 되었던 것 같아. 극 후반에 가면 명렬은 결국 의신에게 외면을 받은 채, 자신도 의신, 케이와 같은 존재가 돼. 하지만, 의신과 케이는 이미 세상에서 사라지고, 명렬 혼자 남게 돼. 결국.. 명렬은 가장 쓸쓸한 마지막을 맞게 되는 게 명렬이 받는 벌이 아니었을까 싶어.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <h3 className="text-base sm:text-lg font-extrabold text-white flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#35ed7e]" />
+                    작품에 대한 나나링의 사담
+                  </h3>
+                  <div className="bg-[#1e2353] p-4 sm:p-5 rounded-2xl border border-[#5865f2]/30 text-xs sm:text-sm text-white/90 leading-relaxed space-y-3 font-normal shadow-xl">
+                    <p>나나링의 뮤지컬 랭킹 2위에 빛나는 작품되시겠습니다. 처음에 이 작품을 만났을 때는 2017년, 초연 때였어. "뱀파이어"라는 소재를 좋아했던 나나링은 우연히 초연을 만나게 되었어. 대부분의 작품은 초연만 시작하는데, 이 작품은 트라이아웃 공연이 있었다고 해. 그때는 원래 여자 캐릭터(기자)가 있었다고 해. 하지만 초연 때는 기자 캐릭터는 사라지고, 3명의 캐릭터만 등장하게 되었어.</p>
+                    <p>캐릭터에 인상을 받았던 것도 있었지만, "뱀파이어의 특성을 질병으로 바라본다" 난 이게 가장 이 작품에서 인상 깊은 부분이었어. 보통의 작품들은 뱀파이어를 초인적이고 우월한 존재로 보는 경우가 대부분이었거든. 꽤 많은 작품을 봤는데, 거의 대부분이 그랬어. 하지만 이 작품은 달랐어. 그래서 이 작품을 한.. 10번 정도 봤던 것 같아.(대학로는 더 많이 보는 사람도 많음)</p>
+                    <p>초연 때는 배우를 다양하게 보았는데, 재연과 삼연(3번째 시즌) 때는 거의 이주광 배우님만 고정으로 해서 봤던 것 같아. 다른 배우님들의 연기도 좋은데, 이주광 배우님의 케이는 달랐거든. 케이가 배우님이고, 배우님이 케이다. 심지어 극이 끝나고 커튼콜, 관객과의 대화에서도 케이에서 빠져나오지 않으셨어. 본인이 캐릭터에 대해 어떻게 생각하고, 어떻게 만드셨는지가 뚜렷하게 보이는 것만 같았달까.</p>
+                    <p>그래서 여전히 나한테는 케이는 이주광 배우님으로 굳어져 있어. 그래서 배우님이 오지 않으면 굳이 다시 보게 되지는 않는 것 같아. 내년이 10주년을 맞이하는 해이니까 아마 오지 않을까.. 싶어.</p>
+                    <p>그리고 특히 내가 좋아하는 연출(성종완)과 음악감독(김은영)님이었기 때문에... 더 사랑했던 작품이었던 것 같아.</p>
+                    <p>새로운 소재를 만나보고 싶다면 봐보는 것도 나쁘지 않을지도?</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
         {activeTab === 'flip' && (
           <div className="w-full flex flex-col items-center space-y-6 sm:space-y-8 animate-fade-in select-none">
             {/* Action Toolbar */}

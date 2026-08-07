@@ -29,7 +29,7 @@ const RESTAURANT_LIST = [
     desc: '목포 북항에서 제일 유명한 인생 에그타르트 맛집! 겹겹이 바삭한 페스츄리에 촉촉한 커스터드 크림이 일품.',
     recommendedMenu: '수제 에그타르트, 아인슈페너, 크림라떼',
     address: '전남 목포시 원산중앙로 45 (북항)',
-    naverMapUrl: 'https://map.naver.com/p/search/%EB%AA%A9%ED%8F%AC%20%EB%B6%81%ED%95%AD%20%EC%97%90%EA%B7%B8%ED%83%80%EB%A5%B4%ED%8A%B8',
+    naverMapUrl: 'https://naver.me/F6lTiufm',
     tags: ['전남 목포', '카페/디저트', '나나링픽']
   },
   {
