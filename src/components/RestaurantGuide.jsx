@@ -45,6 +45,20 @@ const RESTAURANT_LIST = [
     address: '전남 강진군 칠량면 칠량옹기로 115 3층 (봉황리 202)',
     naverMapUrl: 'https://naver.me/xxopUp9Q',
     tags: ['전남 강진', '카페/디저트', '나나링픽']
+  },
+  {
+    id: 4,
+    name: '청보리밭',
+    category: '한식/보리밥',
+    area: '전남 해남',
+    rating: 4.9,
+    lat: 34.5012681,
+    lng: 126.6155203,
+    desc: '전남 해남 대흥사 입구 근처에 위치한 구수하고 정갈한 보리밥 정식과 푸짐한 남도 반찬 한 상 전문점.',
+    recommendedMenu: '보리밥 정식, 파전, 도토리묵',
+    address: '전남 해남군 삼산면 대흥사길 22 (구림리 208-6)',
+    naverMapUrl: 'https://naver.me/FFaGC08Q',
+    tags: ['전남 해남', '한식/보리밥', '나나링픽']
   }
 ];
 
@@ -269,9 +283,6 @@ export default function RestaurantGuide() {
                   <div className="flex items-center gap-2">
                     <span className="px-2.5 py-1 rounded-lg bg-[#5865f2] text-white text-[11px] font-extrabold shadow-md">
                       {place.category}
-                    </span>
-                    <span className="px-2.5 py-1 rounded-lg bg-[#03C75A] text-white text-[11px] font-extrabold shadow-md">
-                      ★ {place.rating}
                     </span>
                     {isSelected && (
                       <span className="px-2 py-0.5 rounded-md bg-[#03C75A]/20 border border-[#03C75A]/40 text-[#03C75A] text-[10px] font-extrabold">
