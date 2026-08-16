@@ -59,6 +59,20 @@ const RESTAURANT_LIST = [
     address: '전남 해남군 삼산면 대흥사길 22 (구림리 208-6)',
     naverMapUrl: 'https://naver.me/FFaGC08Q',
     tags: ['전남 해남', '한식/보리밥', '나나링픽']
+  },
+  {
+    id: 5,
+    name: '이음커피',
+    category: '카페/디저트',
+    area: '전남 해남',
+    rating: 4.9,
+    lat: 34.5676372,
+    lng: 126.6084773,
+    desc: '전남 해남읍에 위치한 감성적이고 따뜻한 분위기의 시그니처 커피 & 디저트 전문 카페.',
+    recommendedMenu: '시그니처 이음라떼, 핸드드립 커피, 수제 디저트',
+    address: '전남 해남군 해남읍 교육청길 43 1층 (해리 688-1)',
+    naverMapUrl: 'https://naver.me/55rNDoMx',
+    tags: ['전남 해남', '카페/디저트', '나나링픽']
   }
 ];
 
