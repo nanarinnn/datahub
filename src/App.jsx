@@ -174,6 +174,21 @@ export default function App() {
                   <h3 className="text-sm font-extrabold text-white mt-1.5 group-hover:text-[#00b0f4] transition-colors">뮤지컬 배니싱</h3>
                 </div>
               </div>
+
+              {/* 뮤지컬 시데레우스 */}
+              <div 
+                onClick={() => setSelectedWork('sidereus')}
+                className="group bg-[#1e2353] border border-[#5865f2]/30 rounded-2xl overflow-hidden hover:border-[#ec48bd] hover:shadow-2xl hover:shadow-[#ec48bd]/20 transition-all duration-300 cursor-pointer"
+              >
+                <div className="relative aspect-[3/4] overflow-hidden bg-[#23272a]">
+                  <img src="/sidereus/poster.jpg" alt="뮤지컬 시데레우스" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1e2353] via-transparent to-transparent opacity-90" />
+                </div>
+                <div className="p-3.5">
+                  <span className="text-[11px] font-bold px-2 py-0.5 rounded bg-[#ec48bd] text-white">뮤지컬</span>
+                  <h3 className="text-sm font-extrabold text-white mt-1.5 group-hover:text-[#ec48bd] transition-colors">뮤지컬 시데레우스</h3>
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -649,6 +664,130 @@ export default function App() {
                     <p>그래서 여전히 나한테는 케이는 이주광 배우님으로 굳어져 있어. 그래서 배우님이 오지 않으면 굳이 다시 보게 되지는 않는 것 같아. 내년이 10주년을 맞이하는 해이니까 아마 오지 않을까.. 싶어.</p>
                     <p>그리고 특히 내가 좋아하는 연출(성종완)과 음악감독(김은영)님이었기 때문에... 더 사랑했던 작품이었던 것 같아.</p>
                     <p>새로운 소재를 만나보고 싶다면 봐보는 것도 나쁘지 않을지도?</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* WORK DETAIL: 뮤지컬 시데레우스 */}
+        {activeTab === 'work' && selectedWork === 'sidereus' && (
+          <div className="w-full space-y-6 animate-fade-in">
+            <button 
+              onClick={() => setSelectedWork(null)}
+              className="flex items-center gap-2 px-4 py-2.5 bg-[#35ed7e] text-[#000000] hover:bg-[#2bd870] rounded-xl text-xs sm:text-sm font-extrabold shadow-lg shadow-[#35ed7e]/20 active:scale-95 transition-all"
+            >
+              <ArrowLeft className="w-4 h-4" /> 뒤로가기
+            </button>
+
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8">
+              {/* 왼쪽 영역: 포스터, 공연 영상 */}
+              <div className="md:col-span-5 space-y-4">
+                <div className="rounded-2xl overflow-hidden border border-[#5865f2]/40 shadow-2xl bg-[#23272a]">
+                  <img src="/sidereus/poster.jpg" alt="뮤지컬 시데레우스 포스터" className="w-full" />
+                </div>
+
+                <h3 className="text-base sm:text-lg font-extrabold text-white flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#ec48bd]" />
+                  공연 영상
+                </h3>
+                <div className="bg-[#1e2353] p-3.5 sm:p-4 rounded-2xl border border-[#5865f2]/30 space-y-4 shadow-xl">
+                  <iframe 
+                    className="w-full aspect-video rounded-xl" 
+                    src="https://www.youtube.com/embed/PSxAd52II7Y" 
+                    title="뮤지컬 시데레우스 공연 영상 1" 
+                    allowFullScreen 
+                  />
+                  <iframe 
+                    className="w-full aspect-video rounded-xl" 
+                    src="https://www.youtube.com/embed/EveTxvBmacM" 
+                    title="뮤지컬 시데레우스 공연 영상 2" 
+                    allowFullScreen 
+                  />
+                </div>
+              </div>
+
+              {/* 오른쪽 영역: 작품 정보 및 캐릭터 */}
+              <div className="md:col-span-7 space-y-6">
+                <h1 className="text-xl sm:text-3xl font-extrabold text-white leading-snug">"별의 소식을 전하는 사람"</h1>
+
+                <div className="space-y-3">
+                  <h3 className="text-base sm:text-lg font-extrabold text-white flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#35ed7e]" />
+                    작품 소개
+                  </h3>
+                  <div className="bg-[#1e2353] p-4 sm:p-5 rounded-2xl border border-[#5865f2]/30 text-xs sm:text-sm text-white/90 leading-relaxed font-normal shadow-xl">
+                    "선생님은 믿나요? 신이요." (공연 中)<br/>
+                    갈릴레오 갈릴레이에게 도착한 한권의 책 '우주의 신비'. '우주의 신비'에 대해 함께 연구를 하자는 요하네스 케플러의 제안을 그는 받아들였을까?
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <h3 className="text-base sm:text-lg font-extrabold text-white flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#5865f2]" />
+                    작품에 대한 대략적인 이야기
+                  </h3>
+                  <div className="bg-[#1e2353] p-4 sm:p-5 rounded-2xl border border-[#5865f2]/30 text-xs sm:text-sm text-white/90 leading-relaxed space-y-3 font-normal shadow-xl">
+                    <p>작품이 정말 예뻐서 여전히 사랑을 받는 작품, 뮤지컬 시데레우스야.<br/>실제로 존재하는 인물인 '갈릴레오 갈릴레이', '요하네스 케플러', '마리아 첼레스테', 이 3명의 주인공이 스토리를 이끌어 가.</p>
+                    <p>요하네스 케플러(이하 케플러)는 갈릴레오 갈릴레이(이하 갈릴레이)에게 많은 사람들에게 자신의 '우주의 신비'에 대한 편지를 보냈지만, 모두에게 까이고 말아. 그러던 중, 갈릴레이가 그에게 답장을 하고, 둘은 함께 '우주의 신비'에 대해 연구를 시작해.</p>
+                    <p>'우주의 신비'는 '우주가 원으로 회전을 한다'에 대한 증명을 하는 거고, 이 증명을 위해서는 '지동설'에 대한 증명도 필요했어, 갈릴레이는 지동설을 증명한다는 것이 시대적 상황에서 얼마나 모순적인지를 알고 있기에, 케플러에게 정말로 이 연구를 할거냐고 물어봐.</p>
+                    <p>당시 시대는 가톨릭이 주를 이루고 있었기 때문에, 지구가 돈다는 것은 용납될 수 없었고, 지동설을 주장한 사람은 종교재판에 회부되어 죽음을 당하거나, 가택연금이 되기 쉽상이었어. 그래서 갈릴레이는 그걸 우려했던거야.<br/>하지만, 케플러의 강한 의지에 갈릴레이도 그와 함께 연구를 진행하기로 마음먹어.</p>
+                    <p>그래서 결국은 망원경으로 목성을 처음 관측하게 되고, 그 연구를 통해서 둘은 '시데레우스 눈치우스'라는 책을 쓰게 돼. 그 책이 그들의 연구를 증명하고, 그들이 연구를 이어갈 수 있는 원동력이 되기도 해.</p>
+                    <p>그걸 기반으로 지동설을 증명하려 했지만, 갈릴레이는 지동설을 주장했다는 이유로 종교재판에 회부되어 다시는 지동설에 대한 주장을 하지 않으며, 관련 연구를 하지 않겠다고 맹세해.<br/>(이 사이의 과정에서 딸인 마리아가 꽤 많은 역할을 하는데, 그건 캐릭터에 대한 이야기에서 만나보자!)</p>
+                    <p>그렇게 가택연금형을 받고, 집에서 폐인처럼 생활하던 갈릴레이에게 또 하나의 편지가 도착해. '요하네스 케플러'로부터.<br/>"존경하는 갈릴레오 갈릴레이 선생님, 저는 프랑스에서 수학과 천문학을 연구하는 요하네스 케플러라고 합니다"라는 문구와 함께, 이번에는 '우주는 타원형으로 돈다'에 대한 연구를 함께 하자고 해.</p>
+                    <p>시간이 지나면서 앞에서 썼던 '시데레우스 눈치우스'가 많은 사람들에게 사랑을 받고, 다시 둘의 연구는 진행할 수 있게 돼. 캐릭터에 대한 자세한 이야기는 아래에서 만나보자!</p>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <h3 className="text-base sm:text-lg font-extrabold text-white flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#ec48bd]" />
+                    캐릭터에 대한 이야기
+                  </h3>
+                  <div className="space-y-4">
+                    {/* 갈릴레오 갈릴레이 */}
+                    <div className="bg-[#1e2353] p-4 rounded-2xl border border-[#5865f2]/30 flex flex-col sm:flex-row gap-4 items-start font-normal shadow-xl">
+                      <img src="/sidereus/galileo.png" alt="갈릴레오 갈릴레이" className="w-20 h-20 sm:w-24 sm:h-24 object-cover object-top rounded-xl shrink-0 bg-[#23272a]" />
+                      <div className="space-y-2 text-xs sm:text-sm text-white/90 leading-relaxed">
+                        <h4 className="font-extrabold text-sm sm:text-base text-white">갈릴레오 갈릴레이 (배우: 임병근)</h4>
+                        <p>예전에는 열정이 가득했던 연구자, 그 누구보다 우주와 별을 사랑했던 사람이야. 케플러가 갈릴레이에게 대사 중, "한가지 의문이 드는 건, 말로 설명할 수 없는 현상이 있다는 것이다."라는 대사가 있어.</p>
+                        <p>이 문구는 갈릴레이의 책에 나오는 대사인데, 당시의 가톨릭 사회에서 신의 뜻을 거스르며 인간의 의지를 가지려고 했던 게 금기시 되었던 사회에서 그런 의문을 품었다는 게, 진정한 연구자의 자세가 아니었을까 싶어. 그리고 결국은 케플러와 함께 다시 연구를 진행하게 되지만 말이야.</p>
+                      </div>
+                    </div>
+
+                    {/* 요하네스 케플러 */}
+                    <div className="bg-[#1e2353] p-4 rounded-2xl border border-[#5865f2]/30 flex flex-col sm:flex-row gap-4 items-start font-normal shadow-xl">
+                      <img src="/sidereus/kepler.png" alt="요하네스 케플러" className="w-20 h-20 sm:w-24 sm:h-24 object-cover object-top rounded-xl shrink-0 bg-[#23272a]" />
+                      <div className="space-y-2 text-xs sm:text-sm text-white/90 leading-relaxed">
+                        <h4 className="font-extrabold text-sm sm:text-base text-white">요하네스 케플러 (배우: 기세중)</h4>
+                        <p>갈릴레이의 과거와도 같은, 열정이 가득한 연구자. 우주와 별을 사랑하며, 자신의 연구를 위해서 어떤 것이든 할 수 있는 사람. 많은 사람들에게 편지를 보냈지만, 그 누구도 그의 편지에 답장을 하지 않았어. 하지만, 유일하게 갈릴레이가 그의 편지에 답장을 했고, 갈릴레이에게 함께 연구를 진행하게 돼.</p>
+                        <p>갈릴레이는 사회를 두려워했지만, 케플러는 사회를 두려워하지 않았어. 아마 이 모습이 갈릴레이에게 있어서는 케플러를 어린시절의 자신으로 보았지 않았을까 싶어. 결국 현실에서도 케플러는 "우주는 타원으로 돈다"는 케플러 제1법칙을 발견하게 돼.</p>
+                      </div>
+                    </div>
+
+                    {/* 마리아 첼레스테 */}
+                    <div className="bg-[#1e2353] p-4 rounded-2xl border border-[#5865f2]/30 flex flex-col sm:flex-row gap-4 items-start font-normal shadow-xl">
+                      <img src="/sidereus/maria.png" alt="마리아 첼레스테" className="w-20 h-20 sm:w-24 sm:h-24 object-cover object-top rounded-xl shrink-0 bg-[#23272a]" />
+                      <div className="space-y-2 text-xs sm:text-sm text-white/90 leading-relaxed">
+                        <h4 className="font-extrabold text-sm sm:text-base text-white">마리아 첼레스테 (배우: 임찬민)</h4>
+                        <p>갈릴레이의 딸, 원래 이름은 '페르지니아', 세레명은 '마리아'. 마리아는 갈릴레이가 우주에 빠져 있는걸 좋아하지 않았어. 항상 갈릴레이가 우주를 보고 있었기 때문에, 그녀를 봐주는 시간이 많지 않았거든. 그래서 마리아는 결국 세례를 받고 수녀가 돼. 어떻게 보면 신의 뜻을 거스르는 갈릴레이와는 대척점에 있는 캐릭터가 되는거지.</p>
+                        <p>마리아도 '시데레우스 눈치우스'라는 책이 나왔을 때 고통을 꽤 많이 받아. 하지만, 그녀가 바뀌게 되는 계기가 있어. 케플러가 마리아에게 "망원경을 본적이 있나요?"하고 물어. 그 질문을 계기로 마리아가 망원경을 보며, 갈릴레이를 응원하게 돼.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <h3 className="text-base sm:text-lg font-extrabold text-white flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#35ed7e]" />
+                    작품에 대한 나나링의 사담
+                  </h3>
+                  <div className="bg-[#1e2353] p-4 sm:p-5 rounded-2xl border border-[#5865f2]/30 text-xs sm:text-sm text-white/90 leading-relaxed space-y-3 font-normal shadow-xl">
+                    <p>좋아하는 배우가 나오지 않았음에도 불구하고, 꽤 좋아했고, 아직도 좋아하는 작품 중 하나야. 우주에 대한 작품이 생각보다 흔하지 않거든.</p>
+                    <p>우연히 2019년에 충무아트센터에서 하던 초연을 보게 되었고, 그때 당시에는 무대가 회전형이어서 그게 되게 신기했었어. 실제로 원형 무대가 돌아갔거든. 재연까지는 돌아가는 무대를 사용했는데 지금도 그러는지는 잘 모르겠다.</p>
+                    <p>3명의 캐릭터가 나오는데, 단 3명의 캐릭터로 그정도를 이끌어갈 수 있다는게 너무 대단하다고 생각했어. 넘버도, 무대도, 연출도 너무 예쁜 작품이라서 나중에 기회가 된다면 꼭 보길 추천할게.</p>
+                    <p>작품은 아니고 당시 공연을 하던 시기의 사담으로는, 당시에 기세중 배우님의 생일 카페를 하고 있어서, 혜화역 1번출구를 지나가고 있었는데, 그 옆으로 기세중 배우님이 스쳐 지나갔던 기억이 있다...</p>
                   </div>
                 </div>
               </div>
