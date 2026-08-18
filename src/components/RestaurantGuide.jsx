@@ -73,6 +73,71 @@ const RESTAURANT_LIST = [
     address: '전남 해남군 해남읍 교육청길 43 1층 (해리 688-1)',
     naverMapUrl: 'https://naver.me/55rNDoMx',
     tags: ['전남 해남', '카페/디저트', '나나링픽']
+  },
+  {
+    id: 6,
+    name: '씨엘비베이커리',
+    category: '베이커리/카페',
+    area: '전남 목포',
+    lat: 34.7903825,
+    lng: 126.3845095,
+    desc: '목포 3대 빵집 중 하나! 바삭한 빵 속에 특제 크림치즈와 바게트가 일품인 명륜동 대표 베이커리.',
+    recommendedMenu: '크림치즈 바게트, 새우 바게트, 코롬방 바게트',
+    address: '전남 목포시 영산로75번길 14 1층 (명륜동 13-4)',
+    naverMapUrl: 'https://naver.me/5GpYZM0N',
+    tags: ['전남 목포', '베이커리/카페', '나나링픽']
+  },
+  {
+    id: 7,
+    name: '이모네탕집',
+    category: '한식/매운탕',
+    area: '전남 목포',
+    lat: 34.8056316,
+    lng: 126.3658179,
+    desc: '목포 죽교동에 위치한 얼큰하고 시원한 수제 생선 매운탕 & 아구탕 전문 해물 맛집.',
+    recommendedMenu: '우럭매운탕, 아구탕, 짱뚱어탕, 해물탕',
+    address: '전남 목포시 청호로219번길 51 B동 106호 (죽교동 704)',
+    naverMapUrl: 'https://naver.me/53lKum6g',
+    tags: ['전남 목포', '한식/매운탕', '나나링픽']
+  },
+  {
+    id: 8,
+    name: '수라간 박상선',
+    category: '한식/생선구이',
+    area: '전남 무안',
+    lat: 34.8120907,
+    lng: 126.4617396,
+    desc: '전남 무안 남악에 위치한 겉바속촉 모듬 생선구이와 정갈하고 푸짐한 남도 한정식 전문점.',
+    recommendedMenu: '모듬 생선구이 정식, 갈치조림, 고등어구이',
+    address: '전남 무안군 삼향읍 대죽서로 37 1층 (남악리 2169)',
+    naverMapUrl: 'https://naver.me/xprGBwou',
+    tags: ['전남 무안', '한식/생선구이', '나나링픽']
+  },
+  {
+    id: 9,
+    name: '다온솥밥',
+    category: '한식/솥밥',
+    area: '전남 목포',
+    lat: 34.7967407,
+    lng: 126.4343769,
+    desc: '목포 평화광장 바다 전경을 바라보며 즐기는 고소하고 정갈한 프리미엄 수제 솥밥 전문점.',
+    recommendedMenu: '전복 솥밥, 스테이크 솥밥, 도미관자 솥밥',
+    address: '전남 목포시 미항로 129 어울림빌딩 5층 (상동 1159-14)',
+    naverMapUrl: 'https://naver.me/5vcpDxUJ',
+    tags: ['전남 목포', '한식/솥밥', '나나링픽']
+  },
+  {
+    id: 10,
+    name: '나나방콕 (남악도청점)',
+    category: '아시안/태국음식',
+    area: '전남 무안',
+    lat: 34.8135522,
+    lng: 126.4635857,
+    desc: '전남 무안 남악 도청 근처에서 즐기는 진하고 이국적인 풍미의 수제 쌀국수 & 태국 요리 전문점.',
+    recommendedMenu: '소고기 쌀국수, 팟타이, 뿌팟퐁커리, 똠얌꿍',
+    address: '전남 무안군 삼향읍 남악3로82번가길 34 1층 105호 (남악리 2132)',
+    naverMapUrl: 'https://naver.me/GgB5El3D',
+    tags: ['전남 무안', '아시안/태국음식', '나나링픽']
   }
 ];
 
@@ -85,7 +150,7 @@ export default function RestaurantGuide() {
   const mapInstanceRef = useRef(null);
   const markersRef = useRef({});
 
-  const areas = ['전체', '전남 해남', '전남 목포', '전남 강진'];
+  const areas = ['전체', '전남 해남', '전남 목포', '전남 무안', '전남 강진'];
 
   const filteredList = RESTAURANT_LIST.filter(item => {
     const matchesArea = selectedArea === '전체' || item.area === selectedArea;
@@ -218,8 +283,8 @@ export default function RestaurantGuide() {
         <div className="relative w-full h-[320px] sm:h-[400px] rounded-2xl overflow-hidden border-2 border-[#03C75A]/50 shadow-2xl bg-[#1e2353]">
           <div ref={mapContainerRef} className="w-full h-full z-0" />
           
-          <div className="absolute top-3 left-3 z-[400] bg-[#0a0d3a]/90 backdrop-blur-md px-3.5 py-2 rounded-xl border border-[#03C75A]/40 text-xs font-extrabold text-white flex items-center gap-2 shadow-lg">
-            <Navigation className="w-4 h-4 text-[#03C75A] animate-bounce" />
+          <div className="absolute top-3 left-3 right-3 sm:right-auto z-[400] bg-[#0a0d3a]/90 backdrop-blur-md px-3 py-2 rounded-xl border border-[#03C75A]/40 text-[11px] sm:text-xs font-extrabold text-white flex items-center gap-2 shadow-lg [word-break:keep-all]">
+            <Navigation className="w-4 h-4 text-[#03C75A] shrink-0 animate-bounce" />
             <span>지도 핀과 가게 이름을 누르면 해당 위치로 이동합니다!</span>
           </div>
 
@@ -228,11 +293,11 @@ export default function RestaurantGuide() {
               href={selectedPlace.naverMapUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2.5 rounded-xl bg-[#03C75A] text-white font-extrabold text-xs sm:text-sm shadow-2xl flex items-center gap-2 hover:bg-[#02b351] active:scale-95 transition-all"
+              className="px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-[#03C75A] text-white font-extrabold text-[11px] sm:text-sm shadow-2xl flex items-center gap-1.5 sm:gap-2 hover:bg-[#02b351] active:scale-95 transition-all"
             >
-              <MapPin className="w-4 h-4" />
-              <span>{selectedPlace.name} 네이버 지도 바로가기</span>
-              <ExternalLink className="w-3.5 h-3.5" />
+              <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+              <span>{selectedPlace.name} 네이버 지도</span>
+              <ExternalLink className="w-3 h-3 sm:w-3.5 sm:h-3.5 opacity-80" />
             </a>
           </div>
         </div>
