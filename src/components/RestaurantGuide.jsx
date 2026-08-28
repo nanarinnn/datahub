@@ -253,28 +253,24 @@ export default function RestaurantGuide() {
 
   return (
     <div className="w-full space-y-6 animate-fade-in font-['Plus_Jakarta_Sans','Paperlogy',sans-serif]">
-      {/* 헤더 바 */}
-      <div className="border-b border-[#5865f2]/30 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-white flex items-center gap-3">
-            <span className="w-3.5 h-3.5 rounded-full bg-[#03C75A] animate-ping" />
-            나나링픽 가게
-          </h2>
-          <p className="text-xs text-[#03C75A] font-bold mt-1">나나링이 직접 방문해 본 가게들</p>
+      {/* 헤더 바 (중앙 정렬) */}
+      <div className="border-b border-[#5865f2]/30 pb-4 flex flex-col items-center justify-center text-center gap-2.5 w-full">
+        <div className="flex items-center justify-center gap-2.5">
+          <span className="w-3.5 h-3.5 rounded-full bg-[#03C75A] animate-ping shrink-0" />
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white">나나링픽 가게</h2>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-extrabold px-3 py-1 rounded-full bg-[#03C75A]/20 border border-[#03C75A]/40 text-[#03C75A] uppercase flex items-center gap-1.5">
-            <MapPin className="w-3.5 h-3.5" />
-            NAVER MAP LINKED
-          </span>
-        </div>
+        <p className="text-xs sm:text-sm text-[#03C75A] font-bold">나나링이 직접 방문해 본 가게들</p>
+        <span className="text-xs font-extrabold px-3 py-1 rounded-full bg-[#03C75A]/20 border border-[#03C75A]/40 text-[#03C75A] uppercase flex items-center gap-1.5 shadow-sm">
+          <MapPin className="w-3.5 h-3.5" />
+          NAVER MAP LINKED
+        </span>
       </div>
 
-      {/* 대화형 지도 뷰어 */}
+      {/* 대화형 지도 뷰어 (중앙 정렬) */}
       <div className="w-full space-y-2">
-        <div className="flex items-center justify-between px-1">
-          <span className="text-xs font-extrabold text-white flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#03C75A]" />
+        <div className="flex items-center justify-center text-center px-1">
+          <span className="text-xs font-extrabold text-white flex items-center justify-center gap-2 flex-wrap">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#03C75A] shrink-0" />
             현재 선택 위치: <span className="text-[#03C75A] font-bold">{selectedPlace.name} ({selectedPlace.area})</span>
           </span>
         </div>

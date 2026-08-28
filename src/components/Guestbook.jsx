@@ -206,6 +206,19 @@ export default function Guestbook() {
 
   return (
     <div className="w-full max-w-2xl flex flex-col items-center space-y-6 select-none">
+      {/* 페이지 헤더 (중앙 정렬) */}
+      <div className="border-b border-[#a855f7]/30 pb-4 flex flex-col items-center justify-center text-center gap-2.5 w-full">
+        <div className="flex items-center justify-center gap-2.5">
+          <span className="w-3 h-3 rounded-full bg-[#a855f7] animate-pulse shrink-0" />
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white">유연 방명록</h2>
+        </div>
+        <p className="text-xs sm:text-sm text-purple-300 font-bold">유연에게 전하는 따뜻한 응원과 마음</p>
+        <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#a855f7]/20 border border-[#a855f7]/40 text-[#a855f7] uppercase flex items-center gap-1.5 shadow-sm">
+          <MessageSquare className="w-3.5 h-3.5" />
+          GUESTBOOK ARCHIVE
+        </span>
+      </div>
+
       {/* 2026 (Google Cloud) / 2027 (Supabase) 연도별 탭 선택기 */}
       <div className="w-full flex items-center justify-between gap-1.5 sm:gap-2 p-1.5 bg-[#18181b] border border-white/10 rounded-2xl shadow-xl">
         <button

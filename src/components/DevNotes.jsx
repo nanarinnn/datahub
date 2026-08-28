@@ -63,21 +63,17 @@ export default function DevNotes() {
 
   return (
     <div className="w-full space-y-6 animate-fade-in font-['Plus_Jakarta_Sans','Paperlogy',sans-serif] [word-break:keep-all]">
-      {/* 페이지 헤더 */}
-      <div className="border-b border-[#5865f2]/30 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-white flex items-center gap-3">
-            <span className="w-3.5 h-3.5 rounded-full bg-[#35ed7e] animate-ping" />
-            개발자 노트
-          </h2>
-          <p className="text-xs text-[#35ed7e] font-bold mt-1">시스템 업데이트 소식 & 데이터 알림</p>
+      {/* 페이지 헤더 (중앙 정렬) */}
+      <div className="border-b border-[#5865f2]/30 pb-4 flex flex-col items-center justify-center text-center gap-2.5 w-full">
+        <div className="flex items-center justify-center gap-2.5">
+          <span className="w-3.5 h-3.5 rounded-full bg-[#35ed7e] animate-ping shrink-0" />
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white">개발자 노트</h2>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-extrabold px-3 py-1 rounded-full bg-[#35ed7e]/20 border border-[#35ed7e]/40 text-[#35ed7e] uppercase flex items-center gap-1.5 shadow-sm">
-            <Bell className="w-3.5 h-3.5 animate-bounce" />
-            SYSTEM NOTIFICATIONS
-          </span>
-        </div>
+        <p className="text-xs sm:text-sm text-[#35ed7e] font-bold">시스템 업데이트 소식 & 데이터 알림</p>
+        <span className="text-xs font-extrabold px-3 py-1 rounded-full bg-[#35ed7e]/20 border border-[#35ed7e]/40 text-[#35ed7e] uppercase flex items-center gap-1.5 shadow-sm">
+          <Bell className="w-3.5 h-3.5 animate-bounce" />
+          SYSTEM NOTIFICATIONS
+        </span>
       </div>
 
       {/* 노티스 카드 목록 */}

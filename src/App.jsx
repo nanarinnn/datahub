@@ -113,11 +113,12 @@ export default function App() {
         {/* === CHARACTER RECOMMENDATION LIST === */}
         {activeTab === 'work' && !selectedWork && (
           <div className="w-full space-y-6 sm:space-y-8 animate-fade-in">
-            <div className="border-b border-[#5865f2]/30 pb-4 flex items-center justify-between">
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-white flex items-center gap-3">
-                <span className="w-3 h-3 rounded-full bg-[#5865f2]" />
-                작품/캐릭터 추천
-              </h2>
+            <div className="border-b border-[#5865f2]/30 pb-4 flex flex-col items-center justify-center text-center gap-2.5 w-full">
+              <div className="flex items-center justify-center gap-2.5">
+                <span className="w-3 h-3 rounded-full bg-[#5865f2] animate-pulse shrink-0" />
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-white">작품/캐릭터 추천</h2>
+              </div>
+              <p className="text-xs sm:text-sm text-white/60">나나링이 좋아하는 작품 및 캐릭터 소개</p>
               <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#5865f2]/20 border border-[#5865f2]/40 text-[#5865f2] uppercase">FEATURED WORKS</span>
             </div>
 
@@ -803,6 +804,18 @@ export default function App() {
         )}
         {activeTab === 'flip' && (
           <div className="w-full flex flex-col items-center space-y-6 sm:space-y-8 animate-fade-in select-none">
+            {/* 페이지 헤더 (중앙 정렬) */}
+            <div className="border-b border-[#ec48bd]/30 pb-4 flex flex-col items-center justify-center text-center gap-2.5 w-full">
+              <div className="flex items-center justify-center gap-2.5">
+                <span className="w-3 h-3 rounded-full bg-[#ec48bd] animate-pulse shrink-0" />
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-white">카드 뒤집기</h2>
+              </div>
+              <p className="text-xs sm:text-sm text-[#ec48bd] font-bold">특별 포토 카드 뒤집기 미니게임</p>
+              <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#ec48bd]/20 border border-[#ec48bd]/40 text-[#ec48bd] uppercase flex items-center gap-1.5 shadow-sm">
+                <Gamepad2 className="w-3.5 h-3.5" />
+                MINI GAME
+              </span>
+            </div>
             {/* Action Toolbar */}
             <div className="flex gap-3">
               <button
@@ -850,15 +863,13 @@ export default function App() {
         {/* === TODAY'S MUSIC === */}
         {activeTab === 'todaymusic' && (
           <div className="w-full space-y-6 animate-fade-in">
-            {/* 페이지 헤더 */}
-            <div className="border-b border-[#5865f2]/30 pb-4 flex items-center justify-between">
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-white flex items-center gap-3">
-                  <span className="w-3 h-3 rounded-full bg-[#00b0f4]" />
-                  오늘의 추천곡
-                </h2>
-                <p className="text-xs text-white/50 mt-1">나나링의 애정하는 곡들을 풀어보아요</p>
+            {/* 페이지 헤더 (중앙 정렬) */}
+            <div className="border-b border-[#5865f2]/30 pb-4 flex flex-col items-center justify-center text-center gap-2.5 w-full">
+              <div className="flex items-center justify-center gap-2.5">
+                <span className="w-3 h-3 rounded-full bg-[#00b0f4] animate-pulse shrink-0" />
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-white">오늘의 추천곡</h2>
               </div>
+              <p className="text-xs sm:text-sm text-white/60">나나링의 애정하는 곡들을 풀어보아요</p>
               <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#00b0f4]/20 border border-[#00b0f4]/40 text-[#00b0f4] uppercase">MUSIC PLAYLIST</span>
             </div>
 

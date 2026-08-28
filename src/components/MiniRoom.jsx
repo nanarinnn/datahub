@@ -454,7 +454,19 @@ export default function MiniRoom() {
   }, []);
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="w-full space-y-6 flex flex-col items-center animate-fade-in font-['Plus_Jakarta_Sans','Paperlogy',sans-serif]">
+      {/* 페이지 헤더 (중앙 정렬) */}
+      <div className="border-b border-[#ec48bd]/30 pb-4 flex flex-col items-center justify-center text-center gap-2.5 w-full">
+        <div className="flex items-center justify-center gap-2.5">
+          <span className="w-3 h-3 rounded-full bg-[#ec48bd] animate-pulse shrink-0" />
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white">미니룸 3D</h2>
+        </div>
+        <p className="text-xs sm:text-sm text-[#ec48bd] font-bold">입체적이고 아기자기한 3D 카페 공간</p>
+        <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#ec48bd]/20 border border-[#ec48bd]/40 text-[#ec48bd] uppercase flex items-center gap-1.5 shadow-sm">
+          3D INTERACTIVE ROOM
+        </span>
+      </div>
+
       <div 
         ref={containerRef} 
         className="w-full max-w-4xl h-[450px] sm:h-[520px] bg-[#181124] rounded-2xl border-2 border-purple-800/50 shadow-2xl overflow-hidden touch-none"
