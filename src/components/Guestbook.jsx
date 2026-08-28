@@ -220,20 +220,19 @@ export default function Guestbook() {
       </div>
 
       {/* 2026 (Google Cloud) / 2027 (Supabase) 연도별 탭 선택기 */}
-      <div className="w-full flex items-center justify-between gap-1.5 sm:gap-2 p-1.5 bg-[#18181b] border border-white/10 rounded-2xl shadow-xl">
+      <div className="w-full max-w-full grid grid-cols-3 gap-1 sm:gap-2 p-1.5 bg-[#18181b] border border-white/10 rounded-2xl shadow-xl overflow-hidden">
         <button
           type="button"
           onClick={() => setSelectedYear("2026")}
-          className={`flex-1 py-2 sm:py-2.5 px-2 sm:px-4 rounded-xl text-[11px] sm:text-sm font-extrabold whitespace-nowrap transition-all flex items-center justify-center gap-1 sm:gap-2 ${
+          className={`py-2 sm:py-2.5 px-1 sm:px-3 rounded-xl text-[11px] sm:text-xs font-extrabold transition-all flex items-center justify-center gap-1 ${
             selectedYear === "2026"
               ? "bg-[#a855f7] text-white shadow-lg shadow-purple-500/30 scale-[1.02]"
               : "text-white/60 hover:text-white hover:bg-white/5"
           }`}
         >
-          <Cloud className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-300 shrink-0" />
-          <span className="whitespace-nowrap hidden sm:inline">2026년 방명록 (GCS)</span>
-          <span className="whitespace-nowrap sm:hidden">2026년 (GCS)</span>
-          <span className="ml-0.5 sm:ml-1 px-1.5 sm:px-2 py-0.5 rounded-full bg-white/20 text-[10px] sm:text-[11px] font-bold text-white shrink-0">
+          <Cloud className="w-3.5 h-3.5 text-blue-300 shrink-0" />
+          <span className="truncate">2026년 (GCS)</span>
+          <span className="px-1.5 py-0.5 rounded-full bg-white/20 text-[9px] sm:text-[10px] font-bold text-white shrink-0">
             {entries2026.length}
           </span>
         </button>
@@ -241,16 +240,15 @@ export default function Guestbook() {
         <button
           type="button"
           onClick={() => setSelectedYear("2027")}
-          className={`flex-1 py-2 sm:py-2.5 px-2 sm:px-4 rounded-xl text-[11px] sm:text-sm font-extrabold whitespace-nowrap transition-all flex items-center justify-center gap-1 sm:gap-2 ${
+          className={`py-2 sm:py-2.5 px-1 sm:px-3 rounded-xl text-[11px] sm:text-xs font-extrabold transition-all flex items-center justify-center gap-1 ${
             selectedYear === "2027"
               ? "bg-[#a855f7] text-white shadow-lg shadow-purple-500/30 scale-[1.02]"
               : "text-white/60 hover:text-white hover:bg-white/5"
           }`}
         >
-          <Database className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-300 shrink-0" />
-          <span className="whitespace-nowrap hidden sm:inline">2027년 방명록 (Supabase)</span>
-          <span className="whitespace-nowrap sm:hidden">2027년 (Supabase)</span>
-          <span className="ml-0.5 sm:ml-1 px-1.5 sm:px-2 py-0.5 rounded-full bg-white/20 text-[10px] sm:text-[11px] font-bold text-white shrink-0">
+          <Database className="w-3.5 h-3.5 text-emerald-300 shrink-0" />
+          <span className="truncate">2027년 (Supa)</span>
+          <span className="px-1.5 py-0.5 rounded-full bg-white/20 text-[9px] sm:text-[10px] font-bold text-white shrink-0">
             {entries2027.length}
           </span>
         </button>
@@ -258,44 +256,44 @@ export default function Guestbook() {
         <button
           type="button"
           onClick={() => setSelectedYear("all")}
-          className={`py-2 sm:py-2.5 px-2 sm:px-3 rounded-xl text-[11px] sm:text-xs font-bold whitespace-nowrap shrink-0 transition-all ${
+          className={`py-2 sm:py-2.5 px-1 sm:px-3 rounded-xl text-[11px] sm:text-xs font-bold transition-all flex items-center justify-center gap-1 ${
             selectedYear === "all"
               ? "bg-purple-900/60 text-purple-200 border border-purple-500/40"
               : "text-white/40 hover:text-white hover:bg-white/5"
           }`}
         >
-          전체 ({allEntries.length})
+          <span className="truncate">전체 ({allEntries.length})</span>
         </button>
       </div>
 
       {/* 현재 선택된 서버 정보 인포 배너 */}
-      <div className="w-full px-3.5 py-2.5 bg-[#18181b]/80 border border-white/10 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1.5 text-xs text-white/70 [word-break:keep-all]">
-        <span className="flex items-center gap-2 font-semibold [word-break:keep-all]">
+      <div className="w-full px-3 py-2.5 bg-[#18181b]/80 border border-white/10 rounded-xl flex flex-col items-center justify-center text-center gap-1.5 text-[11px] sm:text-xs text-white/80 [word-break:keep-all]">
+        <div className="flex items-center justify-center gap-1.5 font-semibold flex-wrap">
           {selectedYear === "2026" && (
             <>
-              <Cloud className="w-4 h-4 text-blue-400 shrink-0" />
-              <span className="[word-break:keep-all]">☁️ 구글 클라우드 서버 (GCS) 보존 데이터</span>
+              <Cloud className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+              <span>☁️ 구글 클라우드 서버 (GCS) 보존 데이터</span>
             </>
           )}
           {selectedYear === "2027" && (
             <>
-              <Database className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span className="[word-break:keep-all]">⚡ Supabase Cloud DB 실시간 작성 데이터</span>
+              <Database className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+              <span>⚡ Supabase Cloud DB 실시간 작성 데이터</span>
             </>
           )}
           {selectedYear === "all" && (
             <>
-              <Calendar className="w-4 h-4 text-purple-400 shrink-0" />
-              <span className="[word-break:keep-all]">🌐 전체 서버 (GCS + Supabase) 통합 보기</span>
+              <Calendar className="w-3.5 h-3.5 text-purple-400 shrink-0" />
+              <span>🌐 전체 서버 (GCS + Supabase) 통합 보기</span>
             </>
           )}
-        </span>
-        <span className="text-[11px] text-purple-300 font-bold whitespace-nowrap shrink-0 self-end sm:self-auto">
+        </div>
+        <span className="text-[10px] sm:text-[11px] text-purple-300 font-bold px-2 py-0.5 rounded-md bg-purple-500/10 border border-purple-500/20">
           {selectedYear === "2026"
-            ? "보안 보존 아카이브"
+            ? "🔒 보안 보존 아카이브"
             : selectedYear === "2027"
-            ? "실시간 작성 가능"
-            : "통합 연동"}
+            ? "⚡ 실시간 작성 가능"
+            : "🌐 통합 연동"}
         </span>
       </div>
 
