@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import MiniRoom from './components/MiniRoom';
 import Guestbook from './components/Guestbook';
 import RestaurantGuide from './components/RestaurantGuide';
-import { Home, Sparkles, Music, Gamepad2, Heart, MessageSquare, ArrowLeft, RotateCcw, RefreshCw, Utensils } from 'lucide-react';
+import DevNotes from './components/DevNotes';
+import { Home, Sparkles, Music, Gamepad2, Heart, MessageSquare, ArrowLeft, RotateCcw, RefreshCw, Utensils, FileText } from 'lucide-react';
 import NavBar from './components/NavBar';
 
 const BACK_SUMMER_IMAGE = "https://raw.githubusercontent.com/nanarinnn/yuyeon_special/main/image/back_summer.png";
@@ -51,6 +52,7 @@ export default function App() {
     { id: 'restaurant', label: '나나링픽 가게', desc: '나나링이 직접 방문해 본 가게들', icon: Utensils, cardBg: 'bg-[#1e2353]', borderColor: 'border-[#35ed7e]/40 hover:border-[#35ed7e]', badgeColor: 'bg-[#35ed7e]', textColor: 'text-[#35ed7e]' },
     { id: 'miniroom', label: '미니룸 3D', desc: '입체적이고 아기자기한 3D 카페', icon: Heart, cardBg: 'bg-[#1e2353]', borderColor: 'border-[#ec48bd]/40 hover:border-[#ec48bd]', badgeColor: 'bg-[#ec48bd]', textColor: 'text-[#ec48bd]' },
     { id: 'visit', label: '방명록', desc: '유연에게 전하는 메세지', icon: MessageSquare, cardBg: 'bg-[#1e2353]', borderColor: 'border-[#5865f2]/40 hover:border-[#5865f2]', badgeColor: 'bg-[#5865f2]', textColor: 'text-white' },
+    { id: 'devnotes', label: '개발자 노트', desc: '업데이트 소식 & 시스템 알림', icon: FileText, cardBg: 'bg-[#1e2353]', borderColor: 'border-[#35ed7e]/60 hover:border-[#35ed7e]', badgeColor: 'bg-[#35ed7e]', textColor: 'text-[#35ed7e]', isNew: true },
   ];
 
   return (
@@ -86,6 +88,11 @@ export default function App() {
                     onClick={() => setActiveTab(item.id)}
                     className={`group relative ${item.cardBg} border ${item.borderColor} rounded-2xl p-5 text-left hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-[#5865f2]/20 flex flex-col justify-between`}
                   >
+                    {item.isNew && (
+                      <span className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-[#35ed7e] text-[#000000] text-[10px] font-black tracking-wider uppercase animate-pulse shadow-md shadow-[#35ed7e]/40">
+                        NEW
+                      </span>
+                    )}
                     <div>
                       <div className={`w-9 h-9 rounded-xl ${item.badgeColor}/20 border border-${item.badgeColor}/40 flex items-center justify-center mb-3 group-hover:bg-[#5865f2] group-hover:text-white transition-colors duration-300`}>
                         <Icon className={`w-5 h-5 ${item.textColor} group-hover:text-white transition-colors`} />
@@ -905,6 +912,9 @@ export default function App() {
 
         {/* === GUESTBOOK === */}
         {activeTab === 'visit' && <Guestbook />}
+
+        {/* === DEVELOPER NOTES === */}
+        {activeTab === 'devnotes' && <DevNotes />}
 
       </main>
 
